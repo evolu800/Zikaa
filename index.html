@@ -874,6 +874,152 @@ a { color: var(--accent); }
 .sticker-empty button { display: inline-flex; align-items: center; gap: 4px; color: var(--accent); margin-top: 7px; font-size: 11px; }
 .chat-hint { text-align: center; padding: 2px 0 8px; color: var(--ink-dim); font-size: 8px; letter-spacing: .06em; }
 
+/* ---------- ask (问一问) ---------- */
+.ask-mode { display: flex; gap: 6px; }
+.ask-mode button {
+  flex: 1; min-height: 36px; border-radius: 10px; border: 1px solid var(--line);
+  background: var(--glass); color: var(--ink-soft); font-size: 10px; transition: .18s;
+}
+.ask-mode button.active { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+.ask-option-list { display: flex; flex-direction: column; gap: 6px; }
+.ask-option-edit { display: flex; align-items: center; gap: 6px; }
+.ask-opt-letter {
+  width: 22px; height: 22px; border-radius: 7px; flex: 0 0 auto;
+  display: grid; place-items: center; background: var(--accent-soft);
+  color: var(--accent); font-size: 9px; font-weight: 700;
+}
+.ask-option-edit input {
+  flex: 1; min-width: 0; height: 36px; border: 1px solid var(--line); border-radius: 9px;
+  background: var(--input); padding: 0 10px; color: var(--ink); font-size: 11px;
+}
+.ask-opt-del { width: 28px; height: 28px; border-radius: 8px; display: grid; place-items: center; color: var(--ink-dim); flex: 0 0 auto; }
+.ask-opt-del:hover { color: var(--danger); background: var(--glass); }
+.ask-opt-del .icon { width: 12px; height: 12px; }
+.ask-add-option { width: 100%; margin-top: 8px; min-height: 35px; border-radius: 10px; font-size: 10px; }
+.bubble.ask-bubble {
+  width: min(304px, 78vw); padding: 12px 13px 10px;
+  border-color: color-mix(in srgb, var(--accent) 24%, var(--line));
+  background: linear-gradient(150deg, color-mix(in srgb, var(--accent-soft) 58%, var(--dream-bubble)), var(--dream-bubble));
+}
+.message-row.user .bubble.ask-bubble {
+  background: linear-gradient(150deg, color-mix(in srgb, var(--accent) 15%, var(--user-bubble)), var(--user-bubble));
+  border-color: color-mix(in srgb, var(--accent) 22%, transparent);
+}
+.ask-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.ask-kicker { color: var(--accent); font-size: 7px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
+.ask-state { color: var(--ink-dim); font-size: 8px; }
+.ask-question { margin: 5px 0 9px; color: var(--ink); font-family: var(--font-display); font-size: 15px; line-height: 1.5; }
+.ask-table { border: 1px solid var(--line); border-radius: 11px; overflow: hidden; background: var(--glass); }
+.ask-row { display: flex; align-items: center; gap: 7px; padding: 7px 9px; border-top: 1px solid var(--line); color: var(--ink-soft); font-size: 10.5px; line-height: 1.4; }
+.ask-row:first-child { border-top: 0; }
+.ask-mark {
+  width: 16px; height: 16px; border-radius: 5px; flex: 0 0 auto;
+  display: grid; place-items: center; border: 1px solid var(--line-strong);
+  color: var(--ink-dim); font-size: 7px; font-weight: 700;
+}
+.ask-row.picked { color: var(--ink); background: color-mix(in srgb, var(--accent) 13%, transparent); }
+.ask-row.picked .ask-mark { border-color: var(--accent); background: var(--accent); color: var(--on-accent); }
+.ask-pick { margin-left: auto; color: var(--accent); font-size: 7px; letter-spacing: .08em; white-space: nowrap; }
+.ask-foot { display: flex; align-items: center; gap: 5px; margin-top: 7px; color: var(--ink-dim); font-size: 8px; }
+.ask-bubble.pending .ask-foot::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); animation: pulseSoft 1.2s infinite; }
+.ask-bubble.done .ask-foot { color: color-mix(in srgb, var(--accent) 78%, var(--ink-dim)); }
+
+/* ---------- phone call ---------- */
+.call-overlay {
+  position: absolute; inset: 0; z-index: 170; display: none; flex-direction: column;
+  padding: calc(16px + env(safe-area-inset-top)) 22px calc(26px + env(safe-area-inset-bottom));
+  overflow: hidden; color: #f7f4ff;
+  background:
+    radial-gradient(circle at 50% 14%, color-mix(in srgb, var(--accent) 30%, transparent), transparent 46%),
+    radial-gradient(circle at 10% 92%, color-mix(in srgb, var(--accent-2) 20%, transparent), transparent 44%),
+    linear-gradient(165deg, #080b16, #101527 54%, #070910);
+}
+.call-overlay.active { display: flex; animation: callIn .32s cubic-bezier(.2,.8,.2,1) both; }
+.call-overlay::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .16;
+  background-image: radial-gradient(rgba(255,255,255,.2) .7px, transparent .7px);
+  background-size: 23px 23px;
+}
+@keyframes callIn { from { opacity: 0; transform: scale(.985); } to { opacity: 1; transform: none; } }
+.call-head { position: relative; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 36px; }
+.call-brand { color: rgba(255,255,255,.52); font-size: 8px; letter-spacing: .22em; text-transform: uppercase; }
+.call-head-btn {
+  width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center;
+  color: rgba(255,255,255,.78); background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12);
+}
+.call-head-btn:hover { background: rgba(255,255,255,.14); }
+.call-head-btn .icon { width: 14px; height: 14px; }
+.call-overlay.is-incoming #callMinimize { visibility: hidden; }
+.call-body { position: relative; z-index: 1; flex: 1; min-height: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 7px; padding: 10px 0 4px; }
+.call-avatar-wrap { position: relative; width: 146px; height: 146px; display: grid; place-items: center; margin-bottom: 4px; }
+.call-avatar-wrap::before, .call-avatar-wrap::after {
+  content: ""; position: absolute; inset: 0; border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--accent) 46%, transparent);
+  animation: callRing 2.8s ease-out infinite;
+}
+.call-avatar-wrap::after { animation-delay: 1.4s; }
+@keyframes callRing { 0% { transform: scale(.72); opacity: .8; } 100% { transform: scale(1.18); opacity: 0; } }
+.call-overlay.ai-listen .call-avatar-wrap::before, .call-overlay.ai-listen .call-avatar-wrap::after { animation-duration: 1.55s; border-color: color-mix(in srgb, var(--ok) 58%, transparent); }
+.call-avatar {
+  --avatar-size: 112px;
+  border: 1px solid rgba(255,255,255,.22);
+  box-shadow: 0 0 0 7px rgba(255,255,255,.045), 0 24px 60px rgba(0,0,0,.45), 0 0 48px color-mix(in srgb, var(--accent) 24%, transparent);
+}
+.call-name { font-family: var(--font-display); font-size: 28px; font-weight: 500; letter-spacing: -.02em; }
+.call-sub { color: rgba(255,255,255,.6); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; text-align: center; }
+.call-duration { margin-top: 3px; color: rgba(255,255,255,.92); font-family: var(--font-display); font-size: 31px; line-height: 1; letter-spacing: .02em; font-variant-numeric: tabular-nums; }
+.call-card {
+  position: relative; z-index: 1; display: none; width: 100%; max-height: min(30vh, 196px);
+  overflow-y: auto; overscroll-behavior: contain; margin: 4px 0 12px;
+  padding: 12px 15px 13px; border-radius: 18px; text-align: left;
+  border: 1px solid rgba(255,255,255,.16);
+  background: linear-gradient(155deg, rgba(255,255,255,.13), rgba(255,255,255,.045));
+  box-shadow: 0 18px 48px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.12);
+  backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+}
+.call-card.show { display: block; animation: callCardIn .34s cubic-bezier(.2,.8,.2,1) both; }
+@keyframes callCardIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+.call-card-head { display: flex; align-items: center; justify-content: space-between; gap: 9px; margin-bottom: 5px; }
+.call-card-kicker { display: block; color: color-mix(in srgb, var(--accent) 82%, #fff); font-size: 7px; font-weight: 800; letter-spacing: .2em; white-space: nowrap; }
+.call-card-meta { min-width: 0; overflow: hidden; color: rgba(255,255,255,.46); font-size: 7px; letter-spacing: .07em; text-align: right; text-overflow: ellipsis; white-space: nowrap; }
+.call-card p { margin: 0; color: #fff; font-family: var(--font-display); font-size: 16px; line-height: 1.62; white-space: pre-wrap; overflow-wrap: anywhere; }
+.call-card p.waiting { color: rgba(255,255,255,.6); font-family: var(--font); font-size: 10px; line-height: 1.7; letter-spacing: .05em; }
+.call-card.speaking .call-card-kicker { animation: pulseSoft 1.2s infinite; }
+.call-overlay.is-ringing .call-card { display: none; }
+.call-wave { display: flex; align-items: center; justify-content: center; gap: 3px; height: 18px; margin-top: 4px; opacity: .65; }
+.call-wave i { width: 3px; height: 5px; border-radius: 3px; background: color-mix(in srgb, var(--accent) 76%, #fff); animation: callWave 1.1s ease-in-out infinite; }
+.call-wave i:nth-child(2){ animation-delay:.1s } .call-wave i:nth-child(3){ animation-delay:.2s } .call-wave i:nth-child(4){ animation-delay:.3s } .call-wave i:nth-child(5){ animation-delay:.4s } .call-wave i:nth-child(6){ animation-delay:.5s } .call-wave i:nth-child(7){ animation-delay:.6s } .call-wave i:nth-child(8){ animation-delay:.7s } .call-wave i:nth-child(9){ animation-delay:.8s }
+@keyframes callWave { 0%,100% { height: 5px; opacity: .45; } 50% { height: 15px; opacity: 1; } }
+.call-actions, .call-incoming { position: relative; z-index: 1; display: flex; justify-content: center; gap: 48px; padding-top: 8px; }
+.call-actions[hidden], .call-incoming[hidden] { display: none; }
+.call-action { display: flex; flex-direction: column; align-items: center; gap: 8px; color: rgba(255,255,255,.68); font-size: 9px; }
+.call-action-btn {
+  width: 64px; height: 64px; border-radius: 50%; display: grid; place-items: center;
+  color: #fff; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.16);
+  box-shadow: 0 14px 30px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.12);
+  transition: transform .16s, background .2s, box-shadow .2s;
+}
+.call-action-btn:hover { transform: translateY(-1px); background: rgba(255,255,255,.18); }
+.call-action-btn:active { transform: scale(.94); }
+.call-action-btn:disabled { opacity: .34; pointer-events: none; }
+.call-action-btn .icon { width: 25px; height: 25px; }
+.call-action-btn.on { background: linear-gradient(145deg, color-mix(in srgb, var(--ok) 72%, #0b1220), #0b2a24); border-color: color-mix(in srgb, var(--ok) 60%, transparent); box-shadow: 0 0 0 1px color-mix(in srgb, var(--ok) 45%, transparent), 0 0 34px color-mix(in srgb, var(--ok) 34%, transparent); }
+.call-action-btn.danger { background: linear-gradient(145deg, #e2555f, #a92c38); border-color: rgba(255,255,255,.18); box-shadow: 0 16px 34px rgba(170,36,48,.35); }
+.call-action-btn.accept { background: linear-gradient(145deg, #4fcf98, #1b8d67); box-shadow: 0 16px 34px rgba(28,141,103,.34); }
+.call-mini {
+  position: absolute; right: 14px; bottom: calc(94px + env(safe-area-inset-bottom)); z-index: 165;
+  display: none; align-items: center; gap: 7px; height: 42px; padding: 0 13px; border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--accent) 34%, var(--line));
+  background: color-mix(in srgb, var(--panel-2) 88%, transparent);
+  color: var(--ink); box-shadow: 0 14px 34px rgba(0,0,0,.28);
+  backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+}
+.call-mini.show { display: flex; animation: popIn .25s ease both; }
+.call-mini-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 3px color-mix(in srgb, var(--ok) 16%, transparent); animation: pulseSoft 1.2s infinite; }
+.call-mini-name { max-width: 90px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 10px; font-weight: 650; }
+.call-mini-time { color: var(--ink-dim); font-size: 9px; font-variant-numeric: tabular-nums; }
+.call-mini .icon { width: 14px; height: 14px; color: var(--accent); }
+
 /* ---------- empty & cards ---------- */
 .empty-state { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 42px 24px; }
 .empty-state .empty-orb {
@@ -2612,51 +2758,7 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
 .period-legend { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; color: var(--ink-dim); font-size: 7.5px; }
 .period-legend i { display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-right: 3px; vertical-align: 0; }
 
-/* =========================================================
-   塔罗 / Tarot
-   ========================================================= */
-.tarot-stage { display: grid; grid-template-columns: 196px 1fr; gap: 13px; align-items: start; }
-.tarot-card-wrap { perspective: 900px; }
-.tarot-card {
-  position: relative; width: 100%; aspect-ratio: 5 / 8.1;
-  border-radius: 14px; overflow: hidden;
-  border: 1px solid color-mix(in srgb, var(--accent) 50%, transparent);
-  background:
-    radial-gradient(ellipse 80% 60% at 50% 0%, color-mix(in srgb, var(--accent) 30%, transparent), transparent 70%),
-    linear-gradient(160deg, #171a3a, #0b0c1d 55%, #1d1538);
-  box-shadow: 0 18px 40px rgba(0,0,0,.36), inset 0 0 0 4px rgba(255,255,255,.05);
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  color: #e9e2ff; text-align: center; padding: 14px;
-  transition: transform .7s cubic-bezier(.2,.8,.2,1), opacity .5s;
-  transform-style: preserve-3d;
-}
-.tarot-card.back { transform: rotateY(180deg); }
-.tarot-card.back::before {
-  content: ""; position: absolute; inset: 7px; border-radius: 9px;
-  border: 1px solid rgba(205, 186, 255, .28);
-  background:
-    repeating-linear-gradient(45deg, rgba(205,186,255,.10) 0 1px, transparent 1px 7px),
-    repeating-linear-gradient(-45deg, rgba(205,186,255,.08) 0 1px, transparent 1px 7px);
-}
-.tarot-card.back::after {
-  content: "✦"; position: absolute; font-size: 34px; color: rgba(222, 208, 255, .6);
-}
-.tarot-card.revealed { animation: tarotReveal .62s cubic-bezier(.2,.8,.2,1) both; }
-@keyframes tarotReveal { from { opacity: 0; transform: rotateY(-72deg) scale(.92); } to { opacity: 1; transform: none; } }
-.tarot-num { font-family: var(--font-display); font-size: 11px; letter-spacing: .18em; color: rgba(214, 200, 255, .72); }
-.tarot-symbol { margin: 8px 0 6px; font-size: 48px; line-height: 1; filter: drop-shadow(0 0 16px rgba(180,150,255,.55)); }
-.tarot-name { font-family: var(--font-display); font-size: 14px; letter-spacing: .08em; }
-.tarot-rev { margin-top: 4px; font-size: 7px; letter-spacing: .18em; color: #e58aa9; }
-.tarot-read { padding: 13px; border-radius: var(--radius-md); border: 1px solid var(--line); background: var(--glass); }
-.tarot-read h3 { margin: 0 0 6px; font-size: 11px; color: var(--ink); }
-.tarot-read p { margin: 0 0 7px; color: var(--ink-soft); font-size: 9px; line-height: 1.85; }
-.tarot-read .tarot-advice { margin-top: 8px; padding-top: 7px; border-top: 1px dashed var(--line); color: var(--accent); font-size: 9px; line-height: 1.8; }
-.tarot-question { width: 100%; min-height: 64px; border-radius: 11px; border: 1px solid var(--line); background: var(--panel-2); color: var(--ink); padding: 9px 10px; font-size: 10px; resize: vertical; }
-.tarot-history { display: flex; flex-direction: column; gap: 5px; margin-top: 9px; }
-.tarot-hitem { display: flex; align-items: center; gap: 7px; padding: 7px 9px; border-radius: 9px; border: 1px solid var(--line); background: var(--glass); font-size: 8px; color: var(--ink-dim); }
-.tarot-hitem b { color: var(--ink); font-size: 9px; }
-.tarot-hitem span { margin-left: auto; font-size: 7.5px; }
-.tarot-empty { padding: 20px 14px; text-align: center; border: 1px dashed var(--line); border-radius: var(--radius-md); color: var(--ink-dim); font-size: 9px; line-height: 1.8; }
+.soft-empty { padding: 20px 14px; text-align: center; border: 1px dashed var(--line); border-radius: var(--radius-md); color: var(--ink-dim); font-size: 9px; line-height: 1.8; }
 
 /* =========================================================
    家园 / Homestead
@@ -2768,23 +2870,76 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
 .cal-setup input[type="color"] { height: 34px; padding: 2px; cursor: pointer; }
 .hs-frame-preview { display: grid; place-items: center; width: 100%; height: 132px; margin-bottom: 8px; border-radius: 12px; border: 1px dashed var(--line); background: var(--panel-2); overflow: hidden; color: var(--ink-dim); font-size: 9px; }
 .hs-frame-preview img { width: 100%; height: 100%; object-fit: cover; }
-.tarot-hitem .th-q { flex: 1; min-width: 0; margin-left: 6px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.tarot-hitem .th-t { margin-left: auto; flex: 0 0 auto; }
 .horo-stars .off { color: var(--line-strong); }
 @media (max-width: 720px) {
   .game-tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .cal-layout, .hs-layout { grid-template-columns: 1fr; }
-  .tarot-stage { grid-template-columns: 150px 1fr; }
-  .tarot-symbol { font-size: 36px; }
-  .tarot-name { font-size: 12px; }
 }
 @media (max-width: 420px) {
-  .tarot-stage { grid-template-columns: 1fr; }
-  .tarot-card-wrap { max-width: 150px; margin: 0 auto; }
   .cal-day { min-height: 22px; font-size: 8px; }
   .cal-day .cd-holiday { display: none; }
   .hs-pet .pet-body { width: 72px; height: 72px; }
   .hs-pet .pet-emoji { font-size: 34px; }
+}
+
+/* ---------- 每日运势 ---------- */
+.fortune-date-chip { color: var(--ink-dim); font-size: 8px; letter-spacing: .03em; white-space: nowrap; }
+.fortune-hero {
+  position: relative; overflow: hidden; padding: 16px 16px 14px; border-radius: 22px;
+  border: 1px solid var(--line-strong);
+  background:
+    radial-gradient(ellipse 85% 95% at 100% 0%, var(--accent-soft), transparent 68%),
+    radial-gradient(ellipse 70% 80% at 0% 100%, color-mix(in srgb, var(--accent-2) 16%, transparent), transparent 66%),
+    var(--panel-2);
+  box-shadow: 0 18px 42px rgba(0,0,0,.16), inset 0 1px 0 rgba(255,255,255,.2);
+}
+.fortune-hero::after {
+  content: ""; position: absolute; right: -38px; bottom: -54px; width: 176px; height: 176px; border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent); pointer-events: none;
+}
+.fortune-hero-top { position: relative; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.fortune-kicker { color: var(--accent); font-size: 7px; font-weight: 800; letter-spacing: .22em; text-transform: uppercase; }
+.fortune-sign { color: var(--ink-dim); font-size: 8px; white-space: nowrap; }
+.fortune-level-row { position: relative; z-index: 1; display: flex; align-items: center; gap: 14px; margin-top: 12px; }
+.fortune-level-word {
+  flex: 0 0 auto; width: 80px; height: 80px; border-radius: 50%; display: grid; place-items: center;
+  color: var(--accent); font-family: var(--font-display); font-size: 29px; line-height: 1; letter-spacing: .04em;
+  background: radial-gradient(circle at 34% 28%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 72%), var(--glass);
+  border: 1px solid color-mix(in srgb, var(--accent) 32%, var(--line));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.22), 0 12px 28px color-mix(in srgb, var(--accent) 12%, transparent);
+}
+.fortune-level-info { min-width: 0; }
+.fortune-stars { color: #ffd479; font-size: 15px; letter-spacing: 2px; line-height: 1; }
+.fortune-stars .off { color: var(--line-strong); }
+.fortune-headline { margin: 7px 0 0; color: var(--ink); font-size: 10.5px; line-height: 1.8; }
+.fortune-score { display: flex; align-items: baseline; gap: 3px; margin-top: 7px; color: var(--ink-dim); font-size: 7px; }
+.fortune-score b { color: var(--accent); font-family: var(--font-display); font-size: 20px; font-weight: 500; line-height: 1; }
+.fortune-tags { position: relative; z-index: 1; display: flex; flex-wrap: wrap; gap: 5px; margin-top: 11px; }
+.fortune-tags span { padding: 3px 8px; border-radius: 999px; border: 1px solid var(--line); background: var(--glass); color: var(--ink-soft); font-size: 7.5px; letter-spacing: .03em; }
+.fortune-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin-top: 9px; }
+.fortune-cell { padding: 10px 11px; border-radius: 14px; border: 1px solid var(--line); background: var(--glass); }
+.fortune-cell-head { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+.fortune-cell-head b { color: var(--ink); font-size: 9px; font-weight: 650; }
+.fortune-cell .fortune-stars { font-size: 9px; letter-spacing: 1px; }
+.fortune-cell p { margin: 5px 0 0; color: var(--ink-soft); font-size: 8.5px; line-height: 1.75; }
+.fortune-lucky { margin-top: 9px; }
+.fortune-lucky-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 8px; }
+.fortune-lucky-cell { padding: 7px 8px; border-radius: 9px; border: 1px solid var(--line); background: var(--glass); }
+.fortune-lucky-cell span { display: block; color: var(--ink-dim); font-size: 7px; }
+.fortune-lucky-cell b { display: flex; align-items: center; gap: 5px; margin-top: 3px; color: var(--ink); font-size: 8.5px; font-weight: 600; line-height: 1.45; }
+.fortune-color-dot { width: 10px; height: 10px; border-radius: 50%; border: 1px solid rgba(255,255,255,.45); box-shadow: 0 0 0 2px color-mix(in srgb, var(--ink) 8%, transparent); flex: 0 0 auto; }
+.fortune-note {
+  margin-top: 11px; padding: 12px 14px; border-radius: 17px;
+  border: 1px dashed color-mix(in srgb, var(--accent) 38%, var(--line));
+  background: linear-gradient(145deg, color-mix(in srgb, var(--accent) 8%, transparent), var(--glass));
+}
+.fortune-note-kicker { color: var(--accent); font-size: 7px; font-weight: 800; letter-spacing: .16em; }
+.fortune-note p { margin: 6px 0 0; color: var(--ink); font-family: var(--font-display); font-size: 11.5px; line-height: 1.85; }
+.fortune-foot { margin: 10px 0 2px; color: var(--ink-dim); font-size: 7.5px; line-height: 1.7; text-align: center; }
+
+@media (max-width: 380px) {
+  .fortune-level-word { width: 68px; height: 68px; font-size: 24px; }
+  .fortune-lucky-grid { grid-template-columns: 1fr 1fr; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -2813,6 +2968,11 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
     <symbol id="i-send" viewBox="0 0 24 24"><path d="m21 3.8-8.1 17-2.3-7.2L3.5 11 21 3.8Z"/><path d="m10.6 13.6 4.4-4.5"/></symbol>
     <symbol id="i-sticker" viewBox="0 0 24 24"><path d="M20.4 12a8.4 8.4 0 1 1-8.4-8.4"/><path d="M12 3.6V12h8.4"/><path d="M8.5 13.2c.8 1.2 2 1.9 3.5 1.9s2.7-.7 3.5-1.9"/><path d="M8.5 9.4h.01M15.5 9.4h.01"/></symbol>
     <symbol id="i-speaker" viewBox="0 0 24 24"><path d="M4 9.2v5.6h3.3l4.2 3.3V5.9L7.3 9.2H4Z"/><path d="M15 8.3a5.2 5.2 0 0 1 0 7.4M17.7 5.7a8.8 8.8 0 0 1 0 12.6"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M6.1 3.8h3.2l1.6 4-2.1 1.5a13.2 13.2 0 0 0 5.9 5.9l1.5-2.1 4 1.6v3.2a2.1 2.1 0 0 1-2.3 2.1C10.8 19.2 4.8 13.2 4 6.1a2.1 2.1 0 0 1 2.1-2.3Z"/></symbol>
+    <symbol id="i-phone-off" viewBox="0 0 24 24"><path d="M6.1 3.8h3.2l1.6 4-2.1 1.5a13.2 13.2 0 0 0 5.9 5.9l1.5-2.1 4 1.6v3.2a2.1 2.1 0 0 1-2.3 2.1C10.8 19.2 4.8 13.2 4 6.1a2.1 2.1 0 0 1 2.1-2.3Z"/><path d="m3.2 3.2 17.6 17.6"/></symbol>
+    <symbol id="i-mic" viewBox="0 0 24 24"><rect x="8.6" y="2.8" width="6.8" height="12.2" rx="3.4"/><path d="M5.4 11.4a6.6 6.6 0 0 0 13.2 0M12 18v3.2M8.8 21.2h6.4"/></symbol>
+    <symbol id="i-mic-off" viewBox="0 0 24 24"><rect x="8.6" y="2.8" width="6.8" height="12.2" rx="3.4"/><path d="M5.4 11.4a6.6 6.6 0 0 0 13.2 0M12 18v3.2M8.8 21.2h6.4M3 3l18 18"/></symbol>
+    <symbol id="i-poll" viewBox="0 0 24 24"><rect x="3.2" y="3.4" width="17.6" height="17.2" rx="3"/><path d="M7.2 8.6h9.6M7.2 12h6.2M7.2 15.4h4"/><path d="m16.4 14.2 1.5 1.5 2.7-3"/></symbol>
     <symbol id="i-home" viewBox="0 0 24 24"><path d="m3.5 10.5 8.5-7 8.5 7"/><path d="M5.3 9.2v10a1.3 1.3 0 0 0 1.3 1.3h10.8a1.3 1.3 0 0 0 1.3-1.3v-10"/><path d="M9.3 20.4v-5.3h5.4v5.3"/></symbol>
     <symbol id="i-back" viewBox="0 0 24 24"><path d="m14.5 5-7 7 7 7"/></symbol>
     <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
@@ -3081,9 +3241,9 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
                 <span class="app-glyph calendar"><svg class="icon"><use href="#i-calendar"/></svg></span>
                 <span class="app-label">日历</span>
               </button>
-              <button class="app-item" data-open-app="tarot" aria-label="占卜">
+              <button class="app-item" data-open-app="tarot" aria-label="每日运势">
                 <span class="app-glyph tarot"><svg class="icon"><use href="#i-tarot"/></svg></span>
-                <span class="app-label">占卜</span>
+                <span class="app-label">每日运势</span>
               </button>
             </div>
 
@@ -3151,6 +3311,7 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
             </span>
           </button>
           <div class="chat-actions">
+            <button class="icon-btn" id="chatCallBtn" aria-label="打电话"><svg class="icon"><use href="#i-phone"/></svg></button>
             <button class="icon-btn" id="chatCardsBtn" aria-label="字卡库"><svg class="icon"><use href="#i-cards"/></svg></button>
             <button class="icon-btn" data-back aria-label="回到主页"><svg class="icon"><use href="#i-home"/></svg></button>
           </div>
@@ -3162,6 +3323,7 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
         </div>
         <div class="composer">
           <button class="icon-btn" id="stickerToggle" aria-label="表情包库"><svg class="icon"><use href="#i-sticker"/></svg></button>
+          <button class="icon-btn" id="askToggle" aria-label="问一问"><svg class="icon"><use href="#i-poll"/></svg></button>
           <div class="composer-text">
             <textarea id="chatInput" rows="1" placeholder="想对梦角说点什么…" maxlength="2000"></textarea>
             <button class="send-btn" id="sendBtn" aria-label="发送"><svg class="icon"><use href="#i-send"/></svg></button>
@@ -3697,35 +3859,16 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
         </div>
       </section>
 
-      <!-- 占卜 -->
+      <!-- 每日运势 -->
       <section class="app-view tarot-app" id="view-tarot" data-app="tarot">
         <header class="app-head">
           <button class="icon-btn" data-back aria-label="返回"><svg class="icon"><use href="#i-back"/></svg></button>
-          <div class="head-title"><h2>占卜</h2><p>把心里的问题放在桌上，抽一张牌</p></div>
-          <div class="head-actions"><button class="icon-btn" id="tarotHowToBtn" aria-label="怎么抽牌"><svg class="icon"><use href="#i-guide"/></svg></button></div>
+          <div class="head-title"><h2>每日运势</h2><p>今天的风向，和梦角想对你说的话</p></div>
+          <div class="head-actions"><span class="fortune-date-chip" id="fortuneDateChip" data-no-i18n></span></div>
         </header>
         <div class="app-scroll">
           <div class="app-inner">
-            <div class="settings-field" style="margin-bottom:10px">
-              <label for="tarotQuestion">想问的事 <small>可以留空</small></label>
-              <textarea class="tarot-question" id="tarotQuestion" maxlength="180" placeholder="例如：这段关系接下来该怎么走？"></textarea>
-            </div>
-            <div class="tarot-stage">
-              <div class="tarot-card-wrap">
-                <div class="tarot-card back" id="tarotCard"><span class="tarot-num">ARCANA</span><span class="tarot-symbol">✦</span><span class="tarot-name">等待抽牌</span></div>
-              </div>
-              <div>
-                <button class="primary-btn" id="tarotDrawBtn" style="width:100%"><svg class="icon"><use href="#i-spark"/></svg> 抽一张牌</button>
-                <div class="tarot-read" id="tarotRead" style="margin-top:10px">
-                  <h3>牌面会给出一个方向</h3>
-                  <p>不用把答案交给牌。它只是帮你把心里已经有的声音，听得更清楚一点。</p>
-                </div>
-              </div>
-            </div>
-            <div class="settings-group" style="margin-top:12px">
-              <div class="settings-group-title"><svg class="icon"><use href="#i-tarot"/></svg> 最近的牌</div>
-              <div class="tarot-history" id="tarotHistory"></div>
-            </div>
+            <div id="fortuneContent"></div>
           </div>
         </div>
       </section>
@@ -3787,8 +3930,23 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
                     <div class="range-top"><span>回复字号</span><b id="replySizeValue">15 px</b></div>
                     <input type="range" id="replySizeRange" min="12" max="21" step="0.5" value="15">
                   </div>
+                  <div class="range-row">
+                    <div class="range-top"><span>回复消息（字卡）的时间</span><b id="replyDelayValue" data-no-i18n>最多 5 秒</b></div>
+                    <input type="range" id="replyDelayRange" min="0" max="1000" step="1" value="196" aria-label="回复消息（字卡）的时间">
+                    <p class="field-tip" style="margin:6px 0 0">每次回复会在 1 秒到这个时间之间随机到达。</p>
+                  </div>
                   <button class="settings-link" data-open-app="theme"><svg class="icon"><use href="#i-theme"/></svg> 主题与壁纸 <span class="chev">›</span></button>
                   <button class="settings-link" id="settingsCardsLink"><svg class="icon"><use href="#i-cards"/></svg> 管理字卡库 <span class="chev">›</span></button>
+                </div>
+
+                <div class="settings-group">
+                  <div class="settings-group-title"><svg class="icon"><use href="#i-phone"/></svg> 通话</div>
+                  <div class="range-row">
+                    <div class="range-top"><span>打电话时字卡回复的时间</span><b id="callReplyDelayValue" data-no-i18n>5 秒</b></div>
+                    <input type="range" id="callReplyDelayRange" min="0" max="1000" step="1" value="252" aria-label="打电话时字卡回复的时间">
+                    <p class="field-tip" style="margin:6px 0 0">打电话开启「聆听」后，听到你说话，就会在这个时间后回复字卡；可在 1 秒到 10 分钟之间选择。</p>
+                  </div>
+                  <p class="field-tip">通话中的字卡会用「朗读语言」朗读；选择固定语言时，就算字卡是中文，也会先翻译再朗读。</p>
                 </div>
 
                 <div class="settings-group">
@@ -3889,6 +4047,56 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
 
       <div class="toast" id="toast"></div>
       <div class="overlay-root" id="overlayRoot"></div>
+
+      <section class="call-overlay" id="callOverlay" aria-hidden="true" aria-label="通话">
+        <div class="call-head">
+          <button class="call-head-btn" id="callMinimize" aria-label="最小化"><svg class="icon"><use href="#i-minus"/></svg></button>
+          <span class="call-brand">DREAMCARD · CALL</span>
+          <span style="width:32px" aria-hidden="true"></span>
+        </div>
+        <div class="call-body">
+          <div class="call-avatar-wrap">
+            <span class="avatar call-avatar" id="callAvatar"><span class="avatar-fallback">月</span></span>
+          </div>
+          <div class="call-name" id="callName" data-no-i18n>梦角</div>
+          <div class="call-sub" id="callSub" data-no-i18n>正在呼叫…</div>
+          <div class="call-duration" id="callDuration" data-no-i18n>00:00</div>
+          <div class="call-wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        </div>
+        <div class="call-card" id="callCard">
+          <div class="call-card-head">
+            <span class="call-card-kicker" id="callCardKicker" data-no-i18n>来自字卡</span>
+            <span class="call-card-meta" id="callCardMeta" data-no-i18n></span>
+          </div>
+          <p id="callCardText" data-no-i18n aria-live="polite" aria-atomic="true"></p>
+        </div>
+        <div class="call-actions" id="callActiveActions">
+          <button class="call-action" id="callAiToggle" type="button" aria-label="聆听">
+            <span class="call-action-btn"><svg class="icon"><use href="#i-mic"/></svg></span>
+            <span>聆听</span>
+          </button>
+          <button class="call-action" id="callHangup" type="button" aria-label="挂断">
+            <span class="call-action-btn danger"><svg class="icon"><use href="#i-phone-off"/></svg></span>
+            <span>挂断</span>
+          </button>
+        </div>
+        <div class="call-incoming" id="callIncomingActions" hidden>
+          <button class="call-action" id="callDecline" type="button" aria-label="拒绝">
+            <span class="call-action-btn danger"><svg class="icon"><use href="#i-phone-off"/></svg></span>
+            <span>拒绝</span>
+          </button>
+          <button class="call-action" id="callAccept" type="button" aria-label="接听">
+            <span class="call-action-btn accept"><svg class="icon"><use href="#i-phone"/></svg></span>
+            <span>接听</span>
+          </button>
+        </div>
+      </section>
+      <button class="call-mini" id="callMini" type="button" aria-label="返回通话">
+        <span class="call-mini-dot" aria-hidden="true"></span>
+        <span class="call-mini-name" id="callMiniName" data-no-i18n>梦角</span>
+        <span class="call-mini-time" id="callMiniTime" data-no-i18n>00:00</span>
+        <svg class="icon"><use href="#i-phone"/></svg>
+      </button>
 
       <div class="lightbox" id="lightbox">
         <button class="lb-close" id="lightboxClose" aria-label="关闭"><svg class="icon"><use href="#i-close"/></svg></button>
@@ -4096,6 +4304,63 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
   ];
   const LANG_MAP = Object.fromEntries(LANGS.map(l => [l.id, l]));
 
+  const DELAY_UNITS = {
+    zh: ['秒', '分钟', '小时'],
+    en: ['sec', 'min', 'hour'],
+    ja: ['秒', '分', '時間'],
+    ko: ['초', '분', '시간'],
+    fr: ['s', 'min', 'h'],
+    de: ['Sek.', 'Min.', 'Std.'],
+    es: ['s', 'min', 'h'],
+    ru: ['с', 'мин', 'ч'],
+    it: ['s', 'min', 'h'],
+    pt: ['s', 'min', 'h']
+  };
+  function replyDelayMax() {
+    return clamp(Number(state?.settings?.replyDelayMax) || 5, 1, 3600);
+  }
+  function formatDelayMax(seconds) {
+    const value = clamp(Math.round(Number(seconds) || 1), 1, 3600);
+    const units = DELAY_UNITS[state?.settings?.language] || DELAY_UNITS.zh;
+    if (value >= 3600) return `${t('最多')} 1 ${units[2]}`;
+    if (value >= 60) return `${t('最多')} ${Math.round(value / 60)} ${units[1]}`;
+    return `${t('最多')} ${value} ${units[0]}`;
+  }
+  function delaySliderToSeconds(value) {
+    const ratio = clamp(Number(value) || 0, 0, 1000) / 1000;
+    return Math.round(Math.exp(ratio * Math.log(3600)));
+  }
+  function delaySecondsToSlider(seconds) {
+    const value = clamp(Number(seconds) || 1, 1, 3600);
+    return Math.round((Math.log(value) / Math.log(3600)) * 1000);
+  }
+  function randomReplyDelayMs() {
+    const max = replyDelayMax() * 1000;
+    return Math.max(1000, 1000 + Math.random() * Math.max(0, max - 1000));
+  }
+  const CALL_DELAY_MAX = 600;
+  function callReplyDelay() {
+    return clamp(Number(state?.settings?.callReplyDelay) || 5, 1, CALL_DELAY_MAX);
+  }
+  function formatCallDelay(seconds) {
+    const value = clamp(Math.round(Number(seconds) || 1), 1, CALL_DELAY_MAX);
+    const units = DELAY_UNITS[state?.settings?.language] || DELAY_UNITS.zh;
+    if (value >= 60) {
+      const minutes = Math.floor(value / 60);
+      const rest = value % 60;
+      return rest ? `${minutes} ${units[1]} ${rest} ${units[0]}` : `${minutes} ${units[1]}`;
+    }
+    return `${value} ${units[0]}`;
+  }
+  function callDelaySliderToSeconds(value) {
+    const ratio = clamp(Number(value) || 0, 0, 1000) / 1000;
+    return Math.round(Math.exp(ratio * Math.log(CALL_DELAY_MAX)));
+  }
+  function callDelaySecondsToSlider(seconds) {
+    const value = clamp(Number(seconds) || 1, 1, CALL_DELAY_MAX);
+    return Math.round((Math.log(value) / Math.log(CALL_DELAY_MAX)) * 1000);
+  }
+
   const I18N_CORE = {"it":{"和梦角一起，把日子过成一个小房间":"Trasforma le giornate in una piccola stanza, insieme al tuo sogno.","把心里的问题放在桌上，抽一张牌":"Metti sul tavolo la domanda che hai nel cuore e pesca una carta.","占卜":"Divinazione","把日子、生日和身体的小秘密放在一起":"Tieni insieme i giorni, i compleanni e i piccoli segreti del corpo.","家园":"Casa","猜数字":"Indovina il numero","日历":"Calendario","10月24日 · 星期五 · 宜想念":"24 ottobre · Venerdì · Mancante","10月24日 · 星期五":"24 ottobre · Venerdì","轮到你":"Tocca a te","我的小宇宙":"Il mio piccolo universo","字卡":"Word Card","和梦角下一局 · AI 托管":"E Dream Corner Next Round · Hosting AI","晚上好，":"Buonasera,","扭一颗":"Twist One","梦角的口袋":"Tasca per corno da sogno","我写一篇":"Scriverò un articolo","月":"Mese","我的名字":"Il mio nome","头像大小":"Dimensione avatar","星星":"Stella","清空":"Cancella","主题":"Oggetto","字卡内容保持原文":"Il contenuto della wordcard rimane nella sua lingua originale","拾梦 · 梦角字卡":"Dream Pickup · Carta Personaggio Angolo dei Sogni","计时器":"Timer","连成五子":"Lian Cheng Wu Zi","导入歌曲":"Importa canzoni","清除全部本地数据":"Cancella tutti i dati locali","我的图片":"Le mie foto","字卡库":"Libreria di Word Card","管理":"Gestisci","添加城市":"Aggiungi città","AI 托管提示":"Consigli per ospitare con intelligenza artificiale","放入小物":"Inserisci piccoli oggetti","自定义背景与图标":"Sfondo e icona personalizzati","梦角那里 ·":"Angolo dei sogni lì ·","小物管理":"Gestione Piccoli Beni","把想说的话，悄悄写进字卡里。":"Sussurra quello che vuoi dire nel biglietto.","0 张":"0 fogli","即使字卡是中文，也用设置里的语言朗读":"Leggi ad alta voce nella lingua nelle impostazioni, anche se la scheda delle parole è in cinese","我的小物":"I miei gadget","把两颗心，连成一条看得见的线":"Collega i due cuori in una linea visibile","把想说的话，放在字卡里。":"Metti quello che vuoi dire nella scheda carattere.","同一天":"Stesso giorno","星期五":"Venerdì","进入软件背景":"Inserisci lo sfondo del software","楚河汉界":"Reame Han del fiume Chu","上传照片":"Carica foto","初局 · 0 胜 0 负":"Primo turno · 0 vince 0 perde","把房间调成你喜欢的光线":"Trasforma la stanza nella luce che preferisci","语言与翻译":"Lingua e traduzione","MiniMax 语音":"MiniMax Voice","扭一扭，":"Twist,","尚未填写 MiniMax 配置":"La configurazione MiniMax non è stata compilata","设置":"Impostazioni","还没有字卡。写下第一句想让梦角对你说的话吧。":"Ancora nessuna scheda di parole.Scrivi la prima frase che vuoi che Dream Angle ti dica.","地图":"Mappa","25 分钟":"25 minuti","表情包 · 我的收藏":"Emote · I miei preferiti","打开陪伴模式":"Attiva la modalità compagnia","陪伴设置":"Impostazioni compagnia","标记":"Bandiera","字体气质":"Temperamento del carattere","显示与阅读":"Visualizzazione e lettura","五子棋":"Scacchi Wuzi","黑":"Nero","写下今天的心情或小事，梦角会从你的字卡里挑一句，作为他的回信夹在日记里。":"Annota l\u0027umore di oggi o una piccola cosa, e l\u0027angolo dei sogni sceglierà una frase dalla tua scheda di parole come sua lettera di risposta nel suo diario.","语录 100% · 小物 0%":"Preventivo 100% · Piccolo 0%","语录池已备好":"Pool di preventivi pronto","深夜里的一层薄雾。适合把心事写得很轻，再交给梦角收好。":"Uno strato di nebbia nel cuore della notte.È adatto per scrivere i tuoi pensieri con molta leggerezza e poi consegnarli all\u0027angolo dei sogni per essere messi via.","拾梦需要启用 JavaScript 才能运行。请允许 JavaScript 后刷新页面。":"Dreampicker richiede JavaScript abilitato per l\u0027esecuzione.Consenti a JavaScript di aggiornare la pagina.","朗读前先翻译成所选语言":"Traduci nella lingua selezionata prima di leggere","圆":"Cerchio","让梦角抽字卡发一条":"Lascia che Dream Corner peschi una carta","时间":"Ora","梦角所有的回应，都从这里被拾起":"Tutte le risposte di Dream Corner sono state raccolte da qui.","拾梦":"Raccogli un sogno","播放列表":"Playlist","今天，也值得被记住":"Oggi vale anche la pena ricordare","搜索任意县市或国家，选好后地图会自动连出一条线，并算出大概距离。":"Cerca qualsiasi contea o paese e la mappa collegherà automaticamente una linea e calcolerà la distanza approssimativa.","管理字卡库":"Gestisci libreria di schede Word","写下来，让他读过再收好":"Scrivilo, fallo leggere e mettilo via","相册":"Album","我发一条":"Te ne mando uno","梦角会接管黑方。落子之后，给他一点思考的时间。":"Dream Horn prenderà il controllo di Black.Dopo essere caduto, dagli un po\u0027 di tempo per pensare.","张字卡":"Carte personaggio","导入壁纸":"Importa sfondo","把这里，变成更像你们的地方":"Rendi questo posto più simile al tuo.","预设主题":"Tema preimpostato","主题与壁纸":"Temi e sfondi","AI 托管中":"Ospitato da AI","添加":"Aggiungi","在字卡里等你":"Ti aspettiamo nella word card","音乐":"Musica","主页背景":"Home Background","状态签名":"Firma dello stato","恢复默认":"Ripristina predefiniti","选择位置":"Seleziona posizione","正在字卡里等你":"Ti aspettiamo nella word card","扭蛋池":"Gacha Pool","文件导入":"Importazione file","回复字号":"Dimensione carattere risposta","我们":"Noi","悔棋":"Rimpiangere gli scacchi","导入数据备份":"Importa backup dei dati","柔雾玻璃":"Vetro nebulizzato morbido","柔和圆体":"Corpo rotondo morbido","棋局结束":"Fine del gioco","五":"Cinque","文艺宋体":"Arial letterario e artistico","月雾":"Nebbia lunare","游戏":"Giochi","朋友圈":"Momenti","消耗 MiniMax 语音额度":"Consuma crediti vocali MiniMax","让TA写一篇":"Lascia che TA scriva un articolo","摆件":"Soprammobili","更多":"Altro","网站语言":"Lingua del sito web","一起做过的事":"Cosa abbiamo fatto insieme","你执红先行。点击棋子，再点一个亮点落子。":"Prima ti aggrappi al rosso.Fai clic su un token, quindi fai clic su un elemento in evidenza.","天气":"Meteo","清除":"Cancella","再来一局":"Un\u0027altra partita.","导入一首歌，或从歌单里选一首":"Importa un brano o scegline uno dalla tua playlist","日记":"Diario","东京":"Tokyo","最近扭到":"Recentemente attorcigliato a","自定义页面强调色":"Colore personalizzato dell\u0027accento della pagina","上海":"Shanghai","想和 TA 一起":"Voglio lavorare con TA","上滑解锁":"Scorri verso l\u0027alto per sbloccare","强调色":"Colore in risalto","星夜霓虹":"Notte stellata al neon","干净黑体":"Clean Bold","纸感留白":"Spazio bianco su carta","导出我的数据":"Esporta i miei dati","扭蛋":"Gacha","点此添加一个纪念日":"Clicca qui per aggiungere un anniversario","把今天的一小段时间，留给彼此":"Concedetevi un po\u0027 di tempo oggi","你写下字卡，梦角从中拾起一句回应。":"Scrivi una carta calligrafica e l\u0027angolo del sogno ne raccoglie una risposta.","图片":"Immagine","邀请 TA 一起":"Invita TA insieme","同一片天空，不同的天气":"Stesso cielo, tempo diverso","本地时间":"Ora locale","翻译使用免费的在线翻译服务，失败时会退回原文。语音语言始终跟随上方「语言与翻译」里的选择。":"Translation utilizza un servizio di traduzione online gratuito che restituisce il testo originale in caso di errore.La lingua vocale segue sempre la selezione in \"Lingua e traduzione\" di cui sopra.","收到回复时自动朗读":"Parla automaticamente quando ricevi una risposta","自定义软件图标":"Icone software personalizzate","还没有日子":"Ancora nessun giorno","梦角":"Punto Sogno","我":"Io","重开":"Riapri","壁纸":"Carta da parati","把遥远的时差，折成一句晚安":"Piegare il jet lag lontano in una buona notte","DREAMCARD ARCHIVE / 拾梦数据档案 / NO.2049":"Archivio Dreamcard/archivio dati Dream/N.2049","聊天背景":"Sfondo della chat","遇到浏览器 CORS 时填写":"Compilare quando si incontra il browser CORS","做成摆件":"Crea ornamenti","象":"Elefante","写下的每一张字卡，都会被他拾起。":"Prendeva ogni carta che scriveva.","所有数据只保存在这台设备里。":"Tutti i dati vengono salvati solo in questo dispositivo.","让这一晚，有背景音":"Lascia che questa notte abbia un suono di sottofondo","恢复":"Ripristina","还没有播放":"Non ancora giocato","数据与关于":"Dati e informazioni su","世界的此刻":"In questo momento nel mondo","宋":"Canzone","我们的日子":"I nostri giorni","高级 · 代理地址":"Avanzato · Indirizzo proxy","导入歌单":"Importazione di una playlist","正在读取天空的实时数据…":"Lettura dei dati in tempo reale dal cielo...","只属于你和梦角的小小广场":"Una piazzetta tutta per te e l\u0027angolo dei tuoi sogni","试听梦角的声音":"Ascolta il suono di Dream Horn","随主题":"Con tema","中国象棋":"Scacchi cinesi","东京 21:00":"Tokyo 21:00","看看今天梦角想对你说什么。":"Guarda cosa vuole dirti oggi Dream Corner.","梦角的名字":"Nome del corno del sogno","收集和他有关的每一帧":"Raccogli ogni fotogramma a lui correlato","语录 · 小物 · 每日陪伴":"Preventivo · Articolo piccolo · Compagnia giornaliera","从梦角的口袋里，摇出一点小幸运":"Scuoti un po\u0027 di fortuna dalla tasca del Corno dei Sogni","陪伴":"Accompagnamento","界面风格":"Stile interfaccia","天":"giorni","正在连接天空…":"Collegamento al cielo...","0 次相遇":"0 incontri","这次多久":"Per quanto tempo questa volta","旅人":"Ospiti","切换后，界面文字会立即翻译成所选语言。你写的字卡、日记与消息保持原样。":"Una volta commutato, il testo dell\u0027interfaccia viene immediatamente tradotto nella lingua selezionata.Le schede, i diari e i messaggi che scrivi rimangono gli stessi.","重新观看新手教程":"Rivedi il tutorial iniziale","新手教程":"Tutorial iniziale"},"ja":{"和梦角一起，把日子过成一个小房间":"夢の彼と一緒に、日々を小さな部屋に。","把心里的问题放在桌上，抽一张牌":"心の中の問いをテーブルに置いて、カードを一枚引いて。","占卜":"占い","把日子、生日和身体的小秘密放在一起":"日々と誕生日、体の小さな秘密をひとつに。","家园":"おうち","猜数字":"数字当て","日历":"カレンダー","10月24日 · 星期五 · 宜想念":"10月24日・金・見逃し","10月24日 · 星期五":"10月24日・金","轮到你":"今度はあなたの番です","我的小宇宙":"マイ・リトル・ユニバース","字卡":"ワードカード","和梦角下一局 · AI 托管":"そしてドリームコーナー次のラウンド・AIホスティング","晚上好，":"こんばんは。","扭一颗":"ツイストワン","梦角的口袋":"ドリームホーンポケット","我写一篇":"記事を書く","月":"月","我的名字":"私の名前","头像大小":"アバターサイズ","星星":"星","清空":"クリア","主题":"件名","字卡内容保持原文":"ワードカードのコンテンツは元の言語のままです","拾梦 · 梦角字卡":"ドリームピックアップ・ドリームコーナーキャラクターカード","计时器":"タイマー","连成五子":"Lian Cheng Wu Zi","导入歌曲":"曲をインポート","清除全部本地数据":"すべてのローカルデータを消去","我的图片":"マイ写真","字卡库":"ワードカードライブラリ","管理":"管理","添加城市":"都市を追加","AI 托管提示":"AIホスティングのヒント","放入小物":"小物を入れる","自定义背景与图标":"カスタム背景とアイコン","梦角那里 ·":"あそこのドリームコーナー・","小物管理":"小物管理","把想说的话，悄悄写进字卡里。":"カードに何を言いたいかをささやきます。","0 张":"0枚","即使字卡是中文，也用设置里的语言朗读":"単語カードが中国語であっても、設定の言語で声に出して読む","我的小物":"マイガジェット","把两颗心，连成一条看得见的线":"2つのハートを目に見える線に結び付けます","把想说的话，放在字卡里。":"フォントカードに言いたいことを入力します。","同一天":"当日","星期五":"金曜日","进入软件背景":"ソフトウェアの背景を入力してください","楚河汉界":"楚河漢界","上传照片":"写真をアップロード","初局 · 0 胜 0 负":"第1ラウンド・0勝0敗","把房间调成你喜欢的光线":"お部屋をお好みの明るさに変える","语言与翻译":"言語と翻訳","MiniMax 语音":"MiniMaxボイス","扭一扭，":"ツイスト、\u003c詳細付\u003e","尚未填写 MiniMax 配置":"MiniMax設定が入力されていません","设置":"設定","还没有字卡。写下第一句想让梦角对你说的话吧。":"ワードカードはまだありません。ドリームアングルに伝えてほしい最初の文章を書き留めてください。","地图":"マップ","25 分钟":"25分","表情包 · 我的收藏":"エモート・お気に入り","打开陪伴模式":"コンパニオンシップモードをオンにする","陪伴设置":"コンパニオン設定","标记":"フラグ","字体气质":"フォントの気質","显示与阅读":"表示と読み取り","五子棋":"Wuzi Chess","黑":"黒","写下今天的心情或小事，梦角会从你的字卡里挑一句，作为他的回信夹在日记里。":"今日の気分やささいなことを書き留めると、夢のコーナーがあなたのワードカードから返事の手紙として彼の日記に文を選びます。","语录 100% · 小物 0%":"見積もり100 ％・小0 ％","语录池已备好":"見積もりプールの準備ができました","深夜里的一层薄雾。适合把心事写得很轻，再交给梦角收好。":"真夜中の霧の層。あなたの考えを非常に軽く書き留めてから、夢のコーナーに手渡して片付けるのに適しています。","拾梦需要启用 JavaScript 才能运行。请允许 JavaScript 后刷新页面。":"Dreampickerを実行するにはJavaScriptが有効になっている必要があります。ページを更新するにはJavaScriptを許可してください。","朗读前先翻译成所选语言":"読む前に選択した言語に翻訳する","圆":"円","让梦角抽字卡发一条":"ドリームコーナーにカードを引かせる","时间":"時間","梦角所有的回应，都从这里被拾起":"ドリームコーナーの反応はここから全て拾った。","拾梦":"夢を拾う","播放列表":"プレイリスト","今天，也值得被记住":"今日、それはまた覚えておく価値があります","搜索任意县市或国家，选好后地图会自动连出一条线，并算出大概距离。":"任意の郡または国を検索すると、地図は自動的に線を結び、おおよその距離を計算します。","管理字卡库":"ワードカードライブラリの管理","写下来，让他读过再收好":"それを書き留めて、彼に読ませて、それを片付けさせてください","相册":"アルバム","我发一条":"送ります","梦角会接管黑方。落子之后，给他一点思考的时间。":"ドリームホーンがブラックを乗っ取ります。転んだ後は、少し考える時間をあげましょう。","张字卡":"キャラクターカード","导入壁纸":"壁紙をインポート","把这里，变成更像你们的地方":"この場所を自分のものにしましょう。","预设主题":"プリセットテーマ","主题与壁纸":"テーマと壁紙","AI 托管中":"AIホスト型","添加":"追加","在字卡里等你":"ワードカードであなたを待っています","音乐":"音楽","主页背景":"ホームの背景","状态签名":"ステータス署名","恢复默认":"デフォルトに戻す","选择位置":"場所を選択","正在字卡里等你":"ワードカードであなたを待っています","扭蛋池":"ガチャプール","文件导入":"ファイルのインポート","回复字号":"返信のフォントサイズ","我们":"私たちは","悔棋":"後悔チェス","导入数据备份":"データバックアップをインポート","柔雾玻璃":"ソフトミストガラス","柔和圆体":"ソフトラウンドボディ","棋局结束":"ゲーム終了","五":"ファイブ","文艺宋体":"文学と芸術のArial","月雾":"月の霧","游戏":"ゲーム","朋友圈":"モーメント","消耗 MiniMax 语音额度":"MiniMaxボイスクレジットを消費する","让TA写一篇":"TAに記事を書かせる","摆件":"オーナメント","更多":"その他","网站语言":"ウェブサイトの言語","一起做过的事":"共に成し遂げたこと","你执红先行。点击棋子，再点一个亮点落子。":"最初に赤をつかんでください。トークンをクリックし、ハイライトをクリックします。","天气":"天気","清除":"クリア","再来一局":"もう一試合。","导入一首歌，或从歌单里选一首":"曲をインポートするか、プレイリストから曲を選択してください","日记":"日記","东京":"東京","最近扭到":"最近ツイストされたのは","自定义页面强调色":"カスタムページのアクセントカラー","上海":"上海","想和 TA 一起":"TAと仕事をしたい","上滑解锁":"上にスワイプしてロックを解除","强调色":"アクセントカラー","星夜霓虹":"星輝く夜のネオン","干净黑体":"太字できれい","纸感留白":"紙の上の空白","导出我的数据":"データをエクスポートする","扭蛋":"ガチャ","点此添加一个纪念日":"記念日を追加するにはここをクリックしてください","把今天的一小段时间，留给彼此":"今日はお互いに少し時間をあげましょう","你写下字卡，梦角从中拾起一句回应。":"あなたが書道カードを書くと、夢のコーナーがそれから応答を拾います。","图片":"画像","邀请 TA 一起":"TAを一緒に招待する","同一片天空，不同的天气":"同じ空、違う天気","本地时间":"現地時間","翻译使用免费的在线翻译服务，失败时会退回原文。语音语言始终跟随上方「语言与翻译」里的选择。":"翻訳は無料のオンライン翻訳サービスを使用しており、失敗した場合に元のテキストを返します。音声言語は、常に上記の「言語と翻訳」の選択に従います。","收到回复时自动朗读":"返信を受け取ったら自動的に話します","自定义软件图标":"カスタムソフトウェアアイコン","还没有日子":"まだ日数がありません","梦角":"ドリームポイント","我":"自分","重开":"再開","壁纸":"壁紙","把遥远的时差，折成一句晚安":"遠くの時差ぼけを折りたたんでおやすみなさい","DREAMCARD ARCHIVE / 拾梦数据档案 / NO.2049":"DREAMCARD ARCHIVE/DREAM DATA ARCHIVE/NO.2049","聊天背景":"チャットの背景","遇到浏览器 CORS 时填写":"ブラウザーCORSに遭遇した場合は記入してください","做成摆件":"オーナメントを作る","象":"象","写下的每一张字卡，都会被他拾起。":"彼は書き留めたすべてのカードを拾います。","所有数据只保存在这台设备里。":"すべてのデータはこのデバイスにのみ保存されます。","让这一晚，有背景音":"今夜をバックグラウンドサウンドにしましょう","恢复":"復元","还没有播放":"まだプレイしていません","数据与关于":"データとその内容","世界的此刻":"世界のこの瞬間に","宋":"歌","我们的日子":"私たちの日々","高级 · 代理地址":"アドバンス・プロキシアドレス","导入歌单":"プレイリストをインポートする","正在读取天空的实时数据…":"空からライブデータを読み取っています…","只属于你和梦角的小小广场":"あなたとあなたの夢の一角のための小さな広場","试听梦角的声音":"ドリームホルンの音を聞く","随主题":"テーマ付き","中国象棋":"中国のチェス","东京 21:00":"東京21:00","看看今天梦角想对你说什么。":"Dream Cornerが今日あなたに伝えたいことをご覧ください。","梦角的名字":"夢の角の名","收集和他有关的每一帧":"彼に関連するすべてのフレームを集める","语录 · 小物 · 每日陪伴":"名言・小物・毎日の付き添い","从梦角的口袋里，摇出一点小幸运":"ドリームホルンのポケットから少し幸運を掴もう","陪伴":"コンパニオンシップ","界面风格":"インターフェーススタイル","天":"日","正在连接天空…":"空に接続しています...","0 次相遇":"0回のエンカウンター","这次多久":"今回はどのくらいかかりますか","旅人":"ゲスト","切换后，界面文字会立即翻译成所选语言。你写的字卡、日记与消息保持原样。":"切り替えると、インターフェーステキストはすぐに選択した言語に翻訳されます。あなたが書いたカード、日記、メッセージは変わりません。","重新观看新手教程":"チュートリアルをもう一度見る","新手教程":"チュートリアル"},"fr":{"和梦角一起，把日子过成一个小房间":"Faites de vos journées une petite pièce, avec votre rêve.","把心里的问题放在桌上，抽一张牌":"Posez sur la table la question de votre cœur et tirez une carte.","占卜":"Divination","把日子、生日和身体的小秘密放在一起":"Réunissez vos jours, vos anniversaires et les petits secrets du corps.","家园":"Maison","猜数字":"Devine le nombre","日历":"Calendrier","10月24日 · 星期五 · 宜想念":"24 octobre · Vendredi · Manquant","10月24日 · 星期五":"24 octobre · Vendredi","轮到你":"C\u0027est votre tour","我的小宇宙":"Mon petit univers","字卡":"Carte Word","和梦角下一局 · AI 托管":"Et Dream Corner Prochaine manche · Hébergement IA","晚上好，":"Bonsoir,","扭一颗":"Twist One","梦角的口袋":"Poche pour corne de rêve","我写一篇":"Je vais écrire un article","月":"Mois","我的名字":"Mon nom","头像大小":"Taille de l\u0027avatar","星星":"Étoile","清空":"Effacer","主题":"Objet","字卡内容保持原文":"Le contenu de Wordcard reste dans sa langue d\u0027origine","拾梦 · 梦角字卡":"Dream Pickup · Carte de personnage Dream Corner","计时器":"Minuterie","连成五子":"Lian Cheng Wu Zi","导入歌曲":"Importer des chansons","清除全部本地数据":"Effacer toutes les données locales","我的图片":"Mes photos","字卡库":"Bibliothèque de cartes Word","管理":"Gérer","添加城市":"Ajouter une ville","AI 托管提示":"Conseils pour l\u0027accueil de voyageurs IA","放入小物":"Mettre de petits objets","自定义背景与图标":"Arrière-plan et icône personnalisés","梦角那里 ·":"Dream Corner là-dedans ·","小物管理":"Gestion des petites marchandises","把想说的话，悄悄写进字卡里。":"Chuchotez ce que vous voulez dire dans la carte.","0 张":"0 feuillet","即使字卡是中文，也用设置里的语言朗读":"Lire à haute voix dans la langue dans les paramètres, même si le mot carte est en chinois","我的小物":"Mes gadgets","把两颗心，连成一条看得见的线":"Connectez les deux cœurs en une ligne visible","把想说的话，放在字卡里。":"Mettez ce que vous voulez dire dans la carte de police.","同一天":"Le jour même","星期五":"Vendredi","进入软件背景":"Saisir l\u0027arrière-plan du logiciel","楚河汉界":"Royaume Han de la rivière Chu","上传照片":"Télécharger une photo","初局 · 0 胜 0 负":"Premier tour · 0 gagne 0 défaite","把房间调成你喜欢的光线":"Transformez la pièce en la lumière que vous aimez","语言与翻译":"Langue et traduction","MiniMax 语音":"Voix MiniMax","扭一扭，":"Twist,","尚未填写 MiniMax 配置":"La configuration MiniMax n\u0027a pas été renseignée","设置":"Paramètres","还没有字卡。写下第一句想让梦角对你说的话吧。":"Pas encore de cartes de mots.Notez la première phrase que vous voulez que Dream Angle vous dise.","地图":"Carte","25 分钟":"25 minutes","表情包 · 我的收藏":"Émoticône · Mes favoris","打开陪伴模式":"Activer le mode compagnon","陪伴设置":"Paramètres de la compagnie","标记":"Drapeau","字体气质":"Tempérament de police","显示与阅读":"Affichage et lecture","五子棋":"Wuzi Chess","黑":"Noir","写下今天的心情或小事，梦角会从你的字卡里挑一句，作为他的回信夹在日记里。":"Notez l\u0027humeur ou la petite chose d\u0027aujourd\u0027 hui, et le coin des rêves choisira une phrase de votre carte de mots comme lettre de réponse dans son journal.","语录 100% · 小物 0%":"Devis 100% · Petit 0%","语录池已备好":"Pool de devis prêt","深夜里的一层薄雾。适合把心事写得很轻，再交给梦角收好。":"Une couche de brume au milieu de la nuit.Il convient pour écrire vos pensées très légèrement, puis les remettre au coin du rêve pour être rangé.","拾梦需要启用 JavaScript 才能运行。请允许 JavaScript 后刷新页面。":"Dreampicker nécessite JavaScript activé pour s\u0027exécuter.Veuillez autoriser JavaScript à actualiser la page.","朗读前先翻译成所选语言":"Traduire dans la langue sélectionnée avant de lire","圆":"Cercle","让梦角抽字卡发一条":"Laissez Dream Corner tirer une carte","时间":"Heure","梦角所有的回应，都从这里被拾起":"Toutes les réponses de Dream Corner ont été récupérées ici.","拾梦":"Prenez un rêve","播放列表":"Playlists","今天，也值得被记住":"Aujourd\u0027hui, il convient également de rappeler","搜索任意县市或国家，选好后地图会自动连出一条线，并算出大概距离。":"Recherchez n\u0027importe quel comté ou pays, et la carte reliera automatiquement une ligne et calculera la distance approximative.","管理字卡库":"Gérer la bibliothèque de cartes Word","写下来，让他读过再收好":"Écrivez-le, laissez-le le lire et rangez-le","相册":"Albums","我发一条":"J\u0027en enverrai un","梦角会接管黑方。落子之后，给他一点思考的时间。":"Dream Horn prendra le contrôle de Black.Après sa chute, donnez-lui le temps de réfléchir.","张字卡":"Cartes de personnage","导入壁纸":"Importer du papier peint","把这里，变成更像你们的地方":"Faites en sorte que ce logement ressemble davantage au vôtre.","预设主题":"Thème prédéfini","主题与壁纸":"Thèmes et fonds d\u0027écran","AI 托管中":"IA hébergée","添加":"Ajouter","在字卡里等你":"Vous attend dans la carte du mot","音乐":"Musique","主页背景":"Contexte de l\u0027accueil","状态签名":"Signature du statut","恢复默认":"Restaurer les valeurs par défaut","选择位置":"Sélectionner l\u0027emplacement","正在字卡里等你":"Vous attend dans la carte du mot","扭蛋池":"Piscine Gacha","文件导入":"Importation de fichier","回复字号":"Taille de police de réponse","我们":"Nous","悔棋":"Regretter les échecs","导入数据备份":"Importer la sauvegarde des données","柔雾玻璃":"Verre à brouillard doux","柔和圆体":"Corps rond souple","棋局结束":"Fin DE LA partie","五":"Cinq","文艺宋体":"Arial littéraire et artistique","月雾":"Brouillard lunaire","游戏":"Jeux","朋友圈":"Moments","消耗 MiniMax 语音额度":"Consommer des crédits vocaux MiniMax","让TA写一篇":"Laissez TA rédiger un article","摆件":"Décorations","更多":"Plus","网站语言":"Langue du site Web","一起做过的事":"Ce que nous avons fait ensemble","你执红先行。点击棋子，再点一个亮点落子。":"Vous vous accrochez d\u0027abord au rouge.Cliquez sur un jeton, puis sur un surlignage.","天气":"Météo","清除":"Effacer","再来一局":"Encore un jeu.","导入一首歌，或从歌单里选一首":"Importez une chanson ou choisissez-en une dans votre liste de lecture","日记":"Journal","东京":"Tokyo","最近扭到":"Récemment tordu à","自定义页面强调色":"Couleur d\u0027accentuation de page personnalisée","上海":"Shanghai","想和 TA 一起":"Je veux travailler avec TA","上滑解锁":"Balayez vers le haut pour déverrouiller","强调色":"Couleur d\u0027accentuation","星夜霓虹":"Starry Night Neon","干净黑体":"Clean Bold","纸感留白":"Espace blanc sur papier","导出我的数据":"Exporter mes données","扭蛋":"Gacha","点此添加一个纪念日":"Cliquez ici pour ajouter un anniversaire","把今天的一小段时间，留给彼此":"Donnez-vous un peu de temps aujourd\u0027hui","你写下字卡，梦角从中拾起一句回应。":"Vous écrivez une carte de calligraphie, et le coin du rêve en reçoit une réponse.","图片":"Image","邀请 TA 一起":"Inviter l\u0027AT ensemble","同一片天空，不同的天气":"Même ciel, météo différente","本地时间":"Heure locale","翻译使用免费的在线翻译服务，失败时会退回原文。语音语言始终跟随上方「语言与翻译」里的选择。":"La traduction utilise un service de traduction en ligne gratuit qui renvoie le texte original en cas d\u0027échec.La langue vocale suit toujours la sélection dans « Langue et traduction » ci-dessus.","收到回复时自动朗读":"Parlez automatiquement lorsque vous recevez une réponse","自定义软件图标":"Icônes logicielles personnalisées","还没有日子":"Pas encore de jours","梦角":"Dream Point","我":"Moi","重开":"Rouvrir","壁纸":"Papier peint","把遥远的时差，折成一句晚安":"Pliez le décalage horaire lointain dans une bonne nuit","DREAMCARD ARCHIVE / 拾梦数据档案 / NO.2049":"Dreamcard archive/Dream Data archive/NO.2049","聊天背景":"Arrière-plan du chat","遇到浏览器 CORS 时填写":"Remplissez lorsque vous rencontrez le cors du navigateur","做成摆件":"Faire des ornements","象":"Éléphant","写下的每一张字卡，都会被他拾起。":"Il ramassait toutes les cartes qu\u0027il écrivait.","所有数据只保存在这台设备里。":"Toutes les données sont enregistrées sur cet appareil uniquement.","让这一晚，有背景音":"Laissez cette nuit avoir un son de fond","恢复":"Restaurer","还没有播放":"Pas encore joué","数据与关于":"Les données et à propos","世界的此刻":"En ce moment dans le monde","宋":"Chanson","我们的日子":"Nos jours","高级 · 代理地址":"Avancé · Adresse proxy","导入歌单":"Importation d\u0027une playlist","正在读取天空的实时数据…":"Lecture des données en direct depuis le ciel…","只属于你和梦角的小小广场":"Un petit carré rien que pour vous et le coin de vos rêves","试听梦角的声音":"Écoutez le son de Dream Horn","随主题":"Avec thème","中国象棋":"Échecs chinois","东京 21:00":"Tokyo 21h00","看看今天梦角想对你说什么。":"Découvrez ce que Dream Corner veut vous dire aujourd\u0027hui.","梦角的名字":"Nom du Dream Horn","收集和他有关的每一帧":"Recueillir tous les cadres qui lui sont liés","语录 · 小物 · 每日陪伴":"Devis · Petit article · Compagnonnage quotidien","从梦角的口袋里，摇出一点小幸运":"Sortez un peu de chance de la poche de Dream Horn","陪伴":"Compagnonnage","界面风格":"Style d\u0027interface","天":"jours","正在连接天空…":"Connexion au ciel...","0 次相遇":"0 rencontre","这次多久":"Combien de temps cette fois","旅人":"Voyageurs","切换后，界面文字会立即翻译成所选语言。你写的字卡、日记与消息保持原样。":"Une fois basculé, le texte de l\u0027interface est immédiatement traduit dans la langue sélectionnée.Les cartes, journaux et messages que vous écrivez restent les mêmes.","重新观看新手教程":"Revoir le tutoriel de démarrage","新手教程":"Tutoriel de démarrage"},"pt":{"和梦角一起，把日子过成一个小房间":"Transforme os seus dias num pequeno quarto, junto do seu sonho.","把心里的问题放在桌上，抽一张牌":"Coloque a pergunta do seu coração na mesa e tire uma carta.","占卜":"Adivinhação","把日子、生日和身体的小秘密放在一起":"Guarde os seus dias, aniversários e pequenos segredos do corpo.","家园":"Casa","猜数字":"Adivinhe o número","日历":"Calendário","10月24日 · 星期五 · 宜想念":"24 de outubro · Sexta-feira · Falta","10月24日 · 星期五":"24 de outubro · Sexta-feira","轮到你":"É a sua vez","我的小宇宙":"Meu Pequeno Universo","字卡":"Cartão de palavras","和梦角下一局 · AI 托管":"E Dream Corner Next Round · Hospedagem de IA","晚上好，":"Boa noite,","扭一颗":"Torcer um","梦角的口袋":"Bolso do Chifre dos Sonhos","我写一篇":"Vou escrever um artigo","月":"Mês","我的名字":"O meu nome","头像大小":"Tamanho do Avatar","星星":"Estrela","清空":"Limpar","主题":"Assunto","字卡内容保持原文":"O conteúdo do Wordcard permanece no idioma original","拾梦 · 梦角字卡":"Captador de Sonhos · Carta de Personagem do Canto dos Sonhos","计时器":"Temporizador","连成五子":"Lian Cheng Wu Zi","导入歌曲":"Importar músicas","清除全部本地数据":"Limpar todos os dados locais","我的图片":"As minhas imagens","字卡库":"Biblioteca de Cartões do Word","管理":"Gerir","添加城市":"Adicionar cidade","AI 托管提示":"Dicas de hospedagem com IA","放入小物":"Colocar em artigos pequenos","自定义背景与图标":"Ícone \u0026 Fundo Personalizado","梦角那里 ·":"Canto dos Sonhos lá ·","小物管理":"Gestão de Pequenas Mercadorias","把想说的话，悄悄写进字卡里。":"Sussurre o que quer dizer no cartão.","0 张":"0 folhas","即使字卡是中文，也用设置里的语言朗读":"Leia em voz alta no idioma nas configurações, mesmo que o cartão de palavras esteja em chinês","我的小物":"Os meus gadgets","把两颗心，连成一条看得见的线":"Conecte os dois corações numa linha visível","把想说的话，放在字卡里。":"Coloque o que quer dizer no cartão de fontes.","同一天":"Mesmo dia","星期五":"Sexta-feira","进入软件背景":"Insira o plano de fundo do software","楚河汉界":"Reino Han do Rio Chu","上传照片":"Carregar foto","初局 · 0 胜 0 负":"Primeira rodada · 0 vitórias 0 derrotas","把房间调成你喜欢的光线":"Transforme o quarto na luz de que gosta","语言与翻译":"Idioma e tradução","MiniMax 语音":"MiniMax Voice","扭一扭，":"Torção,","尚未填写 MiniMax 配置":"A configuração do MiniMax não foi preenchida","设置":"Definições","还没有字卡。写下第一句想让梦角对你说的话吧。":"Ainda não há cartões de palavras.Escreva a primeira frase que você deseja que o Ângulo dos Sonhos lhe diga.","地图":"Mapa","25 分钟":"25 minutos","表情包 · 我的收藏":"Expressão · Meus favoritos","打开陪伴模式":"Ativar o modo de companheirismo","陪伴设置":"Definições de companheirismo","标记":"Bandeira","字体气质":"Temperamento da Fonte","显示与阅读":"Exibição e leitura","五子棋":"Xadrez Wuzi","黑":"Preto","写下今天的心情或小事，梦角会从你的字卡里挑一句，作为他的回信夹在日记里。":"Anote o humor ou a coisinha de hoje, e o canto dos sonhos escolherá uma frase do seu cartão de palavras como sua carta de resposta em seu diário.","语录 100% · 小物 0%":"Cotação 100% · Pequeno 0%","语录池已备好":"Pool de cotação pronto","深夜里的一层薄雾。适合把心事写得很轻，再交给梦角收好。":"Uma camada de névoa no meio da noite.É adequado para escrever seus pensamentos de forma muito leve e, em seguida, entregá-los ao canto dos sonhos para serem guardados.","拾梦需要启用 JavaScript 才能运行。请允许 JavaScript 后刷新页面。":"O Dreampicker requer JavaScript habilitado para ser executado.Permita que o JavaScript atualize a página.","朗读前先翻译成所选语言":"Traduzir para o idioma selecionado antes de ler","圆":"Círculo","让梦角抽字卡发一条":"Deixe o Canto dos Sonhos comprar uma carta","时间":"Hora","梦角所有的回应，都从这里被拾起":"Todas as respostas do Canto dos Sonhos foram captadas a partir daqui.","拾梦":"Escolha um sonho","播放列表":"Listas de reprodução","今天，也值得被记住":"Hoje, também vale lembrar","搜索任意县市或国家，选好后地图会自动连出一条线，并算出大概距离。":"Pesquise qualquer município ou país e o mapa conectará automaticamente uma linha e calculará a distância aproximada.","管理字卡库":"Gerir biblioteca de cartões do Word","写下来，让他读过再收好":"Anote, deixe-o ler e guarde","相册":"Álbuns","我发一条":"Vou enviar um","梦角会接管黑方。落子之后，给他一点思考的时间。":"O Chifre dos Sonhos assumirá o Black.Depois de cair, dê-lhe algum tempo para pensar.","张字卡":"Cartas de Personagem","导入壁纸":"Importar Papel de Parede","把这里，变成更像你们的地方":"Torne este lugar mais parecido com o seu.","预设主题":"Tema predefinido","主题与壁纸":"Temas e papéis de parede","AI 托管中":"Hospedado por IA","添加":"Adicionar","在字卡里等你":"À sua espera no cartão de palavras","音乐":"Música","主页背景":"Antecedentes da Casa","状态签名":"Assinatura de estado","恢复默认":"Restaurar padrões","选择位置":"Escolher localização","正在字卡里等你":"À sua espera no cartão de palavras","扭蛋池":"Piscina Gacha","文件导入":"Importação de Ficheiro","回复字号":"Tamanho da fonte da resposta","我们":"Nós","悔棋":"Xadrez de Arrependimento","导入数据备份":"Importar backup de dados","柔雾玻璃":"Vidro de névoa macia","柔和圆体":"Corpo redondo macio","棋局结束":"Fim DO jogo","五":"Cinco","文艺宋体":"Arial Literário e Artístico","月雾":"Névoa Lunar","游戏":"Jogos","朋友圈":"Momentos","消耗 MiniMax 语音额度":"Consumir créditos de voz MiniMax","让TA写一篇":"Deixe a TA escrever um artigo","摆件":"Ornamentos","更多":"Mais","网站语言":"Idioma do site","一起做过的事":"O que fizemos juntos","你执红先行。点击棋子，再点一个亮点落子。":"Você segura o vermelho primeiro.Clique num token e, em seguida, clique num destaque.","天气":"Clima","清除":"Limpar","再来一局":"Mais um jogo.","导入一首歌，或从歌单里选一首":"Importe uma música ou escolha uma da sua lista de reprodução","日记":"Diário","东京":"Tóquio","最近扭到":"Torcido recentemente para","自定义页面强调色":"Cor de destaque da página personalizada","上海":"Xangai","想和 TA 一起":"Quero trabalhar com TA","上滑解锁":"Deslize para cima para desbloquear","强调色":"Cor de destaque","星夜霓虹":"Néon da Noite Estrelada","干净黑体":"Clean Bold","纸感留白":"Espaço em branco no papel","导出我的数据":"Exportar os meus dados","扭蛋":"Gacha","点此添加一个纪念日":"Clique aqui para adicionar um aniversário","把今天的一小段时间，留给彼此":"Dê um pouco de tempo um ao outro hoje","你写下字卡，梦角从中拾起一句回应。":"Você escreve um cartão de caligrafia e o canto dos sonhos capta uma resposta dele.","图片":"Imagem","邀请 TA 一起":"Convidar TA juntos","同一片天空，不同的天气":"Mesmo céu, clima diferente","本地时间":"Hora local","翻译使用免费的在线翻译服务，失败时会退回原文。语音语言始终跟随上方「语言与翻译」里的选择。":"A tradução usa um serviço de tradução online gratuito que retorna o texto original se ele falhar.O idioma de voz segue sempre a seleção em \"Idioma e Tradução\" acima.","收到回复时自动朗读":"Fale automaticamente quando receber uma resposta","自定义软件图标":"Ícones de software personalizados","还没有日子":"Ainda não há dias","梦角":"Dream Point","我":"Eu","重开":"Reabrir","壁纸":"Papel de parede","把遥远的时差，折成一句晚安":"Transforme o jet lag distante numa boa noite","DREAMCARD ARCHIVE / 拾梦数据档案 / NO.2049":"Arquivo Dreamcard/arquivo DE dados Dream/Nº 2049","聊天背景":"Histórico do chat","遇到浏览器 CORS 时填写":"Preencha ao encontrar o CORS do navegador","做成摆件":"Fazer enfeites","象":"Elefante","写下的每一张字卡，都会被他拾起。":"Ele pegava cada cartão que escrevia.","所有数据只保存在这台设备里。":"Todos os dados são salvos apenas neste dispositivo.","让这一晚，有背景音":"Deixe esta noite ter um som de fundo","恢复":"Restaurar","还没有播放":"Ainda não jogou","数据与关于":"Dados e sobre","世界的此刻":"Neste momento no mundo","宋":"Música","我们的日子":"OS nossos dias","高级 · 代理地址":"Avançado · Endereço de proxy","导入歌单":"Importar uma lista de reprodução","正在读取天空的实时数据…":"Lendo dados ao vivo do céu...","只属于你和梦角的小小广场":"Uma pequena praça só para si e para o canto dos seus sonhos","试听梦角的声音":"Ouça o som do Chifre dos Sonhos","随主题":"Com tema","中国象棋":"Xadrez Chinês","东京 21:00":"Tóquio 21:00","看看今天梦角想对你说什么。":"Veja o que o Dream Corner quer dizer hoje.","梦角的名字":"Nome do Chifre dos Sonhos","收集和他有关的每一帧":"Colete todos os quadros relacionados a ele","语录 · 小物 · 每日陪伴":"Citação · Item Pequeno · Companheirismo Diário","从梦角的口袋里，摇出一点小幸运":"Tire um pouco de sorte do bolso do Chifre dos Sonhos","陪伴":"Companheirismo","界面风格":"Estilo de interface","天":"dias","正在连接天空…":"A ligar ao céu...","0 次相遇":"0 encontros","这次多久":"Quanto tempo desta vez","旅人":"Hóspedes","切换后，界面文字会立即翻译成所选语言。你写的字卡、日记与消息保持原样。":"Uma vez alterado, o texto da interface é imediatamente traduzido para o idioma selecionado.Os cartões, diários e mensagens que você escreve permanecem os mesmos.","重新观看新手教程":"Ver o tutorial inicial novamente","新手教程":"Tutorial inicial"},"ko":{"和梦角一起，把日子过成一个小房间":"꿈속 그와 함께, 하루하루를 작은 방으로.","把心里的问题放在桌上，抽一张牌":"마음속 질문을 탁자 위에 올려두고 카드 한 장을 뽑아 보세요.","占卜":"점술","把日子、生日和身体的小秘密放在一起":"날짜와 생일, 몸의 작은 비밀을 한곳에.","家园":"우리 집","猜数字":"숫자 맞히기","日历":"달력","10月24日 · 星期五 · 宜想念":"10월 24일 · 금요일 · 누락","10月24日 · 星期五":"10월 24일 · 금요일","轮到你":"차례가 되었습니다","我的小宇宙":"마이 리틀 유니버스","字卡":"Word 카드","和梦角下一局 · AI 托管":"And Dream Corner Next Round · AI 호스팅","晚上好，":"님, 안녕하세요.","扭一颗":"비틀기 1","梦角的口袋":"드림 혼 포켓","我写一篇":"게시글을 작성하겠습니다.","月":"월","我的名字":"내 이름","头像大小":"아바타 크기","星星":"별","清空":"삭제","主题":"제목","字卡内容保持原文":"Wordcard 콘텐츠는 원래 언어로 유지됩니다","拾梦 · 梦角字卡":"드림 픽업 · 드림 코너 캐릭터 카드","计时器":"타이머","连成五子":"롄청우지","导入歌曲":"노래 가져오기","清除全部本地数据":"모든 로컬 데이터 지우기","我的图片":"내 사진","字卡库":"Word 카드 라이브러리","管理":"관리","添加城市":"도시 추가","AI 托管提示":"AI 호스팅 팁","放入小物":"작은 아이템 넣기","自定义背景与图标":"사용자 정의 배경 및 아이콘","梦角那里 ·":"드림 코너가 있습니다 ·","小物管理":"소량 물품 관리","把想说的话，悄悄写进字卡里。":"카드에 하고 싶은 말을 속삭이세요.","0 张":"0매","即使字卡是中文，也用设置里的语言朗读":"단어 카드가 중국어로 되어 있더라도 설정에서 해당 언어로 소리내어 읽습니다.","我的小物":"내 가젯","把两颗心，连成一条看得见的线":"두 하트를 가시선으로 연결","把想说的话，放在字卡里。":"폰트 카드에 원하는 내용을 입력하세요.","同一天":"당일","星期五":"금요일","进入软件背景":"소프트웨어 배경 입력","楚河汉界":"추강한림원","上传照片":"사진 업로드","初局 · 0 胜 0 负":"1차전 · 0승 0패","把房间调成你喜欢的光线":"방을 마음에 드는 조명으로 바꿔보세요.","语言与翻译":"언어 및 번역","MiniMax 语音":"MiniMax 음성","扭一扭，":"트위스트,","尚未填写 MiniMax 配置":"MiniMax 구성이 채워지지 않았습니다","设置":"설정","还没有字卡。写下第一句想让梦角对你说的话吧。":"아직 단어 카드가 없습니다.드림 앵글이 여러분에게 전하고 싶은 첫 문장을 적어보세요.","地图":"지도","25 分钟":"25분","表情包 · 我的收藏":"감정 표현 · 즐겨찾기","打开陪伴模式":"교제 모드 켜기","陪伴设置":"동반자 관계 설정","标记":"플래그","字体气质":"글꼴 기질","显示与阅读":"디스플레이 및 읽기","五子棋":"우지 체스","黑":"블랙","写下今天的心情或小事，梦角会从你的字卡里挑一句，作为他的回信夹在日记里。":"오늘의 기분이나 사소한 것을 적으면 꿈 코너에서 단어 카드의 문장을 일기에 회신하는 편지로 선택합니다.","语录 100% · 小物 0%":"견적 100% · 소액 0%","语录池已备好":"견적 풀 준비 완료","深夜里的一层薄雾。适合把心事写得很轻，再交给梦角收好。":"한밤중의 안개 한 겹.자신의 생각을 아주 가볍게 적은 다음 꿈 코너로 넘겨 치우기에 적합합니다.","拾梦需要启用 JavaScript 才能运行。请允许 JavaScript 后刷新页面。":"Dreampicker를 실행하려면 JavaScript를 활성화해야 합니다.자바스크립트가 페이지를 새로 고치도록 허용하십시오.","朗读前先翻译成所选语言":"읽기 전에 선택한 언어로 번역","圆":"원형","让梦角抽字卡发一条":"드림코너 카드 뽑기","时间":"시간","梦角所有的回应，都从这里被拾起":"드림 코너의 모든 응답은 여기서 따왔다.","拾梦":"꿈 줍기","播放列表":"재생 목록","今天，也值得被记住":"오늘날, 그것은 또한 기억할 가치가 있습니다.","搜索任意县市或国家，选好后地图会自动连出一条线，并算出大概距离。":"카운티 또는 국가를 검색하면 지도가 자동으로 선을 연결하고 대략적인 거리를 계산합니다.","管理字卡库":"Word 카드 라이브러리 관리","写下来，让他读过再收好":"그것을 적고, 그가 그것을 읽고 치우게하십시오","相册":"앨범","我发一条":"하나 보내드릴게요","梦角会接管黑方。落子之后，给他一点思考的时间。":"드림 혼이 블랙을 인수할 것입니다.떨어지고 나면 생각할 시간을 줘.","张字卡":"캐릭터 카드","导入壁纸":"배경화면 가져오기","把这里，变成更像你们的地方":"이 숙소를 내 집처럼 꾸며보세요.","预设主题":"프리셋 테마","主题与壁纸":"테마 및 배경 화면","AI 托管中":"AI 호스팅됨","添加":"추가","在字卡里等你":"단어 카드에서 회원님을 기다리는 중","音乐":"음악","主页背景":"숙소 배경","状态签名":"상태 서명","恢复默认":"기본값 복원","选择位置":"위치 선택","正在字卡里等你":"단어 카드에서 회원님을 기다리는 중","扭蛋池":"가차 수영장","文件导入":"파일 가져오기","回复字号":"회신 글꼴 크기","我们":"우리는","悔棋":"후회 체스","导入数据备份":"데이터 백업 가져오기","柔雾玻璃":"소프트 미스트 글래스","柔和圆体":"부드러운 라운드 바디","棋局结束":"게임 종료","五":"다섯","文艺宋体":"문학 및 예술적 시련","月雾":"달 안개","游戏":"게임","朋友圈":"모멘트","消耗 MiniMax 语音额度":"MiniMax 음성 크레딧 사용","让TA写一篇":"TA가 게시글 작성하기","摆件":"장식품","更多":"더 보기","网站语言":"웹사이트 언어","一起做过的事":"우리가 함께한 일","你执红先行。点击棋子，再点一个亮点落子。":"당신은 먼저 빨간색을 고수합니다.토큰을 클릭한 다음 하이라이트를 클릭합니다.","天气":"날씨","清除":"삭제","再来一局":"한 판 더.","导入一首歌，或从歌单里选一首":"노래를 가져오거나 재생 목록에서 하나를 선택하세요","日记":"다이어리","东京":"도쿄","最近扭到":"최근 트위스트 대상:","自定义页面强调色":"사용자 정의 페이지 강조 색상","上海":"상하이","想和 TA 一起":"TA와 함께 일하고 싶습니다.","上滑解锁":"화면을 위로 밀어 잠금을 해제하세요","强调色":"강조 색상","星夜霓虹":"별이 빛나는 밤의 네온","干净黑体":"깔끔한 굵게","纸感留白":"종이에 공백","导出我的数据":"내 데이터 내보내기","扭蛋":"가차","点此添加一个纪念日":"기념일을 추가하려면 여기를 클릭하세요","把今天的一小段时间，留给彼此":"오늘 서로에게 약간의 시간을 주세요","你写下字卡，梦角从中拾起一句回应。":"서예 카드를 쓰면 꿈 코너에서 답장을 받습니다.","图片":"이미지","邀请 TA 一起":"함께 TA 초대하기","同一片天空，不同的天气":"같은 하늘, 다른 날씨","本地时间":"현지 시간","翻译使用免费的在线翻译服务，失败时会退回原文。语音语言始终跟随上方「语言与翻译」里的选择。":"번역은 실패할 경우 원문을 반환하는 무료 온라인 번역 서비스를 사용합니다.음성 언어는 항상 위의 \"언어 및 번역\" 에서 선택한 내용을 따릅니다.","收到回复时自动朗读":"응답을 받으면 자동으로 말하기","自定义软件图标":"사용자 정의 소프트웨어 아이콘","还没有日子":"아직 날짜 없음","梦角":"드림포인트","我":"나","重开":"다시 열기","壁纸":"벽지","把遥远的时差，折成一句晚安":"멀리 있는 시차를 접어 좋은 밤을 보내세요.","DREAMCARD ARCHIVE / 拾梦数据档案 / NO.2049":"드림카드 아카이브/DREAM DATA ARCHIVE/NO.2049","聊天背景":"채팅 배경","遇到浏览器 CORS 时填写":"브라우저 CORS를 만날 때 기입","做成摆件":"장식품 만들기","象":"코끼리","写下的每一张字卡，都会被他拾起。":"그는 적어 놓은 카드를 모조리 집어들었다.","所有数据只保存在这台设备里。":"모든 데이터는 이 장치에만 저장됩니다.","让这一晚，有背景音":"오늘 밤 배경 소리를 들려주세요.","恢复":"복원","还没有播放":"아직 플레이하지 않음","数据与关于":"데이터 및 정보","世界的此刻":"지금 이 순간, 세상은","宋":"노래","我们的日子":"우리의 날들","高级 · 代理地址":"고급 · 프록시 주소","导入歌单":"재생목록 가져오기","正在读取天空的实时数据…":"하늘에서 실시간 데이터를 읽는 중...","只属于你和梦角的小小广场":"당신과 당신의 꿈의 모퉁이를 위한 작은 광장","试听梦角的声音":"드림혼 소리 듣기","随主题":"테마 포함","中国象棋":"중국 체스","东京 21:00":"도쿄 21:00","看看今天梦角想对你说什么。":"오늘 드림 코너가 여러분에게 전하고 싶은 말을 확인해보세요.","梦角的名字":"꿈의 뿔 이름","收集和他有关的每一帧":"그와 관련된 모든 프레임을 수집하십시오","语录 · 小物 · 每日陪伴":"견적 · 소형 품목 · 일일 동반자","从梦角的口袋里，摇出一点小幸运":"드림 혼의 주머니에서 약간의 행운을 흔들어보세요","陪伴":"동반자 관계","界面风格":"인터페이스 스타일","天":"일","正在连接天空…":"하늘과 연결 중...","0 次相遇":"만남 0회","这次多久":"이 시간의 길이","旅人":"게스트","切换后，界面文字会立即翻译成所选语言。你写的字卡、日记与消息保持原样。":"전환되면 인터페이스 텍스트가 선택한 언어로 즉시 번역됩니다.작성한 카드, 저널 및 메시지는 그대로 유지됩니다.","重新观看新手教程":"초보자 튜토리얼 다시 보기","新手教程":"초보자 튜토리얼"},"de":{"和梦角一起，把日子过成一个小房间":"Mach aus deinen Tagen ein kleines Zimmer, zusammen mit deinem Traum.","把心里的问题放在桌上，抽一张牌":"Legen Sie die Frage aus Ihrem Herzen auf den Tisch und ziehen Sie eine Karte.","占卜":"Wahrsagerei","把日子、生日和身体的小秘密放在一起":"Bewahre Tage, Geburtstage und kleine Körpergeheimnisse an einem Ort.","家园":"Zuhause","猜数字":"Zahl raten","日历":"Kalender","10月24日 · 星期五 · 宜想念":"24. Oktober · Freitag · Fehlt","10月24日 · 星期五":"24. Oktober · Freitag","轮到你":"Du bist dran","我的小宇宙":"My Little Universe","字卡":"Wortkarte","和梦角下一局 · AI 托管":"Und Dream Corner nächste Runde · KI-Hosting","晚上好，":"Guten Abend,","扭一颗":"Twist One","梦角的口袋":"Traumhorntasche","我写一篇":"Ich schreibe einen Artikel","月":"Monat","我的名字":"Mein Name","头像大小":"Avatargröße","星星":"Stern","清空":"Löschen","主题":"Fach","字卡内容保持原文":"Wordcard-Inhalt bleibt in Originalsprache erhalten","拾梦 · 梦角字卡":"Dream Pickup · Dream Corner Charakterkarte","计时器":"Timer","连成五子":"Lian Cheng Wu Zi","导入歌曲":"Songs importieren","清除全部本地数据":"Alle lokalen Daten löschen","我的图片":"Meine Bilder","字卡库":"Wortkartenbibliothek","管理":"Verwalten","添加城市":"Stadt hinzufügen","AI 托管提示":"Tipps für KI-Gastgeber","放入小物":"Legen Sie kleine Gegenstände hinein","自定义背景与图标":"Benutzerdefinierter Hintergrund \u0026 Symbol","梦角那里 ·":"Dream Corner dort ·","小物管理":"Kleinwarenmanagement","把想说的话，悄悄写进字卡里。":"Flüstere in die Karte, was du sagen willst.","0 张":"0 Blatt","即使字卡是中文，也用设置里的语言朗读":"In den Einstellungen in der Sprache vorlesen, auch wenn die Wortkarte auf Chinesisch ist","我的小物":"Meine Gadgets","把两颗心，连成一条看得见的线":"Verbinden Sie die beiden Herzen zu einer sichtbaren Linie","把想说的话，放在字卡里。":"Geben Sie in die Schriftkarte ein, was Sie sagen möchten.","同一天":"Am selben Tag","星期五":"Freitag","进入软件背景":"Software-Hintergrund eingeben","楚河汉界":"Chu-Fluss Han-Reich","上传照片":"Foto hochladen","初局 · 0 胜 0 负":"Erste Runde · 0 Siege 0 Niederlagen","把房间调成你喜欢的光线":"Verwandeln Sie den Raum in das Licht, das Ihnen gefällt","语言与翻译":"Sprache \u0026 Übersetzung","MiniMax 语音":"MiniMax Voice","扭一扭，":"Twist,","尚未填写 MiniMax 配置":"MiniMax-Konfiguration wurde nicht ausgefüllt","设置":"Einstellungen","还没有字卡。写下第一句想让梦角对你说的话吧。":"Noch keine Wortkarten.Schreibe den ersten Satz auf, den Dream Angle dir sagen soll.","地图":"Karte","25 分钟":"25 Minuten","表情包 · 我的收藏":"Emote · Meine Favoriten","打开陪伴模式":"Schalten Sie den Kameradschaftsmodus ein","陪伴设置":"Einstellungen für die Begleitung","标记":"Flagge","字体气质":"Schriftart Temperament","显示与阅读":"Anzeige \u0026 Ablesen","五子棋":"Wuzi-Schach","黑":"Schwarz","写下今天的心情或小事，梦角会从你的字卡里挑一句，作为他的回信夹在日记里。":"Schreiben Sie die heutige Stimmung oder Kleinigkeit auf, und die Traumecke wird einen Satz aus Ihrer Wortkarte als Antwortbrief in sein Tagebuch aufnehmen.","语录 100% · 小物 0%":"Angebot 100 % · Klein 0 %","语录池已备好":"Angebotspool bereit","深夜里的一层薄雾。适合把心事写得很轻，再交给梦角收好。":"Eine Nebelschicht mitten in der Nacht.Es eignet sich dazu, deine Gedanken ganz leicht aufzuschreiben und dann in die Traumecke zu geben, um sie wegzulegen.","拾梦需要启用 JavaScript 才能运行。请允许 JavaScript 后刷新页面。":"Dreampicker erfordert, dass JavaScript aktiviert ist, um ausgeführt zu werden.Bitte erlauben Sie JavaScript, die Seite zu aktualisieren.","朗读前先翻译成所选语言":"Vor dem Lesen in die ausgewählte Sprache übersetzen","圆":"Kreis","让梦角抽字卡发一条":"Lass Dream Corner eine Karte ziehen","时间":"Zeit","梦角所有的回应，都从这里被拾起":"Alle Antworten von Dream Corner wurden von hier abgerufen.","拾梦":"Holen Sie sich einen Traum","播放列表":"Wiedergabelisten","今天，也值得被记住":"Heute lohnt es sich auch, sich daran zu erinnern,","搜索任意县市或国家，选好后地图会自动连出一条线，并算出大概距离。":"Suchen Sie nach einem Landkreis oder einem Land, und die Karte verbindet automatisch eine Linie und berechnet die ungefähre Entfernung.","管理字卡库":"Wortkartenbibliothek verwalten","写下来，让他读过再收好":"Schreiben Sie es auf, lassen Sie es ihn lesen und legen Sie es weg","相册":"Alben","我发一条":"Ich schicke dir einen","梦角会接管黑方。落子之后，给他一点思考的时间。":"Dream Horn wird Black übernehmen.Gib ihm nach dem Sturz etwas Zeit zum Nachdenken.","张字卡":"Charakterkarten","导入壁纸":"Hintergrundbild importieren","把这里，变成更像你们的地方":"Mach diesen Ort mehr wie deinen.","预设主题":"Voreingestelltes Theme","主题与壁纸":"Themes \u0026 Wallpaper","AI 托管中":"KI-gehostet","添加":"Hinzufügen","在字卡里等你":"Warten auf Sie in der Wortkarte","音乐":"Musik","主页背景":"Startseite Hintergrund","状态签名":"Status Unterschrift","恢复默认":"Standardeinstellungen wiederherstellen","选择位置":"Standort auswählen","正在字卡里等你":"Warten auf Sie in der Wortkarte","扭蛋池":"Gacha Pool","文件导入":"Dateiimport","回复字号":"Antwort-Schriftgröße","我们":"Wir","悔棋":"Bedauernsschach","导入数据备份":"Datensicherung importieren","柔雾玻璃":"Weiches Nebelglas","柔和圆体":"Weicher runder Körper","棋局结束":"Ende des Spiels","五":"Fünf","文艺宋体":"Literarisches und künstlerisches Arial","月雾":"Mondnebel","游戏":"Spiele","朋友圈":"Momente","消耗 MiniMax 语音额度":"MiniMax-Sprachguthaben verbrauchen","让TA写一篇":"Lassen Sie TA einen Artikel schreiben","摆件":"Ornamente","更多":"Mehr","网站语言":"Website-Sprache","一起做过的事":"Was wir gemeinsam erreicht haben","你执红先行。点击棋子，再点一个亮点落子。":"Du hältst dich zuerst an Rot fest.Klicken Sie auf ein Token und dann auf eine Markierung.","天气":"Wetter","清除":"Löschen","再来一局":"Noch ein Spiel.","导入一首歌，或从歌单里选一首":"Importieren Sie einen Song oder wählen Sie einen aus Ihrer Wiedergabeliste aus","日记":"Tagebuch","东京":"Tokio","最近扭到":"Kürzlich verdreht zu","自定义页面强调色":"Benutzerdefinierte Seitenakzentfarbe","上海":"Shanghai","想和 TA 一起":"Ich möchte mit TA zusammenarbeiten","上滑解锁":"Zum Entsperren nach oben wischen","强调色":"Akzentfarbe","星夜霓虹":"Sternennacht Neon","干净黑体":"Fett säubern","纸感留白":"Leerzeichen auf Papier","导出我的数据":"Meine Daten exportieren","扭蛋":"Gacha","点此添加一个纪念日":"Klicken Sie hier, um ein Jubiläum hinzuzufügen","把今天的一小段时间，留给彼此":"Schenken Sie sich noch heute ein wenig Zeit","你写下字卡，梦角从中拾起一句回应。":"Du schreibst eine Kalligrafiekarte und die Traumecke nimmt eine Antwort von ihr auf.","图片":"Bild","邀请 TA 一起":"Laden Sie TA zusammen ein","同一片天空，不同的天气":"Gleicher Himmel, anderes Wetter","本地时间":"Ortszeit","翻译使用免费的在线翻译服务，失败时会退回原文。语音语言始终跟随上方「语言与翻译」里的选择。":"Translation verwendet einen kostenlosen Online-Übersetzungsdienst, der den Originaltext zurückgibt, wenn er fehlschlägt.Voice Language folgt immer der Auswahl in \"Sprache und Übersetzung\" oben.","收到回复时自动朗读":"Sprechen Sie automatisch, wenn Sie eine Antwort erhalten","自定义软件图标":"Benutzerdefinierte Software-Symbole","还没有日子":"Noch keine Tage","梦角":"Dream Point","我":"Ich","重开":"Wiedereröffnen","壁纸":"Tapete","把遥远的时差，折成一句晚安":"Falten Sie den fernen Jetlag in eine gute Nacht","DREAMCARD ARCHIVE / 拾梦数据档案 / NO.2049":"Dreamcard Archiv/TRAUMDATENARCHIV/NR.2049","聊天背景":"Chat-Hintergrund","遇到浏览器 CORS 时填写":"Füllen Sie es aus, wenn Sie auf Browser-CORS stoßen","做成摆件":"Stelle Ornamente her","象":"Elefant","写下的每一张字卡，都会被他拾起。":"Er nahm jede Karte auf, die er aufschrieb.","所有数据只保存在这台设备里。":"Alle Daten werden nur auf diesem Gerät gespeichert.","让这一晚，有背景音":"Lassen Sie diese Nacht einen Hintergrundgeräusch","恢复":"Wiederherstellen","还没有播放":"Noch nicht gespielt","数据与关于":"Daten und über","世界的此刻":"In diesem Moment auf der Welt","宋":"Lied","我们的日子":"Unsere Tage","高级 · 代理地址":"Erweitert · Proxy-Adresse","导入歌单":"Importieren einer Wiedergabeliste","正在读取天空的实时数据…":"Live-Daten vom Himmel lesen...","只属于你和梦角的小小广场":"Ein kleiner Platz nur für dich und die Ecke deiner Träume","试听梦角的声音":"Hören Sie den Klang von Dream Horn","随主题":"Mit Theme","中国象棋":"Chinesisches Schach","东京 21:00":"Tokio 21:00","看看今天梦角想对你说什么。":"Sehen Sie, was Dream Corner Ihnen heute sagen möchte.","梦角的名字":"Name des Traumhorns","收集和他有关的每一帧":"Sammle jeden Rahmen, der sich auf ihn bezieht","语录 · 小物 · 每日陪伴":"Angebot · Kleiner Gegenstand · Tägliche Begleitung","从梦角的口袋里，摇出一点小幸运":"Schütteln Sie ein wenig Glück aus der Tasche von Dream Horn","陪伴":"Begleitung","界面风格":"Schnittstellen-Stil","天":"Tage","正在连接天空…":"Verbindung zum Himmel wird hergestellt...","0 次相遇":"0 Begegnungen","这次多久":"Wie lange diese Zeit","旅人":"Gäste","切换后，界面文字会立即翻译成所选语言。你写的字卡、日记与消息保持原样。":"Nach dem Umschalten wird der Schnittstellentext sofort in die ausgewählte Sprache übersetzt.Die Karten, Tagebücher und Nachrichten, die Sie schreiben, bleiben gleich.","重新观看新手教程":"Einführung erneut ansehen","新手教程":"Einführung"},"en":{"和梦角一起，把日子过成一个小房间":"Make a little room for your days, together with your dream.","把心里的问题放在桌上，抽一张牌":"Put the question in your heart on the table and draw a card.","占卜":"Divination","把日子、生日和身体的小秘密放在一起":"Keep your days, birthdays and little body secrets together.","家园":"Home","猜数字":"Guess the Number","日历":"Calendar","10月24日 · 星期五 · 宜想念":"October 24th · Friday · Missing it","10月24日 · 星期五":"October 24th · Friday","轮到你":"It\u0027s your turn","我的小宇宙":"My Little Universe","字卡":"Word Card","和梦角下一局 · AI 托管":"And Dream Corner Next Round · AI Hosting","晚上好，":"Good evening,","扭一颗":"Twist one","梦角的口袋":"Dream Horn Pocket","我写一篇":"I\u0027ll write an article","月":"Month","我的名字":"My name","头像大小":"Avatar Size","星星":"Star","清空":"Clear","主题":"Subject","字卡内容保持原文":"Wordcard content remains in its original language","拾梦 · 梦角字卡":"Dream Pickup · Dream Corner Character Card","计时器":"Timer","连成五子":"Lian Cheng Wu Zi","导入歌曲":"Import Songs","清除全部本地数据":"Clear all local data","我的图片":"My Pictures","字卡库":"Word Card Library","管理":"Manage","添加城市":"Add city","AI 托管提示":"AI Hosting Tips","放入小物":"Put in small items","自定义背景与图标":"Custom Background \u0026 Icon","梦角那里 ·":"Dream Corner there ·","小物管理":"Small Goods Management","把想说的话，悄悄写进字卡里。":"Whisper what you want to say into the card.","0 张":"0 sheets","即使字卡是中文，也用设置里的语言朗读":"Read aloud in the language in the settings, even if the word card is in Chinese","我的小物":"My gadgets","把两颗心，连成一条看得见的线":"Connect the two hearts into a visible line","把想说的话，放在字卡里。":"Put what you want to say in the font card.","同一天":"Same day","星期五":"Friday","进入软件背景":"Enter Software Background","楚河汉界":"Chu River Han Realm","上传照片":"Upload photo","初局 · 0 胜 0 负":"First round · 0 wins 0 losses","把房间调成你喜欢的光线":"Turn the room into the light you like","语言与翻译":"Language \u0026 Translation","MiniMax 语音":"MiniMax Voice","扭一扭，":"Twist,","尚未填写 MiniMax 配置":"MiniMax configuration has not been filled in","设置":"Settings","还没有字卡。写下第一句想让梦角对你说的话吧。":"No word cards yet.Write down the first sentence you want Dream Angle to say to you.","地图":"Map","25 分钟":"25 minutes","表情包 · 我的收藏":"Emote · My Favorites","打开陪伴模式":"Turn on companionship mode","陪伴设置":"Companionship Settings","标记":"Flag","字体气质":"Font Temperament","显示与阅读":"Display \u0026 Reading","五子棋":"Wuzi Chess","黑":"Black","写下今天的心情或小事，梦角会从你的字卡里挑一句，作为他的回信夹在日记里。":"Write down today\u0027s mood or little thing, and the dream corner will pick a sentence from your word card as his reply letter in his diary.","语录 100% · 小物 0%":"Quote 100% · Small 0%","语录池已备好":"Quote Pool Ready","深夜里的一层薄雾。适合把心事写得很轻，再交给梦角收好。":"A layer of mist in the middle of the night.It is suitable for writing down your thoughts very lightly, and then handing them over to the dream corner to be put away.","拾梦需要启用 JavaScript 才能运行。请允许 JavaScript 后刷新页面。":"Dreampicker requires JavaScript enabled to run.Please allow JavaScript to refresh the page.","朗读前先翻译成所选语言":"Translate to selected language before reading","圆":"Circle","让梦角抽字卡发一条":"Let Dream Corner draw a card","时间":"Time","梦角所有的回应，都从这里被拾起":"All the responses of Dream Corner were picked up from here.","拾梦":"Pick up a dream","播放列表":"Playlists","今天，也值得被记住":"Today, it is also worth remembering","搜索任意县市或国家，选好后地图会自动连出一条线，并算出大概距离。":"Search for any county or country, and the map will automatically connect a line and calculate the approximate distance.","管理字卡库":"Manage Word Card Library","写下来，让他读过再收好":"Write it down, let him read it and put it away","相册":"Albums","我发一条":"I\u0027ll send one","梦角会接管黑方。落子之后，给他一点思考的时间。":"Dream Horn will take over Black.After falling, give him some time to think.","张字卡":"Character Cards","导入壁纸":"Import Wallpaper","把这里，变成更像你们的地方":"Make this place more like yours.","预设主题":"Preset Theme","主题与壁纸":"Themes \u0026 Wallpapers","AI 托管中":"AI hosted","添加":"Add","在字卡里等你":"Waiting for you in the word card","音乐":"Music","主页背景":"Home Background","状态签名":"Status Signature","恢复默认":"Restore Defaults","选择位置":"Select location","正在字卡里等你":"Waiting for you in the word card","扭蛋池":"Gacha Pool","文件导入":"File Import","回复字号":"Reply Font Size","我们":"We","悔棋":"Regret Chess","导入数据备份":"Import Data Backup","柔雾玻璃":"Soft Mist Glass","柔和圆体":"Soft round body","棋局结束":"End OF the game","五":"Five","文艺宋体":"Literary and Artistic Arial","月雾":"Moon Fog","游戏":"Games","朋友圈":"Moments","消耗 MiniMax 语音额度":"Consume MiniMax voice credits","让TA写一篇":"Let TA write an article","摆件":"Ornaments","更多":"More","网站语言":"Website Language","一起做过的事":"What we\u0027ve done together","你执红先行。点击棋子，再点一个亮点落子。":"You hold on to red first.Click on a token, then click on a highlight.","天气":"Weather","清除":"Clear","再来一局":"One more game.","导入一首歌，或从歌单里选一首":"Import a song or pick one from your playlist","日记":"Diary","东京":"Tokyo","最近扭到":"Recently twisted to","自定义页面强调色":"Custom page accent color","上海":"Shanghai","想和 TA 一起":"I want to work with TA","上滑解锁":"Swipe Up to Unlock","强调色":"Accent color","星夜霓虹":"Starry Night Neon","干净黑体":"Clean Bold","纸感留白":"Whitespace on paper","导出我的数据":"Export my data","扭蛋":"Gacha","点此添加一个纪念日":"Click here to add an anniversary","把今天的一小段时间，留给彼此":"Give each other a little time today","你写下字卡，梦角从中拾起一句回应。":"You write a calligraphy card, and the dream corner picks up a response from it.","图片":"Image","邀请 TA 一起":"Invite TA together","同一片天空，不同的天气":"Same sky, different weather","本地时间":"Local time","翻译使用免费的在线翻译服务，失败时会退回原文。语音语言始终跟随上方「语言与翻译」里的选择。":"Translation uses a free online translation service that returns the original text if it fails.Voice language always follows the selection in “Language and Translation” above.","收到回复时自动朗读":"Speak automatically when you receive a response","自定义软件图标":"Custom Software Icons","还没有日子":"No days yet","梦角":"Dream Point","我":"Me","重开":"Reopen","壁纸":"Wallpaper","把遥远的时差，折成一句晚安":"Fold the distant jet lag into a good night","DREAMCARD ARCHIVE / 拾梦数据档案 / NO.2049":"Dreamcard archive/dream data archive/NO.2049","聊天背景":"Chat Background","遇到浏览器 CORS 时填写":"Fill in when encountering browser CORS","做成摆件":"Make ornaments","象":"Elephant","写下的每一张字卡，都会被他拾起。":"He would pick up every card he wrote down.","所有数据只保存在这台设备里。":"All data is saved in this device only.","让这一晚，有背景音":"Let this night have a background sound","恢复":"Restore","还没有播放":"Not played yet","数据与关于":"Data and about","世界的此刻":"At this moment in the world","宋":"Song","我们的日子":"Our days","高级 · 代理地址":"Advanced · Proxy address","导入歌单":"Importing a playlist","正在读取天空的实时数据…":"Reading live data from the sky…","只属于你和梦角的小小广场":"A small square just for you and the corner of your dreams","试听梦角的声音":"Listen to the sound of Dream Horn","随主题":"With Theme","中国象棋":"Chinese Chess","东京 21:00":"Tokyo 21:00","看看今天梦角想对你说什么。":"See what Dream Corner wants to say to you today.","梦角的名字":"Name of Dream Horn","收集和他有关的每一帧":"Collect every frame related to him","语录 · 小物 · 每日陪伴":"Quote · Small Item · Daily Companionship","从梦角的口袋里，摇出一点小幸运":"Shake a little luck out of the pocket of Dream Horn","陪伴":"Companionship","界面风格":"Interface style","天":"days","正在连接天空…":"Connecting to the sky...","0 次相遇":"0 encounters","这次多久":"How long this time","旅人":"Guests","切换后，界面文字会立即翻译成所选语言。你写的字卡、日记与消息保持原样。":"Once switched, the interface text is immediately translated into the selected language.The cards, journals, and messages you write remain the same.","重新观看新手教程":"Replay the beginner tutorial","新手教程":"Beginner tutorial"},"ru":{"和梦角一起，把日子过成一个小房间":"Превратите свои дни в маленькую комнату вместе с мечтой.","把心里的问题放在桌上，抽一张牌":"Положите вопрос из сердца на стол и вытяните карту.","占卜":"Гадание","把日子、生日和身体的小秘密放在一起":"Соберите вместе дни, дни рождения и маленькие тайны тела.","家园":"Дом","猜数字":"Угадай число","日历":"Календарь","10月24日 · 星期五 · 宜想念":"24 октября · Пятница · Скучаю","10月24日 · 星期五":"24 октября · Пятница","轮到你":"Твоя очередь","我的小宇宙":"Моя маленькая вселенная","字卡":"Карточка слова","和梦角下一局 · AI 托管":"И Dream Corner в следующем раунде · ИИ-хостинг","晚上好，":"Добрый вечер,","扭一颗":"Twist One","梦角的口袋":"Карманный рожок мечты","我写一篇":"Я напишу статью","月":"Месяц","我的名字":"Мое имя","头像大小":"Размер аватара","星星":"Звезда","清空":"Очистить","主题":"Тема","字卡内容保持原文":"Контент Wordcard остается на языке оригинала","拾梦 · 梦角字卡":"Пикап мечты · Карточка персонажа Dream Corner","计时器":"Таймер","连成五子":"Лянь Чэн У Цзы","导入歌曲":"Импортировать песни","清除全部本地数据":"Очистить все локальные данные","我的图片":"Мои рисунки","字卡库":"Библиотека карточек слов","管理":"Управление","添加城市":"Добавить город","AI 托管提示":"Советы по ИИ-хостингу","放入小物":"Положить в мелкие предметы","自定义背景与图标":"Пользовательский фон и значок","梦角那里 ·":"Dream Corner there ·","小物管理":"Управление мелкими товарами","把想说的话，悄悄写进字卡里。":"Прошепчи на карточке то, что хочешь сказать.","0 张":"0 листов","即使字卡是中文，也用设置里的语言朗读":"Читать вслух на языке в настройках, даже если карточка слова на китайском","我的小物":"Мои гаджеты","把两颗心，连成一条看得见的线":"Соедините два сердца в видимую линию","把想说的话，放在字卡里。":"Поместите то, что вы хотите сказать, в карточку шрифта.","同一天":"В тот же день","星期五":"Пятница","进入软件背景":"Введите фон программного обеспечения","楚河汉界":"Царство Хань реки Чу","上传照片":"Загрузить фото","初局 · 0 胜 0 负":"Первый раунд · 0 побед 0 поражений","把房间调成你喜欢的光线":"Превратите комнату в свет, который вам нравится","语言与翻译":"Язык и перевод","MiniMax 语音":"MiniMax Voice","扭一扭，":"Твист,","尚未填写 MiniMax 配置":"Конфигурация MiniMax не была заполнена","设置":"Настройки","还没有字卡。写下第一句想让梦角对你说的话吧。":"Пока нет карточек со словами.Запишите первое предложение, которое вы хотите услышать от Dream Angle.","地图":"Карта","25 分钟":"25 минут","表情包 · 我的收藏":"Эмоция · Мои избранные","打开陪伴模式":"Включить режим общения","陪伴设置":"Настройки общения","标记":"Флаг","字体气质":"Темперамент шрифта","显示与阅读":"Отображение и чтение","五子棋":"Wuzi Chess","黑":"Черный","写下今天的心情或小事，梦角会从你的字卡里挑一句，作为他的回信夹在日记里。":"Запишите сегодняшнее настроение или мелочь, и уголок сна выберет предложение из вашей карточки слов в качестве своего ответного письма в своем дневнике.","语录 100% · 小物 0%":"Цитата 100% · Маленький 0%","语录池已备好":"Пул расценок готов","深夜里的一层薄雾。适合把心事写得很轻，再交给梦角收好。":"Слой тумана посреди ночи.Он подходит для того, чтобы очень легко записывать свои мысли, а затем передавать их в угол мечты, чтобы их убрали.","拾梦需要启用 JavaScript 才能运行。请允许 JavaScript 后刷新页面。":"Для работы Dreampicker требуется включенный JavaScript.Разрешите JavaScript обновить страницу.","朗读前先翻译成所选语言":"Перевести на выбранный язык перед чтением","圆":"Круг","让梦角抽字卡发一条":"Позвольте Dream Corner взять карту","时间":"Время","梦角所有的回应，都从这里被拾起":"Все ответы Dream Corner были подобраны отсюда.","拾梦":"Возьмите мечту","播放列表":"Плейлисты","今天，也值得被记住":"Сегодня также стоит вспомнить","搜索任意县市或国家，选好后地图会自动连出一条线，并算出大概距离。":"Найдите любой округ или страну, и карта автоматически соединит линию и рассчитает приблизительное расстояние.","管理字卡库":"Управление библиотекой карточек Word","写下来，让他读过再收好":"Запишите, пусть прочитает и уберет","相册":"Альбомы","我发一条":"Я отправлю один","梦角会接管黑方。落子之后，给他一点思考的时间。":"Dream Horn возьмет верх над Black.После падения дайте ему время подумать.","张字卡":"Карточки персонажей","导入壁纸":"Импорт обоев","把这里，变成更像你们的地方":"Сделайте это жилье похожим на ваше.","预设主题":"Предустановленная тема","主题与壁纸":"Темы и обои","AI 托管中":"ИИ-хостинг","添加":"Добавить","在字卡里等你":"Жду тебя в карточке слова","音乐":"Музыка","主页背景":"Справочная информация о жилье","状态签名":"Статус Подпись","恢复默认":"Восстановить значения по умолчанию","选择位置":"Выберите местоположение","正在字卡里等你":"Жду тебя в карточке слова","扭蛋池":"Бассейн Гача","文件导入":"Импорт файлов","回复字号":"Размер шрифта ответа","我们":"Мы","悔棋":"Сожалеем о шахматах","导入数据备份":"Импорт резервной копии данных","柔雾玻璃":"Мягкое туманное стекло","柔和圆体":"Мягкий круглый корпус","棋局结束":"Конец игры","五":"Пять","文艺宋体":"Литературно-художественный Arial","月雾":"Лунный туман","游戏":"Игры","朋友圈":"Моменты","消耗 MiniMax 语音额度":"Использовать голосовые кредиты MiniMax","让TA写一篇":"Пусть ЦА напишет статью","摆件":"Украшения","更多":"Еще","网站语言":"Язык веб-сайта","一起做过的事":"Что мы сделали вместе","你执红先行。点击棋子，再点一个亮点落子。":"Сначала держись за красный.Нажмите на маркер, а затем нажмите на выделение.","天气":"Погода","清除":"Очистить","再来一局":"Еще одна игра.","导入一首歌，或从歌单里选一首":"Импортируйте песню или выберите ее из плейлиста","日记":"Дневник","东京":"Токио","最近扭到":"Недавно скрученный в","自定义页面强调色":"Пользовательский цвет акцента страницы","上海":"Шанхай","想和 TA 一起":"Хочу работать с ЦА","上滑解锁":"Проведите пальцем вверх, чтобы разблокировать","强调色":"Цвет акцента","星夜霓虹":"Неон «Звездная ночь»","干净黑体":"Чистый полужирный","纸感留白":"Пробел на бумаге","导出我的数据":"Экспортировать мои данные","扭蛋":"Гача","点此添加一个纪念日":"Нажмите здесь, чтобы добавить годовщину","把今天的一小段时间，留给彼此":"Дайте друг другу немного времени сегодня","你写下字卡，梦角从中拾起一句回应。":"Вы пишете каллиграфическую открытку, и уголок мечты подбирает отклик от нее.","图片":"Изображение","邀请 TA 一起":"Пригласите ЦА вместе","同一片天空，不同的天气":"То же небо, другая погода","本地时间":"Местное время","翻译使用免费的在线翻译服务，失败时会退回原文。语音语言始终跟随上方「语言与翻译」里的选择。":"Перевод использует бесплатный онлайн-сервис перевода, который возвращает исходный текст, если он терпит неудачу.Язык голоса всегда следует за выбором в разделе «Язык и перевод» выше.","收到回复时自动朗读":"Говорите автоматически, когда получаете ответ","自定义软件图标":"Пользовательские значки программного обеспечения","还没有日子":"Дней пока нет","梦角":"Dream Point","我":"Я","重开":"Открыть заново","壁纸":"Обои","把遥远的时差，折成一句晚安":"Сложите дальнюю смену часовых поясов в спокойную ночь","DREAMCARD ARCHIVE / 拾梦数据档案 / NO.2049":"Архив Dreamcard/архив данных Dream/№ 2049","聊天背景":"Фон чата","遇到浏览器 CORS 时填写":"Заполните при обнаружении CORS браузера","做成摆件":"Делайте украшения","象":"Слон","写下的每一张字卡，都会被他拾起。":"Он забирал каждую открытку, которую записывал.","所有数据只保存在这台设备里。":"Все данные сохраняются только на этом устройстве.","让这一晚，有背景音":"Позвольте этой ночи иметь фоновый звук","恢复":"Восстановить","还没有播放":"Еще не сыграно","数据与关于":"Данные и около","世界的此刻":"В этот момент в мире","宋":"Песня","我们的日子":"Наши дни","高级 · 代理地址":"Дополнительно · Адрес прокси-сервера","导入歌单":"Импорт плейлиста","正在读取天空的实时数据…":"Чтение данных в реальном времени с неба...","只属于你和梦角的小小广场":"Небольшая площадь только для вас и уголок вашей мечты","试听梦角的声音":"Слушайте звук Dream Horn","随主题":"С темой","中国象棋":"Китайские шахматы","东京 21:00":"Токио 21:00","看看今天梦角想对你说什么。":"Посмотрите, что Dream Corner хочет сказать вам сегодня.","梦角的名字":"Название Dream Horn","收集和他有关的每一帧":"Соберите все кадры, связанные с ним","语录 · 小物 · 每日陪伴":"Цитата · Маленький предмет · Ежедневное общение","从梦角的口袋里，摇出一点小幸运":"Вытрясите немного удачи из кармана Dream Horn","陪伴":"Общение","界面风格":"Стиль интерфейса","天":"дней","正在连接天空…":"Соединение с небом...","0 次相遇":"0 встреч","这次多久":"Как долго на этот раз","旅人":"Гости","切换后，界面文字会立即翻译成所选语言。你写的字卡、日记与消息保持原样。":"После переключения текст интерфейса немедленно переводится на выбранный язык.Карточки, журналы и сообщения, которые вы пишете, остаются прежними.","重新观看新手教程":"Посмотреть обучение снова","新手教程":"Обучение"},"es":{"和梦角一起，把日子过成一个小房间":"Convierte tus días en una pequeña habitación, junto a tu sueño.","把心里的问题放在桌上，抽一张牌":"Pon sobre la mesa la pregunta de tu corazón y saca una carta.","占卜":"Adivinación","把日子、生日和身体的小秘密放在一起":"Reúne tus días, cumpleaños y los pequeños secretos del cuerpo.","家园":"Hogar","猜数字":"Adivina el número","日历":"Calendario","10月24日 · 星期五 · 宜想念":"24 de octubre · Viernes · Falta","10月24日 · 星期五":"24 de octubre · Viernes","轮到你":"Es tu turno","我的小宇宙":"My Little Universe","字卡":"Tarjeta de palabras","和梦角下一局 · AI 托管":"And Dream Corner Next Round · Alojamiento con IA","晚上好，":"Buenas noches,","扭一颗":"Twist One","梦角的口袋":"Bolsillo de cuerno de ensueño","我写一篇":"Escribiré un artículo","月":"Mes","我的名字":"Mi nombre","头像大小":"Tamaño del avatar","星星":"Estrella","清空":"Borrar","主题":"Asunto","字卡内容保持原文":"El contenido de la tarjeta de palabras permanece en su idioma original","拾梦 · 梦角字卡":"Recogida de sueños · Tarjeta de personaje de Dream Corner","计时器":"Temporizador","连成五子":"Lian Cheng Wu Zi","导入歌曲":"Importar canciones","清除全部本地数据":"Borrar todos los datos locales","我的图片":"Mis imágenes","字卡库":"Biblioteca de tarjetas de palabras","管理":"Gestionar","添加城市":"Añadir ciudad","AI 托管提示":"Consejos para anfitriones con IA","放入小物":"Coloca artículos pequeños","自定义背景与图标":"Fondo e icono personalizados","梦角那里 ·":"Dream Corner allí ·","小物管理":"Gestión de Pequeñas Mercancías","把想说的话，悄悄写进字卡里。":"Susurra lo que quieres decir en la tarjeta.","0 张":"0 hojas","即使字卡是中文，也用设置里的语言朗读":"Leer en voz alta en el idioma en la configuración, incluso si la tarjeta de palabras está en chino","我的小物":"Mis gadgets","把两颗心，连成一条看得见的线":"Conecta los dos corazones en una línea visible","把想说的话，放在字卡里。":"Ponga lo que quiere decir en la tarjeta de fuentes.","同一天":"El mismo día","星期五":"Viernes","进入软件背景":"Introduzca el fondo del software","楚河汉界":"Reino Han del río Chu","上传照片":"Subir foto","初局 · 0 胜 0 负":"Primera ronda · 0 victorias 0 derrotas","把房间调成你喜欢的光线":"Convierte la habitación en la luz que más te guste","语言与翻译":"Idioma y traducción","MiniMax 语音":"MiniMax Voice","扭一扭，":"Twist,","尚未填写 MiniMax 配置":"La configuración de MiniMax no se ha completado","设置":"Ajustes","还没有字卡。写下第一句想让梦角对你说的话吧。":"Todavía no hay tarjetas de palabras.Escribe la primera oración que quieres que Dream Angle te diga.","地图":"Mapa","25 分钟":"25 minutos","表情包 · 我的收藏":"Gesto · Mis favoritos","打开陪伴模式":"Activar el modo de compañerismo","陪伴设置":"Configuración de Acompañamiento","标记":"Marcar","字体气质":"Temperamento de la fuente","显示与阅读":"Mostrar y leer","五子棋":"Ajedrez wuzi","黑":"Negro","写下今天的心情或小事，梦角会从你的字卡里挑一句，作为他的回信夹在日记里。":"Escriba el estado de ánimo de hoy o algo pequeño, y el rincón de los sueños elegirá una oración de su tarjeta de palabras como su carta de respuesta en su diario.","语录 100% · 小物 0%":"Presupuesto 100% · Pequeño 0%","语录池已备好":"Grupo de presupuestos listo","深夜里的一层薄雾。适合把心事写得很轻，再交给梦角收好。":"Una capa de niebla en medio de la noche.Es adecuado para escribir tus pensamientos a la ligera y luego entregarlos al rincón de los sueños para que los guardes.","拾梦需要启用 JavaScript 才能运行。请允许 JavaScript 后刷新页面。":"Dreampicker requiere JavaScript habilitado para ejecutarse.Por favor, permita que JavaScript actualice la página.","朗读前先翻译成所选语言":"Traducir al idioma seleccionado antes de leer","圆":"Círculo","让梦角抽字卡发一条":"Deja que Dream Corner robe una carta","时间":"Hora","梦角所有的回应，都从这里被拾起":"Todas las respuestas de Dream Corner fueron recogidas desde aquí.","拾梦":"Recoge un sueño","播放列表":"Listas de reproducción","今天，也值得被记住":"Hoy en día, también vale la pena recordar","搜索任意县市或国家，选好后地图会自动连出一条线，并算出大概距离。":"Busca cualquier condado o país, y el mapa conectará automáticamente una línea y calculará la distancia aproximada.","管理字卡库":"Gestionar la biblioteca de tarjetas de palabras","写下来，让他读过再收好":"Escríbelo, déjalo leerlo y guárdalo","相册":"Álbumes","我发一条":"Enviaré uno","梦角会接管黑方。落子之后，给他一点思考的时间。":"Dream Horn se hará cargo de Black.Después de caer, dale tiempo para pensar.","张字卡":"Tarjetas de personaje","导入壁纸":"Importar fondo de pantalla","把这里，变成更像你们的地方":"Haz que este lugar sea más como el tuyo.","预设主题":"Tema preestablecido","主题与壁纸":"Temas y fondos de pantalla","AI 托管中":"AI alojado","添加":"Añadir","在字卡里等你":"Esperándote en la tarjeta de palabras","音乐":"Música","主页背景":"Fondo del alojamiento","状态签名":"Firma del estado","恢复默认":"Restaurar valores predeterminados","选择位置":"Seleccionar ubicación","正在字卡里等你":"Esperándote en la tarjeta de palabras","扭蛋池":"Gacha Pool","文件导入":"Importación de archivos","回复字号":"Tamaño de fuente de respuesta","我们":"Nosotros","悔棋":"Arrepentimiento Ajedrez","导入数据备份":"Importar copia de seguridad de datos","柔雾玻璃":"Vidrio de niebla suave","柔和圆体":"Cuerpo redondo suave","棋局结束":"Fin del juego","五":"Cinco","文艺宋体":"Literaria y Artística Arial","月雾":"Niebla lunar","游戏":"Juegos","朋友圈":"Momentos","消耗 MiniMax 语音额度":"Consumir créditos de voz MiniMax","让TA写一篇":"Deje que TA escriba un artículo","摆件":"Adornos","更多":"Más","网站语言":"Idioma del sitio web","一起做过的事":"Lo que hemos hecho juntos","你执红先行。点击棋子，再点一个亮点落子。":"Primero te aferras al rojo.Haz clic en un token y, a continuación, haz clic en un punto destacado.","天气":"Clima","清除":"Borrar","再来一局":"Una partida más.","导入一首歌，或从歌单里选一首":"Importa una canción o elige una de tu lista de reproducción","日记":"Diario","东京":"Tokio","最近扭到":"Recientemente torcido a","自定义页面强调色":"Color de acento de página personalizado","上海":"Shanghái","想和 TA 一起":"Quiero trabajar con TA","上滑解锁":"Desliza hacia arriba para desbloquear","强调色":"Color de acento","星夜霓虹":"Noche estrellada de neón","干净黑体":"Clean Bold","纸感留白":"Espacios en blanco sobre papel","导出我的数据":"Exportar mis datos","扭蛋":"Gacha","点此添加一个纪念日":"Haz clic aquí para añadir un aniversario","把今天的一小段时间，留给彼此":"Dense un poco de tiempo el uno al otro hoy","你写下字卡，梦角从中拾起一句回应。":"Escribes una tarjeta de caligrafía y el rincón de los sueños recibe una respuesta de ella.","图片":"Imagen","邀请 TA 一起":"Invitar a TA juntos","同一片天空，不同的天气":"Mismo cielo, clima diferente","本地时间":"Hora local","翻译使用免费的在线翻译服务，失败时会退回原文。语音语言始终跟随上方「语言与翻译」里的选择。":"Translation utiliza un servicio de traducción en línea gratuito que devuelve el texto original si falla.El idioma de voz siempre sigue la selección en \"Idioma y traducción\" anterior.","收到回复时自动朗读":"Habla automáticamente cuando recibas una respuesta","自定义软件图标":"Iconos de software personalizados","还没有日子":"Aún no hay días","梦角":"Dream Point","我":"Me","重开":"Reabrir","壁纸":"Fondo de pantalla","把遥远的时差，折成一句晚安":"Dobla el jet lag distante en una buena noche","DREAMCARD ARCHIVE / 拾梦数据档案 / NO.2049":"Archivo Dreamcard/archivo DE datos Dream/NO.2049","聊天背景":"Fondo del chat","遇到浏览器 CORS 时填写":"Rellenar cuando se encuentre con el CORS del navegador","做成摆件":"Hacer adornos","象":"Elefante","写下的每一张字卡，都会被他拾起。":"Recogía cada tarjeta que escribía.","所有数据只保存在这台设备里。":"Todos los datos se guardan solo en este dispositivo.","让这一晚，有背景音":"Deja que esta noche tenga un sonido de fondo","恢复":"Restaurar","还没有播放":"Aún no se ha jugado","数据与关于":"Datos y sobre","世界的此刻":"En este momento en el mundo","宋":"Canción","我们的日子":"Nuestros días","高级 · 代理地址":"Avanzado · Dirección proxy","导入歌单":"Importar una lista de reproducción","正在读取天空的实时数据…":"Leyendo datos en vivo desde el cielo...","只属于你和梦角的小小广场":"Un pequeño cuadrado solo para ti y el rincón de tus sueños","试听梦角的声音":"Escucha el sonido de Dream Horn","随主题":"Con tema","中国象棋":"Ajedrez chino","东京 21:00":"Tokio 21:00","看看今天梦角想对你说什么。":"Mira lo que Dream Corner quiere decirte hoy.","梦角的名字":"Nombre de Dream Horn","收集和他有关的每一帧":"Recoge todos los marcos relacionados con él","语录 · 小物 · 每日陪伴":"Presupuesto · Artículo pequeño · Acompañamiento diario","从梦角的口袋里，摇出一点小幸运":"Sacude un poco de suerte del bolsillo de Dream Horn","陪伴":"Acompañamiento","界面风格":"Estilo de interfaz","天":"días","正在连接天空…":"Conectando con el cielo...","0 次相遇":"0 encuentros","这次多久":"Cuánto tiempo esta vez","旅人":"Huéspedes","切换后，界面文字会立即翻译成所选语言。你写的字卡、日记与消息保持原样。":"Una vez cambiado, el texto de la interfaz se traduce inmediatamente al idioma seleccionado.Las tarjetas, diarios y mensajes que escribes siguen siendo los mismos.","重新观看新手教程":"Ver tutorial de inicio de nuevo","新手教程":"Tutorial de inicio"}};
 
   const I18N_TTS = {
@@ -4168,6 +4433,200 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
     Object.assign(I18N_CORE[lang], I18N_TTS[lang]);
   });
 
+  const I18N_FEATURE_KEYS = [
+    '回复消息（字卡）的时间', '最多', '每次回复会在 1 秒到这个时间之间随机到达。',
+    '在字卡里翻找…', '正在翻字卡…', '问一问', '你的问题', '选择方式', '单选', '多选', '选项',
+    '添加选项', '发出问题', '先写下你的问题', '至少写两个选项', '至少写两个不同的选项',
+    '最多 8 个选项', '等 TA 选…', 'TA 已选', '选中', '梦角正在看你的选项…', '梦角选了', '项',
+    '电话', '正在呼叫…', '来电', '通话中', '聆听中 · 说点什么吧', '接听', '拒绝', '挂断',
+    '聆听', '聆听已开启', '已关闭聆听，现在是普通通话',
+    '当前浏览器不支持语音识别，请使用 Chrome 或 Edge', '麦克风权限被拒绝，聆听已关闭',
+    '通话已结束', '已取消呼叫', '已拒绝来电', '未接来电', '挂断了电话', '最小化', '来自字卡',
+    '让 TA 偶尔打电话给你', '关闭后梦角不会主动来电',
+    '字卡库里还没有可用的字卡，先写几张吧', '没有可用的字卡了',
+    '写下问题，再给梦角几个可以挑的答案。', '例如：今晚想一起做什么？', '至少 2 个',
+    '语音识别语言跟随网站语言'
+  ];
+  const I18N_FEATURE_ROWS = {
+    en: [
+      'Reply time (word card)', 'Up to', 'Each reply arrives at a random time between 1 second and this limit.',
+      'Searching the cards…', 'Flipping through cards…', 'Ask', 'Your question', 'Answer mode', 'Single choice',
+      'Multiple choice', 'Options', 'Add option', 'Send question', 'Write your question first',
+      'Write at least two options', 'Write at least two different options', 'Up to 8 options',
+      'Waiting for TA…', 'TA has chosen', 'Chosen', 'Dream is looking at your options…', 'Dream chose',
+      'item(s)', 'Call', 'Calling…', 'Incoming call', 'On call', 'Listening · say something',
+      'Answer', 'Decline', 'Hang up', 'Listening', 'Listening is on',
+      'Listening is off. This is a normal call now.',
+      'Speech recognition is not supported in this browser. Please use Chrome or Edge.',
+      'Microphone permission was denied. Listening is off.', 'Call ended', 'Call cancelled',
+      'Call declined', 'Missed call', 'hung up the phone', 'Minimize', 'FROM CARD',
+      'Let TA call you sometimes', 'When off, TA will not call you first',
+      'There are no available cards yet. Write a few first.', 'No available cards left',
+      'Write a question, then give Dream a few answers to choose from.',
+      'For example: What shall we do tonight?', 'At least 2', 'Speech recognition follows the site language'
+    ],
+    ja: [
+      '返信時間（カード）', '最大', '返信は1秒からこの時間までのランダムなタイミングで届きます。',
+      'カードを探しています…', 'カードをめくっています…', '質問する', 'あなたの質問', '選択方式',
+      '単一選択', '複数選択', '選択肢', '選択肢を追加', '質問を送る', '先に質問を書いてください',
+      '選択肢を2つ以上書いてください', '異なる選択肢を2つ以上書いてください', '選択肢は最大8個まで',
+      'TAの選択を待っています…', 'TAが選びました', '選択済み', '夢角が選択肢を見ています…',
+      '夢角が選んだのは', '項目', '電話', '発信中…', '着信', '通話中', '聞き取り中 · 何か話してね',
+      '応答', '拒否', '終了', '聞き取り', '聞き取りをオンにしました',
+      '聞き取りをオフにしました。通常の通話です。',
+      'このブラウザは音声認識に対応していません。Chrome または Edge をご利用ください。',
+      'マイクの許可が拒否されました。聞き取りをオフにしました。', '通話が終了しました',
+      '発信をキャンセルしました', '着信を拒否しました', '不在着信', 'が電話を切りました', '最小化',
+      'カードから', 'TAから時々電話がかかってくる', 'オフにすると、夢角から電話はかかってきません',
+      '使えるカードがまだありません。先に何枚か書いてください。', '使えるカードがなくなりました',
+      '質問を書いて、夢角に選んでほしい答えをいくつか用意してください。',
+      '例：今夜は一緒に何をしよう？', '2つ以上', '音声認識の言語はサイトの言語に合わせます'
+    ],
+    ko: [
+      '답장 시간(카드)', '최대', '답장은 1초부터 이 시간 사이의 무작위 시점에 도착합니다.',
+      '카드를 찾는 중…', '카드를 넘기는 중…', '질문하기', '당신의 질문', '선택 방식', '단일 선택',
+      '복수 선택', '선택지', '선택지 추가', '질문 보내기', '먼저 질문을 적어 주세요',
+      '선택지를 두 개 이상 적어 주세요', '서로 다른 선택지를 두 개 이상 적어 주세요',
+      '선택지는 최대 8개까지', 'TA의 선택을 기다리는 중…', 'TA가 선택했어요', '선택됨',
+      '몽각이 선택지를 보고 있어요…', '몽각이 고른 것', '개', '전화', '거는 중…', '전화 왔어요',
+      '통화 중', '듣는 중 · 무슨 말이든 해 봐', '받기', '거절', '끊기', '듣기',
+      '듣기를 켰어요', '듣기를 껐어요. 지금은 일반 통화입니다.',
+      '이 브라우저는 음성 인식을 지원하지 않습니다. Chrome 또는 Edge를 사용해 주세요.',
+      '마이크 권한이 거부되어 듣기를 껐어요.', '통화가 종료되었어요', '발신을 취소했어요',
+      '전화를 거절했어요', '부재중 전화', '이/가 전화를 끊었어요', '최소화', '카드에서',
+      'TA가 가끔 먼저 전화하게 하기', '끄면 몽각이 먼저 전화하지 않아요',
+      '사용할 수 있는 카드가 아직 없어요. 먼저 몇 장 적어 주세요.', '사용할 수 있는 카드가 없어요',
+      '질문을 적고, 몽각이 고를 수 있는 답을 몇 개 준비해 주세요.',
+      '예: 오늘 밤 같이 뭐 할까?', '2개 이상', '음성 인식 언어는 사이트 언어를 따릅니다'
+    ],
+    fr: [
+      'Délai de réponse (carte)', "Jusqu'à", 'Chaque réponse arrive à un moment aléatoire entre 1 seconde et cette limite.',
+      'Je cherche dans les cartes…', 'Je feuillette les cartes…', 'Poser une question', 'Votre question',
+      'Mode de réponse', 'Choix unique', 'Choix multiple', 'Options', 'Ajouter une option',
+      'Envoyer la question', "Écrivez d'abord votre question", 'Écrivez au moins deux options',
+      'Écrivez au moins deux options différentes', '8 options maximum', 'En attente du choix de TA…',
+      'TA a choisi', 'Choisi', 'Dream regarde vos options…', 'Dream a choisi', 'élément(s)', 'Appel',
+      'Appel en cours…', 'Appel entrant', 'En ligne', 'Écoute · dis quelque chose', 'Répondre',
+      'Refuser', 'Raccrocher', 'Écoute', "L'écoute est activée",
+      "L'écoute est désactivée. C'est un appel normal maintenant.",
+      "La reconnaissance vocale n'est pas prise en charge par ce navigateur. Utilisez Chrome ou Edge.",
+      "L'autorisation du micro a été refusée. L'écoute est désactivée.", 'Appel terminé',
+      'Appel annulé', 'Appel refusé', 'Appel manqué', 'a raccroché', 'Réduire', 'DEPUIS UNE CARTE',
+      "Laisser TA t'appeler parfois", "Si désactivé, Dream ne t'appellera pas en premier",
+      "Aucune carte disponible pour l'instant. Écrivez-en d'abord quelques-unes.",
+      'Plus aucune carte disponible',
+      'Écrivez une question, puis proposez quelques réponses à Dream.',
+      'Par exemple : On fait quoi ce soir ?', 'Au moins 2',
+      'La langue de reconnaissance vocale suit celle du site'
+    ],
+    de: [
+      'Antwortzeit (Karte)', 'Bis zu', 'Jede Antwort kommt zu einem zufälligen Zeitpunkt zwischen 1 Sekunde und diesem Limit.',
+      'Ich suche in den Karten…', 'Ich blättere durch die Karten…', 'Fragen', 'Deine Frage',
+      'Antwortmodus', 'Einzelauswahl', 'Mehrfachauswahl', 'Optionen', 'Option hinzufügen',
+      'Frage senden', 'Schreib zuerst deine Frage', 'Schreib mindestens zwei Optionen',
+      'Schreib mindestens zwei verschiedene Optionen', 'Maximal 8 Optionen', 'Warte auf TAs Wahl…',
+      'TA hat gewählt', 'Ausgewählt', 'Dream sieht sich deine Optionen an…', 'Dream hat gewählt',
+      'Eintrag/Einträge', 'Anruf', 'Rufe an…', 'Eingehender Anruf', 'Im Gespräch',
+      'Hören · sag etwas', 'Annehmen', 'Ablehnen', 'Auflegen', 'Zuhören',
+      'Zuhören ist an', 'Zuhören ist aus. Das ist jetzt ein normaler Anruf.',
+      'Spracherkennung wird von diesem Browser nicht unterstützt. Bitte Chrome oder Edge verwenden.',
+      'Mikrofonzugriff wurde verweigert. Zuhören ist aus.', 'Anruf beendet', 'Anruf abgebrochen',
+      'Anruf abgelehnt', 'Verpasster Anruf', 'hat aufgelegt', 'Minimieren', 'AUS KARTE',
+      'TA dich manchmal anrufen lassen', 'Wenn aus, ruft Dream dich nicht von sich aus an',
+      'Es gibt noch keine verfügbaren Karten. Schreib zuerst ein paar.',
+      'Keine verfügbaren Karten mehr',
+      'Schreib eine Frage und gib Dream ein paar Antworten zur Auswahl.',
+      'Zum Beispiel: Was machen wir heute Abend?', 'Mindestens 2',
+      'Die Sprache der Spracherkennung folgt der Website-Sprache'
+    ],
+    es: [
+      'Tiempo de respuesta (carta)', 'Hasta', 'Cada respuesta llega en un momento aleatorio entre 1 segundo y este límite.',
+      'Buscando entre las cartas…', 'Pasando las cartas…', 'Preguntar', 'Tu pregunta',
+      'Modo de respuesta', 'Opción única', 'Opción múltiple', 'Opciones', 'Añadir opción',
+      'Enviar pregunta', 'Escribe primero tu pregunta', 'Escribe al menos dos opciones',
+      'Escribe al menos dos opciones diferentes', 'Máximo 8 opciones',
+      'Esperando la elección de TA…', 'TA ha elegido', 'Elegido', 'Dream está mirando tus opciones…',
+      'Dream eligió', 'elemento(s)', 'Llamada', 'Llamando…', 'Llamada entrante', 'En llamada',
+      'Escuchando · di algo', 'Contestar', 'Rechazar', 'Colgar', 'Escuchando',
+      'La escucha está activada', 'La escucha está desactivada. Ahora es una llamada normal.',
+      'Este navegador no admite reconocimiento de voz. Usa Chrome o Edge.',
+      'Se denegó el permiso del micrófono. La escucha está desactivada.', 'Llamada finalizada',
+      'Llamada cancelada', 'Llamada rechazada', 'Llamada perdida', 'colgó la llamada', 'Minimizar',
+      'DE UNA CARTA', 'Dejar que TA te llame a veces', 'Si se desactiva, Dream no te llamará primero',
+      'Aún no hay cartas disponibles. Escribe algunas primero.', 'No quedan cartas disponibles',
+      'Escribe una pregunta y dale a Dream algunas respuestas para elegir.',
+      'Por ejemplo: ¿Qué hacemos esta noche?', 'Al menos 2',
+      'El idioma del reconocimiento de voz sigue el idioma del sitio'
+    ],
+    ru: [
+      'Время ответа (карточка)', 'До', 'Каждый ответ приходит в случайный момент от 1 секунды до этого предела.',
+      'Ищу среди карточек…', 'Перелистываю карточки…', 'Спросить', 'Твой вопрос', 'Режим ответа',
+      'Один вариант', 'Несколько вариантов', 'Варианты', 'Добавить вариант', 'Отправить вопрос',
+      'Сначала напиши вопрос', 'Напиши хотя бы два варианта', 'Напиши хотя бы два разных варианта',
+      'Не более 8 вариантов', 'Жду выбора TA…', 'TA выбрал(а)', 'Выбрано',
+      'Dream смотрит на твои варианты…', 'Dream выбрал(а)', 'пункт(ов)', 'Звонок', 'Звоню…',
+      'Входящий звонок', 'Разговор', 'Слушаю · скажи что-нибудь', 'Ответить', 'Отклонить',
+      'Положить трубку', 'Слушать', 'Слушание включено',
+      'Слушание выключено. Теперь это обычный звонок.',
+      'Этот браузер не поддерживает распознавание речи. Используй Chrome или Edge.',
+      'Доступ к микрофону отклонён. Слушание выключено.', 'Звонок завершён',
+      'Звонок отменён', 'Звонок отклонён', 'Пропущенный звонок', 'положил(а) трубку', 'Свернуть',
+      'ИЗ КАРТОЧКИ', 'Пусть TA иногда звонит тебе', 'Если выключено, Dream не будет звонить первым',
+      'Пока нет доступных карточек. Сначала напиши несколько.',
+      'Доступных карточек больше нет',
+      'Напиши вопрос и предложи Dream несколько вариантов ответа.',
+      'Например: Что будем делать сегодня вечером?', 'Не менее 2',
+      'Язык распознавания речи следует языку сайта'
+    ],
+    it: [
+      'Tempo di risposta (carta)', 'Fino a', 'Ogni risposta arriva in un momento casuale tra 1 secondo e questo limite.',
+      'Sto cercando tra le carte…', 'Sto sfogliando le carte…', 'Chiedi', 'La tua domanda',
+      'Modo di risposta', 'Scelta singola', 'Scelta multipla', 'Opzioni', 'Aggiungi opzione',
+      'Invia domanda', 'Scrivi prima la tua domanda', 'Scrivi almeno due opzioni',
+      'Scrivi almeno due opzioni diverse', 'Massimo 8 opzioni', 'In attesa della scelta di TA…',
+      'TA ha scelto', 'Scelto', 'Dream sta guardando le tue opzioni…', 'Dream ha scelto',
+      'elemento/i', 'Chiamata', 'Sto chiamando…', 'Chiamata in arrivo', 'In chiamata',
+      'In ascolto · di\u2019 qualcosa', 'Rispondi', 'Rifiuta', 'Riaggancia', 'In ascolto',
+      'L\u2019ascolto è attivo', 'L\u2019ascolto è disattivato. Ora è una chiamata normale.',
+      'Questo browser non supporta il riconoscimento vocale. Usa Chrome o Edge.',
+      'Il permesso del microfono è stato negato. L\u2019ascolto è disattivato.',
+      'Chiamata terminata', 'Chiamata annullata', 'Chiamata rifiutata', 'Chiamata persa',
+      'ha riagganciato', 'Riduci', 'DA UNA CARTA', 'Lascia che TA ti chiami ogni tanto',
+      'Se disattivato, Dream non ti chiamerà per primo',
+      'Non ci sono ancora carte disponibili. Scrivine prima alcune.',
+      'Nessuna carta disponibile',
+      'Scrivi una domanda e offri a Dream alcune risposte tra cui scegliere.',
+      'Per esempio: Cosa facciamo stasera?', 'Almeno 2',
+      'La lingua del riconoscimento vocale segue quella del sito'
+    ],
+    pt: [
+      'Tempo de resposta (carta)', 'Até', 'Cada resposta chega num momento aleatório entre 1 segundo e este limite.',
+      'A procurar entre as cartas…', 'A folhear as cartas…', 'Perguntar', 'A tua pergunta',
+      'Modo de resposta', 'Escolha única', 'Escolha múltipla', 'Opções', 'Adicionar opção',
+      'Enviar pergunta', 'Escreve primeiro a tua pergunta', 'Escreve pelo menos duas opções',
+      'Escreve pelo menos duas opções diferentes', 'Máximo de 8 opções',
+      'À espera da escolha de TA…', 'TA escolheu', 'Escolhido', 'Dream está a ver as tuas opções…',
+      'Dream escolheu', 'item(ns)', 'Chamada', 'A ligar…', 'Chamada recebida', 'Em chamada',
+      'A ouvir · diz alguma coisa', 'Atender', 'Recusar', 'Desligar', 'A ouvir',
+      'A escuta está ligada', 'A escuta está desligada. Agora é uma chamada normal.',
+      'Este navegador não suporta reconhecimento de voz. Usa Chrome ou Edge.',
+      'A permissão do microfone foi negada. A escuta está desligada.', 'Chamada terminada',
+      'Chamada cancelada', 'Chamada recusada', 'Chamada perdida', 'desligou', 'Minimizar',
+      'DE UMA CARTA', 'Deixar TA ligar-te às vezes', 'Se desligado, Dream não te ligará primeiro',
+      'Ainda não há cartas disponíveis. Escreve algumas primeiro.', 'Já não há cartas disponíveis',
+      'Escreve uma pergunta e dá ao Dream algumas respostas para escolher.',
+      'Por exemplo: O que fazemos esta noite?', 'Pelo menos 2',
+      'O idioma do reconhecimento de voz segue o idioma do site'
+    ]
+  };
+  Object.keys(I18N_FEATURE_ROWS).forEach(lang => {
+    if (!I18N_CORE[lang]) I18N_CORE[lang] = {};
+    I18N_FEATURE_ROWS[lang].forEach((value, index) => {
+      const key = I18N_FEATURE_KEYS[index];
+      if (key && value) I18N_CORE[lang][key] = value;
+    });
+  });
+
   /* ---------------- 多语言 ---------------- */
   const I18N_CACHE_KEY = 'mengcard.i18n.cache.v1';
   let i18nCache = {};
@@ -4183,6 +4642,9 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
     try { localStorage.setItem(I18N_CACHE_KEY, JSON.stringify(i18nCache)); } catch (e) {}
   }
   function hasHan(str) { return /[\u3400-\u9fff]/.test(str); }
+  function t(str) {
+    return translateUIString(str, (state && state.settings && state.settings.language) || 'zh');
+  }
   function translateUIString(str, langId) {
     if (langId === 'zh') return str;
     const core = I18N_CORE[langId];
@@ -5363,7 +5825,10 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
         ],
         lastTrackId: '',
         companionAuto: true,
-        companionFrequency: 'normal'
+        companionFrequency: 'normal',
+        dreamCallAuto: true,
+        replyDelayMax: 5,
+        callReplyDelay: 5
       },
       cards: [],
       messages: [],
@@ -5399,6 +5864,12 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
         pending: null,
         nextAutoAt: 0
       },
+      chat: {
+        pendingReply: null,
+        nextDreamCallAt: 0,
+        call: null,
+        lastCallAt: 0
+      },
       map: {
         region: 'world',
         user: { name: '上海', admin1: '上海市', country: '中国', lat: 31.2304, lon: 121.4737, marker: 'star', mediaId: '' },
@@ -5416,10 +5887,35 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
         cycle: 28,
         periodLength: 5,
         mode: 'normal'
-      },
-      tarot: {
-        history: []
       }
+    };
+  }
+
+  function normalizeAskData(raw) {
+    if (!raw || typeof raw !== 'object') return null;
+    const options = (Array.isArray(raw.options) ? raw.options : []).map((opt, index) => {
+      if (typeof opt === 'string') {
+        const text = opt.trim().slice(0, 120);
+        return text ? { id: uid('opt'), text } : null;
+      }
+      if (opt && typeof opt.text === 'string' && opt.text.trim()) {
+        return {
+          id: typeof opt.id === 'string' && opt.id ? opt.id : uid('opt'),
+          text: opt.text.trim().slice(0, 120)
+        };
+      }
+      return null;
+    }).filter(Boolean).slice(0, 8);
+    if (options.length < 2) return null;
+    const ids = new Set(options.map(o => o.id));
+    return {
+      question: String(raw.question || '').slice(0, 300),
+      options,
+      mode: raw.mode === 'multi' ? 'multi' : 'single',
+      selected: Array.isArray(raw.selected) ? raw.selected.filter(id => ids.has(id)) : [],
+      status: raw.status === 'done' ? 'done' : 'pending',
+      dueAt: Number(raw.dueAt) || 0,
+      answeredAt: Number(raw.answeredAt) || 0
     };
   }
 
@@ -5467,6 +5963,9 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
     if (!['auto'].concat(LANGS.map(l => l.id)).includes(state.settings.ttsLang)) state.settings.ttsLang = 'auto';
     if (typeof state.settings.companionAuto !== 'boolean') state.settings.companionAuto = true;
     if (!['off', 'rare', 'normal', 'often'].includes(state.settings.companionFrequency)) state.settings.companionFrequency = 'normal';
+    if (typeof state.settings.dreamCallAuto !== 'boolean') state.settings.dreamCallAuto = true;
+    state.settings.replyDelayMax = clamp(Number(state.settings.replyDelayMax) || 5, 1, 3600);
+    state.settings.callReplyDelay = clamp(Number(state.settings.callReplyDelay) || 5, 1, CALL_DELAY_MAX);
     state.meta.languageChosen = Boolean(state.meta.languageChosen);
     state.meta.tutorialDone = Boolean(state.meta.tutorialDone);
     if (!Array.isArray(state.settings.savedCities) || !state.settings.savedCities.length) {
@@ -5490,15 +5989,19 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
       createdAt: Number(c.createdAt) || Date.now()
     }));
     if (!Array.isArray(state.messages)) state.messages = [];
-    state.messages = state.messages.filter(m => m && typeof m.text === 'string' && ['user', 'dream', 'system'].includes(m.role)).map(m => ({
-      id: typeof m.id === 'string' && m.id ? m.id : uid('msg'),
-      role: m.role,
-      text: m.text.slice(0, 3000),
-      type: m.type === 'image' ? 'image' : 'text',
-      mediaId: typeof m.mediaId === 'string' ? m.mediaId : '',
-      cardId: typeof m.cardId === 'string' ? m.cardId : '',
-      ts: Number(m.ts) || Date.now()
-    })).slice(-1200);
+    state.messages = state.messages.filter(m => m && typeof m.text === 'string' && ['user', 'dream', 'system'].includes(m.role)).map(m => {
+      const ask = m.type === 'ask' ? normalizeAskData(m.ask) : null;
+      return {
+        id: typeof m.id === 'string' && m.id ? m.id : uid('msg'),
+        role: m.role,
+        text: m.text.slice(0, 3000),
+        type: ask ? 'ask' : (m.type === 'image' ? 'image' : 'text'),
+        mediaId: typeof m.mediaId === 'string' ? m.mediaId : '',
+        cardId: typeof m.cardId === 'string' ? m.cardId : '',
+        ask,
+        ts: Number(m.ts) || Date.now()
+      };
+    }).slice(-1200);
     if (!Array.isArray(state.stickers)) state.stickers = [];
     state.stickers = state.stickers.filter(s => s && s.mediaId).map(s => ({
       id: typeof s.id === 'string' && s.id ? s.id : uid('sticker'),
@@ -5707,6 +6210,38 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
     };
     if (state.companion.pending && state.companion.pending.status !== 'active') state.companion.pending = null;
 
+    const chatRaw = state.chat && typeof state.chat === 'object' ? state.chat : {};
+    const pendingRaw = chatRaw.pendingReply;
+    state.chat = {
+      pendingReply: pendingRaw && Number(pendingRaw.dueAt) > 0 ? {
+        id: typeof pendingRaw.id === 'string' && pendingRaw.id ? pendingRaw.id : uid('reply'),
+        dueAt: Number(pendingRaw.dueAt),
+        createdAt: Number(pendingRaw.createdAt) || Date.now()
+      } : null,
+      nextDreamCallAt: Number(chatRaw.nextDreamCallAt) || 0,
+      lastCallAt: Number(chatRaw.lastCallAt) || 0,
+      call: null
+    };
+    const callRaw = chatRaw.call;
+    if (callRaw && typeof callRaw === 'object' && ['outgoing', 'incoming'].includes(callRaw.direction)
+      && ['ringing', 'active'].includes(callRaw.status)) {
+      state.chat.call = {
+        id: typeof callRaw.id === 'string' && callRaw.id ? callRaw.id : uid('call'),
+        direction: callRaw.direction,
+        status: callRaw.status,
+        startedAt: Number(callRaw.startedAt) || Date.now(),
+        connectedAt: Number(callRaw.connectedAt) || 0,
+        autoHangupAt: Number(callRaw.autoHangupAt) || 0,
+        aiListen: Boolean(callRaw.aiListen),
+        cardText: String(callRaw.cardText || '').slice(0, 1200),
+        cardId: typeof callRaw.cardId === 'string' ? callRaw.cardId : '',
+        lastSpeech: String(callRaw.lastSpeech || '').slice(0, 300)
+      };
+      if (state.chat.call.status === 'active' && !state.chat.call.connectedAt) {
+        state.chat.call.connectedAt = state.chat.call.startedAt;
+      }
+    }
+
     const mapRaw = state.map && typeof state.map === 'object' ? state.map : {};
     const normPoint = p => repairChinaMapPoint({
       name: String(p?.name || '').slice(0, 60),
@@ -5769,16 +6304,7 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
       mode: calRaw.mode === 'period' ? 'period' : 'normal'
     };
 
-    const tarotRaw = state.tarot && typeof state.tarot === 'object' ? state.tarot : {};
-    state.tarot = {
-      history: (Array.isArray(tarotRaw.history) ? tarotRaw.history : []).filter(h => h && h.card).map(h => ({
-        id: typeof h.id === 'string' && h.id ? h.id : uid('tarot'),
-        card: String(h.card).slice(0, 40),
-        reversed: Boolean(h.reversed),
-        question: String(h.question || '').slice(0, 180),
-        ts: Number(h.ts) || Date.now()
-      })).slice(-30)
-    };
+    delete state.tarot;
 
     const isTestText = s => /第[一二]张测试字卡/.test(String(s || ''));
     state.cards = state.cards.filter(c => !isTestText(c.text));
@@ -6331,7 +6857,7 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
     if (name === 'map') renderMap();
     if (name === 'homestead') renderHomestead();
     if (name === 'calendar') renderCalendar();
-    if (name === 'tarot') renderTarot();
+    if (name === 'tarot') renderFortune();
     if (name === 'settings') populateSettings();
   }
   function goHome() {
@@ -6787,7 +7313,7 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
     try { if (currentApp === 'map') renderMap(); } catch (e) { console.warn(e); }
     try { if (currentApp === 'homestead') renderHomestead(); } catch (e) { console.warn(e); }
     try { if (currentApp === 'calendar') renderCalendar(); } catch (e) { console.warn(e); }
-    try { if (currentApp === 'tarot') renderTarot(); } catch (e) { console.warn(e); }
+    try { if (currentApp === 'tarot') renderFortune(); } catch (e) { console.warn(e); }
     try { if (currentApp === 'settings') populateSettings(); } catch (e) { console.warn(e); }
   }
 
@@ -6804,6 +7330,26 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
     return list.scrollHeight - list.scrollTop - list.clientHeight < 120;
   }
   function messageBubble(m) {
+    if (m.type === 'ask' && m.ask) {
+      const a = m.ask;
+      const pending = a.status !== 'done';
+      return `<div class="bubble ask-bubble ${pending ? 'pending' : 'done'}">
+        <div class="ask-head">
+          <span class="ask-kicker">${esc(t('问一问'))} · ${esc(a.mode === 'multi' ? t('多选') : t('单选'))}</span>
+          <span class="ask-state">${esc(pending ? t('等 TA 选…') : t('TA 已选'))}</span>
+        </div>
+        <div class="ask-question">${esc(a.question)}</div>
+        <div class="ask-table">${a.options.map((option, index) => {
+          const picked = a.selected.includes(option.id);
+          return `<div class="ask-row ${picked ? 'picked' : ''}">
+            <span class="ask-mark">${picked ? '✓' : esc(String.fromCharCode(65 + index))}</span>
+            <span class="ask-opt">${esc(option.text)}</span>
+            ${picked ? `<span class="ask-pick">${esc(t('选中'))}</span>` : ''}
+          </div>`;
+        }).join('')}</div>
+        <div class="ask-foot">${esc(pending ? t('梦角正在看你的选项…') : `${t('梦角选了')} ${a.selected.length} ${t('项')}`)}</div>
+      </div>`;
+    }
     if (m.type === 'image') {
       const url = mediaURL(m.mediaId);
       if (url) return `<div class="bubble image-bubble"><img src="${url}" alt="表情包" data-lightbox-src="${url}" data-lightbox-caption="表情包"></div>`;
@@ -6845,7 +7391,10 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
     const list = $('#messageList');
     if (!list) return;
     applyIdentity();
-    $('#chatPeerStatus').textContent = pendingTyping ? '正在翻字卡…' : (state.profile.dreamStatus || '在字卡里等你');
+    const pendingReply = state.chat?.pendingReply;
+    $('#chatPeerStatus').textContent = pendingTyping
+      ? t('正在翻字卡…')
+      : (pendingReply ? t('在字卡里翻找…') : (state.profile.dreamStatus || '在字卡里等你'));
     const nearBottom = chatIsNearBottom();
     if (!state.messages.length) {
       const hasCards = enabledCards().length > 0;
@@ -6894,41 +7443,193 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
   function setTyping(on) {
     pendingTyping = on;
     const status = $('#chatPeerStatus');
-    if (status) status.textContent = on ? '正在翻字卡…' : (state.profile.dreamStatus || '在字卡里等你');
+    if (!status) return;
+    if (on) status.textContent = t('正在翻字卡…');
+    else if (state.chat?.pendingReply) status.textContent = t('在字卡里翻找…');
+    else status.textContent = state.profile.dreamStatus || '在字卡里等你';
+  }
+  function finalizeDreamReply() {
+    const pending = state.chat?.pendingReply;
+    if (!pending) return;
+    state.chat.pendingReply = null;
+    pendingTyping = false;
+    const avoid = recentDreamCards.slice(-Math.min(3, Math.max(0, enabledCards().length - 1)));
+    const card = drawCard(avoid);
+    if (!card) {
+      saveState();
+      setTyping(false);
+      if (currentApp === 'chat') renderChat();
+      toast('没有可用的字卡了', 'error');
+      return;
+    }
+    recentDreamCards.push(card.id);
+    if (recentDreamCards.length > 8) recentDreamCards.shift();
+    addMessage({ role: 'dream', text: card.text, cardId: card.id, type: 'text' });
+    setTyping(false);
+    if (currentApp === 'chat') {
+      renderChat();
+      scrollChatToBottom(true);
+    }
+    if (state.settings.autoSpeak) {
+      speakText(fillTemplate(card.text), { openSettings: false }).catch(() => {});
+    }
   }
   function scheduleDreamReply() {
-    if (pendingTyping) return;
+    if (state.chat?.pendingReply) return;
     if (!enabledCards().length) {
       toast('字卡库里还没有可用的字卡，先写几张吧', 'error');
       setTimeout(() => openApp('cards'), 500);
       return;
     }
-    setTyping(true);
-    const list = $('#messageList');
-    if (list) {
-      const nearBottom = chatIsNearBottom();
-      list.insertAdjacentHTML('beforeend', renderTypingRow());
-      if (nearBottom) scrollChatToBottom();
+    const dueAt = Date.now() + randomReplyDelayMs();
+    state.chat.pendingReply = { id: uid('reply'), dueAt, createdAt: Date.now() };
+    saveState();
+    if (currentApp === 'chat') {
+      if (dueAt - Date.now() <= 2200) setTyping(true);
+      else setTyping(false);
+      renderChat();
+      if (pendingTyping) scrollChatToBottom();
     }
-    clearTimeout(typingTimer);
-    typingTimer = setTimeout(() => {
-      setTyping(false);
-      const avoid = recentDreamCards.slice(-Math.min(3, Math.max(0, enabledCards().length - 1)));
-      const card = drawCard(avoid);
-      if (!card) {
-        renderChat();
-        toast('没有可用的字卡了', 'error');
-        return;
+  }
+  function finalizeAskReply(message) {
+    const ask = message?.ask;
+    if (!ask || ask.status === 'done') return;
+    const options = Array.isArray(ask.options) ? ask.options : [];
+    if (!options.length) {
+      ask.status = 'done';
+      ask.answeredAt = Date.now();
+      saveState();
+      return;
+    }
+    let picked;
+    if (ask.mode === 'multi') {
+      const pool = options.slice();
+      for (let i = pool.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [pool[i], pool[j]] = [pool[j], pool[i]];
       }
-      recentDreamCards.push(card.id);
-      if (recentDreamCards.length > 8) recentDreamCards.shift();
-      addMessage({ role: 'dream', text: card.text, cardId: card.id });
+      const extra = Math.min(2, Math.max(1, options.length - 1));
+      const count = Math.min(options.length, 2 + Math.floor(Math.random() * extra));
+      picked = pool.slice(0, count);
+    } else {
+      picked = [options[Math.floor(Math.random() * options.length)]];
+    }
+    ask.selected = picked.map(option => option.id);
+    ask.status = 'done';
+    ask.answeredAt = Date.now();
+    const answerText = picked.map(option => option.text).join(ask.mode === 'multi' ? '\n' : '');
+    addMessage({ role: 'dream', text: answerText, type: 'text' });
+    saveState();
+    if (currentApp === 'chat') {
       renderChat();
       scrollChatToBottom(true);
-      if (state.settings.autoSpeak) {
-        speakText(fillTemplate(card.text), { openSettings: false }).catch(() => {});
+    }
+    if (state.settings.autoSpeak) {
+      speakText(fillTemplate(answerText), { openSettings: false }).catch(() => {});
+    }
+  }
+  function processChatDue() {
+    const now = Date.now();
+    const pending = state.chat?.pendingReply;
+    if (pending && pending.dueAt <= now) {
+      finalizeDreamReply();
+    } else if (pending && currentApp === 'chat' && !pendingTyping && pending.dueAt - now <= 2200) {
+      setTyping(true);
+      renderChat();
+    }
+    const dueAsks = state.messages.filter(m => m.type === 'ask' && m.ask
+      && m.ask.status === 'pending' && m.ask.dueAt && m.ask.dueAt <= now);
+    dueAsks.forEach(finalizeAskReply);
+  }
+  function sendAskQuestion(question, optionTexts, mode) {
+    if (!enabledCards().length) {
+      toast('字卡库里还没有可用的字卡，先写几张吧', 'error');
+      setTimeout(() => openApp('cards'), 500);
+      return;
+    }
+    const ask = {
+      question: String(question || '').slice(0, 300),
+      options: optionTexts.slice(0, 8).map(text => ({ id: uid('opt'), text: String(text).slice(0, 120) })),
+      mode: mode === 'multi' ? 'multi' : 'single',
+      selected: [],
+      status: 'pending',
+      dueAt: Date.now() + randomReplyDelayMs(),
+      answeredAt: 0
+    };
+    addMessage({ role: 'user', text: ask.question, type: 'ask', ask });
+    renderChat();
+    scrollChatToBottom(true);
+  }
+  function openAskSheet() {
+    let mode = 'single';
+    let options = ['', ''];
+    openSheet({
+      title: '问一问',
+      subtitle: '写下问题，再给梦角几个可以挑的答案。',
+      body: `<div class="field">
+          <label for="askQuestionInput">你的问题 <small>最多 200 字</small></label>
+          <textarea id="askQuestionInput" rows="2" maxlength="200" placeholder="例如：今晚想一起做什么？"></textarea>
+        </div>
+        <div class="field">
+          <label>选择方式</label>
+          <div class="ask-mode" id="askModeSwitch">
+            <button type="button" data-ask-mode="single" class="active">${esc(t('单选'))}</button>
+            <button type="button" data-ask-mode="multi">${esc(t('多选'))}</button>
+          </div>
+        </div>
+        <div class="field">
+          <label>${esc(t('选项'))} <small>${esc(t('至少 2 个'))}</small></label>
+          <div class="ask-option-list" id="askOptionList"></div>
+          <button class="ghost-btn ask-add-option" id="askAddOption" type="button"><svg class="icon"><use href="#i-plus"/></svg> ${esc(t('添加选项'))}</button>
+        </div>`,
+      footer: `<button class="ghost-btn" data-close-overlay>取消</button><button class="primary-btn" id="askSendBtn">${esc(t('发出问题'))}</button>`,
+      onMount(root) {
+        const list = $('#askOptionList', root);
+        const renderOptions = () => {
+          list.innerHTML = options.map((value, index) => `<div class="ask-option-edit" data-opt-index="${index}">
+            <span class="ask-opt-letter">${String.fromCharCode(65 + index)}</span>
+            <input type="text" maxlength="120" value="${esc(value)}" placeholder="${esc(t('选项'))} ${index + 1}">
+            ${options.length > 2 ? `<button type="button" class="ask-opt-del" data-opt-del="${index}" aria-label="删除"><svg class="icon"><use href="#i-close"/></svg></button>` : ''}
+          </div>`).join('');
+        };
+        renderOptions();
+        list.addEventListener('input', event => {
+          const input = event.target.closest('input');
+          if (!input) return;
+          const row = input.closest('[data-opt-index]');
+          if (row) options[Number(row.dataset.optIndex)] = input.value;
+        });
+        list.addEventListener('click', event => {
+          const remove = event.target.closest('[data-opt-del]');
+          if (!remove) return;
+          options.splice(Number(remove.dataset.optDel), 1);
+          renderOptions();
+        });
+        $('#askAddOption', root).addEventListener('click', () => {
+          if (options.length >= 8) { toast('最多 8 个选项'); return; }
+          options.push('');
+          renderOptions();
+          requestAnimationFrame(() => {
+            const inputs = list.querySelectorAll('input');
+            inputs[inputs.length - 1]?.focus();
+          });
+        });
+        $('#askModeSwitch', root).addEventListener('click', event => {
+          const button = event.target.closest('[data-ask-mode]');
+          if (!button) return;
+          mode = button.dataset.askMode === 'multi' ? 'multi' : 'single';
+          $$('[data-ask-mode]', root).forEach(el => el.classList.toggle('active', el === button));
+        });
+        $('#askSendBtn', root).addEventListener('click', () => {
+          const question = $('#askQuestionInput', root).value.trim();
+          if (!question) { toast('先写下你的问题', 'error'); return; }
+          const cleaned = [...new Set(options.map(value => value.trim()).filter(Boolean))];
+          if (cleaned.length < 2) { toast('至少写两个不同的选项', 'error'); return; }
+          closeOverlay();
+          sendAskQuestion(question, cleaned, mode);
+        });
       }
-    }, 850 + Math.random() * 1050);
+    });
   }
   function sendChatText() {
     const input = $('#chatInput');
@@ -7006,6 +7707,551 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
       toast(`收好了 ${added} 张表情包`);
     } else {
       toast('没有可用的图片', 'error');
+    }
+  }
+
+  /* ---------------- 电话 ---------------- */
+  let callMinimized = false;
+  let callRecognition = null;
+  let callRecognitionActive = false;
+  let callRecognitionStopping = false;
+  let callListenRestartTimer = null;
+  let callReplyTimer = null;
+  let callSpeechToken = 0;
+  let lastDreamCallCheck = 0;
+
+  function activeCall() {
+    return state.chat && state.chat.call ? state.chat.call : null;
+  }
+  function callElapsed(call) {
+    if (!call || !call.connectedAt) return 0;
+    return Math.max(0, Math.floor((Date.now() - call.connectedAt) / 1000));
+  }
+  function formatCallDuration(seconds) {
+    const value = Math.max(0, Math.floor(Number(seconds) || 0));
+    const h = Math.floor(value / 3600);
+    const m = Math.floor((value % 3600) / 60);
+    const s = value % 60;
+    return h ? `${h}:${pad2(m)}:${pad2(s)}` : `${pad2(m)}:${pad2(s)}`;
+  }
+  function callSpeechLang() {
+    const lang = LANG_MAP[state.settings.language] || LANGS[0];
+    return lang.speech || 'zh-CN';
+  }
+  function recognitionSupported() {
+    return Boolean(window.SpeechRecognition || window.webkitSpeechRecognition);
+  }
+  function callReadLanguageLabel() {
+    const mode = state.settings.ttsLang;
+    if (mode && mode !== 'auto' && LANG_MAP[mode]) return LANG_MAP[mode].label;
+    return t('自动识别');
+  }
+  function updateCallUi() {
+    const call = activeCall();
+    const overlay = $('#callOverlay');
+    const mini = $('#callMini');
+    if (!call) {
+      if (overlay) {
+        overlay.classList.remove('active', 'is-incoming', 'is-ringing', 'ai-listen');
+        overlay.setAttribute('aria-hidden', 'true');
+        delete overlay.dataset.callId;
+      }
+      mini?.classList.remove('show');
+      $('#callCard')?.classList.remove('show', 'speaking');
+      return;
+    }
+    const name = state.profile.dreamName || '梦角';
+    if (overlay && overlay.dataset.callId !== call.id) {
+      overlay.dataset.callId = call.id;
+      paintAvatar($('#callAvatar'), state.profile.dreamAvatar, dreamFallback());
+      const nameEl = $('#callName');
+      if (nameEl) nameEl.textContent = name;
+    }
+    const miniName = $('#callMiniName');
+    if (miniName) miniName.textContent = name;
+    const ringing = call.status === 'ringing';
+    const incoming = ringing && call.direction === 'incoming';
+    const active = call.status === 'active';
+    const pending = active && Number(call.replyDueAt) > 0;
+    const remain = pending ? Math.max(0, Math.ceil((Number(call.replyDueAt) - Date.now()) / 1000)) : 0;
+    const sub = $('#callSub');
+    if (sub) {
+      let subText;
+      if (ringing) subText = incoming ? t('来电') : t('正在呼叫…');
+      else if (call.speaking) subText = t('正在朗读字卡…');
+      else if (pending) subText = `${t('聆听中')} · ${formatCallDuration(remain)}`;
+      else if (call.aiListen) subText = t('聆听中 · 说点什么吧');
+      else subText = t('通话中');
+      if (sub.textContent !== subText) sub.textContent = subText;
+    }
+    const time = formatCallDuration(active ? callElapsed(call) : 0);
+    const duration = $('#callDuration');
+    if (duration) duration.textContent = time;
+    const miniTime = $('#callMiniTime');
+    if (miniTime) miniTime.textContent = time;
+    const activeActions = $('#callActiveActions');
+    const incomingActions = $('#callIncomingActions');
+    if (activeActions) activeActions.hidden = ringing;
+    if (incomingActions) incomingActions.hidden = !incoming;
+    overlay?.classList.toggle('is-incoming', incoming);
+    overlay?.classList.toggle('is-ringing', ringing);
+    overlay?.classList.toggle('ai-listen', Boolean(call.aiListen && active && !call.speaking));
+    const aiBtn = $('#callAiToggle');
+    if (aiBtn) {
+      aiBtn.classList.toggle('on', Boolean(call.aiListen));
+      aiBtn.setAttribute('aria-pressed', String(Boolean(call.aiListen)));
+      const iconBtn = aiBtn.querySelector('.call-action-btn');
+      if (iconBtn) iconBtn.classList.toggle('on', Boolean(call.aiListen));
+      const use = aiBtn.querySelector('use');
+      if (use) use.setAttribute('href', call.aiListen ? '#i-mic' : '#i-mic-off');
+      const label = aiBtn.querySelector('span:last-child');
+      if (label) label.textContent = t('聆听');
+    }
+    const card = $('#callCard');
+    if (card) {
+      card.classList.toggle('show', active);
+      card.classList.toggle('speaking', Boolean(active && call.speaking));
+      if (active) {
+        const kicker = $('#callCardKicker');
+        const meta = $('#callCardMeta');
+        const body = $('#callCardText');
+        let kickerText = t('来自字卡');
+        let bodyText = call.cardText || '';
+        let metaText = call.cardText ? `${t('朗读语言')} · ${callReadLanguageLabel()}` : '';
+        if (!bodyText) {
+          if (pending) {
+            kickerText = t('聆听');
+            bodyText = t('正在想想怎么回答你…');
+            metaText = `${formatCallDuration(remain)} · ${t('后回复')}`;
+          } else if (call.aiListen) {
+            kickerText = t('聆听');
+            bodyText = t('聆听中，说点什么吧…');
+            metaText = `${t('听到后')} ${formatCallDelay(callReplyDelay())} ${t('回复')}`;
+          } else {
+            kickerText = t('通话');
+            bodyText = t('打开聆听，梦角就能听见你');
+          }
+        }
+        if (kicker && kicker.textContent !== kickerText) kicker.textContent = kickerText;
+        if (meta && meta.textContent !== metaText) meta.textContent = metaText;
+        if (body) {
+          if (body.textContent !== bodyText) body.textContent = bodyText;
+          body.classList.toggle('waiting', !call.cardText);
+        }
+      }
+    }
+    mini?.classList.toggle('show', callMinimized);
+  }
+  function showCallOverlay() {
+    const overlay = $('#callOverlay');
+    if (!overlay) return;
+    callMinimized = false;
+    overlay.classList.add('active');
+    overlay.setAttribute('aria-hidden', 'false');
+    $('#callMini')?.classList.remove('show');
+    updateCallUi();
+  }
+  function hideCallOverlay() {
+    const overlay = $('#callOverlay');
+    if (!overlay) return;
+    overlay.classList.remove('active', 'is-incoming', 'is-ringing', 'ai-listen');
+    overlay.setAttribute('aria-hidden', 'true');
+  }
+  function minimizeCall() {
+    if (!activeCall()) return;
+    callMinimized = true;
+    hideCallOverlay();
+    updateCallUi();
+  }
+  function restoreCallOverlay() {
+    if (!activeCall()) return;
+    showCallOverlay();
+  }
+  function scheduleNextDreamCall(first = false) {
+    if (!state.settings.dreamCallAuto || state.chat.call) {
+      state.chat.nextDreamCallAt = 0;
+      return;
+    }
+    const min = first ? 3 : 15;
+    const max = first ? 10 : 45;
+    state.chat.nextDreamCallAt = Date.now() + (min + Math.random() * (max - min)) * 60000;
+  }
+  function connectCall(call) {
+    if (!call) return;
+    const now = Date.now();
+    call.status = 'active';
+    call.connectedAt = now;
+    call.autoHangupAt = now + (90 + Math.random() * 330) * 1000;
+    call.replyDueAt = 0;
+    call.speaking = false;
+    clearTimeout(callReplyTimer);
+    callReplyTimer = null;
+    saveState();
+    if (call.aiListen) startCallRecognition();
+    updateCallUi();
+  }
+  function startOutgoingCall() {
+    if (activeCall()) { showCallOverlay(); return; }
+    if (!enabledCards().length) {
+      toast('字卡库里还没有可用的字卡，先写几张吧', 'error');
+      setTimeout(() => openApp('cards'), 500);
+      return;
+    }
+    const now = Date.now();
+    state.chat.call = {
+      id: uid('call'), direction: 'outgoing', status: 'ringing',
+      startedAt: now, connectedAt: 0, autoHangupAt: 0,
+      aiListen: false, replyDueAt: 0, speaking: false,
+      cardText: '', cardId: '', lastSpeech: ''
+    };
+    saveState();
+    showCallOverlay();
+    const callId = state.chat.call.id;
+    setTimeout(() => {
+      const current = activeCall();
+      if (!current || current.id !== callId || current.status !== 'ringing') return;
+      connectCall(current);
+    }, 2400 + Math.random() * 1600);
+  }
+  function startIncomingCall() {
+    if (activeCall() || !state.settings.dreamCallAuto || !enabledCards().length) return false;
+    const now = Date.now();
+    state.chat.call = {
+      id: uid('call'), direction: 'incoming', status: 'ringing',
+      startedAt: now, connectedAt: 0, autoHangupAt: 0,
+      aiListen: false, replyDueAt: 0, speaking: false,
+      cardText: '', cardId: '', lastSpeech: ''
+    };
+    saveState();
+    showCallOverlay();
+    return true;
+  }
+  function answerCall() {
+    const call = activeCall();
+    if (!call || call.status !== 'ringing') return;
+    connectCall(call);
+  }
+  function endCall(reason = 'user', opts = {}) {
+    const call = activeCall();
+    if (!call) return;
+    const wasActive = call.status === 'active';
+    callSpeechToken++;
+    clearTimeout(callReplyTimer);
+    callReplyTimer = null;
+    call.replyDueAt = 0;
+    call.speaking = false;
+    stopCallRecognition();
+    stopCallSpeech();
+    state.chat.call = null;
+    state.chat.lastCallAt = Date.now();
+    callMinimized = false;
+    scheduleNextDreamCall(false);
+    saveState();
+    hideCallOverlay();
+    $('#callMini')?.classList.remove('show');
+    updateCallUi();
+    if (opts.silent) return;
+    let message = '通话已结束';
+    if (reason === 'cancelled') message = '已取消呼叫';
+    else if (reason === 'declined') message = wasActive ? '挂断了电话' : '已拒绝来电';
+    else if (reason === 'missed') message = '未接来电';
+    else if (reason === 'dream') message = '挂断了电话';
+    toast(t(message));
+  }
+  function scheduleCallListenRestart() {
+    clearTimeout(callListenRestartTimer);
+    callListenRestartTimer = setTimeout(() => {
+      const call = activeCall();
+      if (call && call.status === 'active' && call.aiListen && !call.speaking) startCallRecognition();
+    }, 600);
+  }
+  function startCallRecognition() {
+    const call = activeCall();
+    if (!call || call.status !== 'active' || !call.aiListen || call.speaking) return;
+    if (!recognitionSupported()) {
+      call.aiListen = false;
+      call.replyDueAt = 0;
+      saveState();
+      updateCallUi();
+      toast(t('当前浏览器不支持语音识别，请使用 Chrome 或 Edge'), 'error');
+      return;
+    }
+    if (callRecognitionActive) return;
+    const Ctor = window.SpeechRecognition || window.webkitSpeechRecognition;
+    try {
+      if (!callRecognition) {
+        callRecognition = new Ctor();
+        callRecognition.continuous = true;
+        callRecognition.interimResults = false;
+        callRecognition.maxAlternatives = 1;
+        callRecognition.onresult = event => {
+          const current = activeCall();
+          if (!current || !current.aiListen) return;
+          let transcript = '';
+          for (let i = event.resultIndex; i < event.results.length; i++) {
+            if (event.results[i].isFinal) transcript += event.results[i][0].transcript;
+          }
+          if (transcript.trim()) handleCallSpeech(transcript.trim());
+        };
+        callRecognition.onerror = event => {
+          const current = activeCall();
+          if (!current || !current.aiListen) return;
+          if (event.error === 'not-allowed' || event.error === 'service-not-allowed') {
+            current.aiListen = false;
+            current.replyDueAt = 0;
+            saveState();
+            updateCallUi();
+            toast(t('麦克风权限被拒绝，聆听已关闭'), 'error');
+            return;
+          }
+          if (event.error === 'no-speech' || event.error === 'aborted' || event.error === 'network') {
+            scheduleCallListenRestart();
+          }
+        };
+        callRecognition.onend = () => {
+          callRecognitionActive = false;
+          if (callRecognitionStopping) return;
+          const current = activeCall();
+          if (current && current.status === 'active' && current.aiListen) scheduleCallListenRestart();
+        };
+      }
+      callRecognition.lang = callSpeechLang();
+      callRecognition.start();
+      callRecognitionActive = true;
+    } catch (e) {
+      callRecognitionActive = false;
+      scheduleCallListenRestart();
+    }
+  }
+  function stopCallRecognition() {
+    callRecognitionStopping = true;
+    clearTimeout(callListenRestartTimer);
+    callListenRestartTimer = null;
+    if (callRecognition) {
+      try { callRecognition.stop(); } catch (e) {}
+    }
+    callRecognitionActive = false;
+    setTimeout(() => { callRecognitionStopping = false; }, 320);
+  }
+  function stopCallSpeech() {
+    callSpeechToken++;
+    if (ttsAudio) { try { ttsAudio.pause(); } catch (e) {} ttsAudio = null; }
+    if ('speechSynthesis' in window) { try { window.speechSynthesis.cancel(); } catch (e) {} }
+  }
+  async function speakCallCard(text) {
+    const value = String(text || '').trim();
+    const call = activeCall();
+    if (!value || !call) return;
+    const token = ++callSpeechToken;
+    call.speaking = true;
+    saveState();
+    stopCallRecognition();
+    updateCallUi();
+    let finished = false;
+    let watchdog = null;
+    const finish = () => {
+      if (finished) return;
+      finished = true;
+      clearTimeout(watchdog);
+      if (token !== callSpeechToken) return;
+      const current = activeCall();
+      if (!current) return;
+      current.speaking = false;
+      saveState();
+      updateCallUi();
+      if (current.status === 'active' && current.aiListen) scheduleCallListenRestart();
+    };
+    const armPlaybackWatchdog = () => {
+      if (finished || token !== callSpeechToken) return;
+      clearTimeout(watchdog);
+      watchdog = setTimeout(finish, clamp(15000 + value.length * 300, 20000, 180000));
+    };
+    watchdog = setTimeout(finish, 70000);
+    if (ttsConfigured()) {
+      try {
+        await speakText(value, {
+          openSettings: false,
+          onEnd: finish,
+          onStart: armPlaybackWatchdog,
+          shouldPlay: () => token === callSpeechToken && Boolean(activeCall())
+        });
+      } catch (e) {
+        finish();
+      }
+      return;
+    }
+    try {
+      if (!('speechSynthesis' in window)) { finish(); return; }
+      window.speechSynthesis.cancel();
+      const fixed = state.settings.ttsLang && state.settings.ttsLang !== 'auto' && LANG_MAP[state.settings.ttsLang]
+        ? state.settings.ttsLang : '';
+      let spoken = value;
+      if (fixed && state.settings.ttsTranslate !== false) {
+        const source = detectTextLanguage(value);
+        if (source && source !== fixed) {
+          const translated = await translateForSpeech(value, fixed);
+          if (translated) spoken = translated;
+        }
+      }
+      if (token !== callSpeechToken) { finish(); return; }
+      const langId = fixed || (detectTextLanguage(spoken) || state.settings.language || 'zh');
+      const utter = new SpeechSynthesisUtterance(spoken);
+      utter.lang = (LANG_MAP[langId] || LANG_MAP.zh).speech || 'zh-CN';
+      utter.rate = 0.95;
+      utter.pitch = 1;
+      utter.onend = finish;
+      utter.onerror = finish;
+      window.speechSynthesis.speak(utter);
+      armPlaybackWatchdog();
+    } catch (e) {
+      finish();
+    }
+  }
+  function deliverCallCard(call) {
+    if (!call || call.status !== 'active' || !call.replyDueAt) return false;
+    clearTimeout(callReplyTimer);
+    callReplyTimer = null;
+    call.replyDueAt = 0;
+    const avoid = recentDreamCards.slice(-Math.min(3, Math.max(0, enabledCards().length - 1)));
+    const card = drawCard(avoid);
+    if (!card) {
+      saveState();
+      updateCallUi();
+      toast(t('没有可用的字卡了'), 'error');
+      call.autoHangupAt = Math.min(Number(call.autoHangupAt) || (Date.now() + 60000), Date.now() + 60000);
+      return false;
+    }
+    recentDreamCards.push(card.id);
+    if (recentDreamCards.length > 8) recentDreamCards.shift();
+    const spoken = fillTemplate(card.text);
+    call.cardId = card.id;
+    call.cardText = spoken.slice(0, 1200);
+    call.autoHangupAt = Math.max(Number(call.autoHangupAt) || 0, Date.now() + (60 + Math.random() * 180) * 1000);
+    saveState();
+    updateCallUi();
+    speakCallCard(spoken).catch(() => {});
+    return true;
+  }
+  function handleCallSpeech(text) {
+    const call = activeCall();
+    if (!call || call.status !== 'active' || !call.aiListen) return;
+    if (call.speaking) return;
+    const value = String(text || '').trim();
+    if (!value) return;
+    call.lastSpeech = value.slice(0, 300);
+    if (call.replyDueAt) { saveState(); updateCallUi(); return; }
+    if (!enabledCards().length) {
+      toast(t('没有可用的字卡了'), 'error');
+      return;
+    }
+    const delay = callReplyDelay();
+    call.cardText = '';
+    call.cardId = '';
+    call.replyDueAt = Date.now() + delay * 1000;
+    call.autoHangupAt = Math.max(Number(call.autoHangupAt) || 0, call.replyDueAt + (90 + Math.random() * 120) * 1000);
+    clearTimeout(callReplyTimer);
+    const callId = call.id;
+    callReplyTimer = setTimeout(() => {
+      callReplyTimer = null;
+      const current = activeCall();
+      if (current && current.id === callId && current.status === 'active' && current.replyDueAt) deliverCallCard(current);
+    }, delay * 1000);
+    saveState();
+    updateCallUi();
+  }
+  function toggleCallAiListen() {
+    const call = activeCall();
+    if (!call || call.status !== 'active') return;
+    if (call.aiListen) {
+      call.aiListen = false;
+      clearTimeout(callReplyTimer);
+      callReplyTimer = null;
+      call.replyDueAt = 0;
+      saveState();
+      stopCallRecognition();
+      updateCallUi();
+      toast(t('已关闭聆听，现在是普通通话'));
+      return;
+    }
+    if (!recognitionSupported()) {
+      toast(t('当前浏览器不支持语音识别，请使用 Chrome 或 Edge'), 'error');
+      return;
+    }
+    call.aiListen = true;
+    saveState();
+    if (!call.speaking) startCallRecognition();
+    updateCallUi();
+    toast(t('聆听已开启'));
+  }
+  function updateCallTick() {
+    const call = activeCall();
+    if (!call) return;
+    const now = Date.now();
+    if (call.status === 'ringing') {
+      if (call.direction === 'incoming') {
+        if (now - call.startedAt > 32000) { endCall('missed'); return; }
+      } else if (now - call.startedAt > 12000) {
+        connectCall(call);
+        return;
+      }
+    } else if (call.status === 'active') {
+      if (call.replyDueAt) {
+        if (now >= call.replyDueAt) { deliverCallCard(call); return; }
+      } else if (call.autoHangupAt && now >= call.autoHangupAt) {
+        endCall('dream');
+        return;
+      }
+    }
+    updateCallUi();
+  }
+  function maybeDreamCall() {
+    if (!state.settings.dreamCallAuto || activeCall()) return;
+    if (document.hidden || locked) return;
+    const tutorial = $('#tutorial');
+    if (tutorial && !tutorial.classList.contains('hidden')) return;
+    const now = Date.now();
+    if (!state.chat.nextDreamCallAt) { scheduleNextDreamCall(false); saveState(); return; }
+    if (now < state.chat.nextDreamCallAt) return;
+    if (!enabledCards().length) { scheduleNextDreamCall(false); saveState(); return; }
+    if (!startIncomingCall()) { scheduleNextDreamCall(false); saveState(); }
+  }
+  function restoreChatRuntime() {
+    try { processChatDue(); } catch (e) {}
+    const call = activeCall();
+    if (call) {
+      const now = Date.now();
+      callMinimized = false;
+      if (call.status === 'ringing') {
+        if (call.direction === 'incoming') {
+          if (now - call.startedAt > 32000) endCall('missed', { silent: true });
+          else showCallOverlay();
+        } else if (now - call.startedAt > 12000) {
+          connectCall(call);
+          showCallOverlay();
+        } else {
+          showCallOverlay();
+          const callId = call.id;
+          const delay = Math.max(600, 3200 - (now - call.startedAt));
+          setTimeout(() => {
+            const current = activeCall();
+            if (current && current.id === callId && current.status === 'ringing') connectCall(current);
+          }, delay);
+        }
+      } else {
+        if (call.aiListen || call.replyDueAt || call.speaking) {
+          call.aiListen = false;
+          clearTimeout(callReplyTimer);
+          callReplyTimer = null;
+          call.replyDueAt = 0;
+          call.speaking = false;
+          saveState();
+        }
+        showCallOverlay();
+      }
+    }
+    if (state.settings.dreamCallAuto && !state.chat.call && !state.chat.nextDreamCallAt) {
+      scheduleNextDreamCall(false);
+      saveState();
     }
   }
 
@@ -7959,7 +9205,16 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
     updateTimerDisplays();
     updateHomeTime();
     updateLockClock();
+    try { processChatDue(); } catch (e) {}
+    try { updateCallTick(); } catch (e) {}
     try { updateCompanionTick(); } catch (e) {}
+    try {
+      if (currentApp === 'tarot' && fortuneDay && fortuneDay !== calIso(now)) renderFortune();
+    } catch (e) {}
+    if (Date.now() - lastDreamCallCheck > 20000) {
+      lastDreamCallCheck = Date.now();
+      try { maybeDreamCall(); } catch (e) {}
+    }
   }
   function clockFromIana(tz) {
     const label = String(tz).split('/').pop().replace(/_/g, ' ');
@@ -9074,7 +10329,8 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
   }
   async function speakText(text, opts = {}) {
     const value = String(text || '').trim();
-    if (!value) return;
+    const onEnd = typeof opts.onEnd === 'function' ? opts.onEnd : null;
+    if (!value) { if (onEnd) onEnd(); return; }
     if (opts.button) {
       $$('.speak-btn.playing').forEach(b => { if (b !== opts.button) b.classList.remove('playing'); });
     }
@@ -9083,19 +10339,32 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
       if (opts.openSettings !== false && currentApp !== 'settings') setTimeout(() => openApp('settings'), 500);
       throw new Error('MISSING_CONFIG');
     }
-    if (ttsLoading) { toast('正在生成语音，请稍候'); return; }
+    if (ttsLoading) { toast('正在生成语音，请稍候'); if (onEnd) onEnd(); return; }
     ttsLoading = true;
     if (ttsAudio) { try { ttsAudio.pause(); } catch (e) {} ttsAudio = null; }
     if (ttsButton) ttsButton.classList.remove('playing');
     if (opts.button) { ttsButton = opts.button; ttsButton.classList.add('playing'); }
     try {
       const url = await synthesizeSpeech(value);
+      if (typeof opts.shouldPlay === 'function' && !opts.shouldPlay()) { if (onEnd) onEnd(); return; }
       updateTtsStatus('ok', 'MiniMax 语音已就绪');
       const audio = new Audio(url);
       ttsAudio = audio;
-      audio.onended = () => { if (ttsButton) ttsButton.classList.remove('playing'); ttsButton = null; ttsAudio = null; };
-      audio.onerror = () => { if (ttsButton) ttsButton.classList.remove('playing'); ttsButton = null; ttsAudio = null; toast('语音播放失败', 'error'); };
+      let ended = false;
+      const finish = () => {
+        if (ended) return;
+        ended = true;
+        if (ttsButton) ttsButton.classList.remove('playing');
+        ttsButton = null;
+        ttsAudio = null;
+        if (onEnd) onEnd();
+      };
+      audio.onended = finish;
+      audio.onerror = () => { toast('语音播放失败', 'error'); finish(); };
       await audio.play();
+      if (typeof opts.onStart === 'function') {
+        try { opts.onStart(); } catch (err) {}
+      }
     } catch (e) {
       if (ttsButton) ttsButton.classList.remove('playing');
       ttsButton = null;
@@ -10801,6 +12070,10 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
           <div class="sr-main"><div class="sr-label">让 TA 主动发起陪伴</div><div class="sr-sub">偶尔收到休息、学习、吃饭的邀请</div></div>
           <button class="mini-switch ${state.settings.companionAuto ? 'on' : ''}" id="companionAutoSwitch" role="switch" aria-checked="${state.settings.companionAuto}"></button>
         </div>
+        <div class="settings-row">
+          <div class="sr-main"><div class="sr-label">让 TA 偶尔打电话给你</div><div class="sr-sub">关闭后梦角不会主动来电</div></div>
+          <button class="mini-switch ${state.settings.dreamCallAuto ? 'on' : ''}" id="dreamCallAutoSwitch" role="switch" aria-checked="${state.settings.dreamCallAuto}"></button>
+        </div>
         <div class="settings-field"><label for="companionFreqSelect">主动频率</label>
           <select class="settings-select" id="companionFreqSelect">
             <option value="off">不主动</option>
@@ -10827,6 +12100,20 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
           state.companion.nextAutoAt = Date.now() + 20 * 60000;
           saveState();
           renderCompanion();
+        });
+        const callSw = $('#dreamCallAutoSwitch', root);
+        callSw?.addEventListener('click', () => {
+          state.settings.dreamCallAuto = !state.settings.dreamCallAuto;
+          callSw.classList.toggle('on', state.settings.dreamCallAuto);
+          callSw.setAttribute('aria-checked', String(state.settings.dreamCallAuto));
+          if (state.settings.dreamCallAuto) {
+            if (!state.chat.call && !state.chat.nextDreamCallAt) scheduleNextDreamCall(false);
+            toast('梦角偶尔会给你打电话了');
+          } else {
+            state.chat.nextDreamCallAt = 0;
+            toast('已关闭梦角的主动来电');
+          }
+          saveState();
         });
       }
     });
@@ -11160,7 +12447,7 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
   const APP_ICON_LABELS = {
     chat: '聊天', cards: '字卡', moments: '朋友圈', diary: '日记', album: '相册', time: '时间',
     weather: '天气', theme: '主题', music: '音乐', settings: '设置', game: '游戏', gacha: '扭蛋',
-    companion: '陪伴', map: '地图', homestead: '家园', calendar: '日历', tarot: '占卜'
+    companion: '陪伴', map: '地图', homestead: '家园', calendar: '日历', tarot: '每日运势'
   };
   function applyCustomIcons() {
     $$('#homeScreen [data-open-app] .app-glyph').forEach(glyph => {
@@ -11357,7 +12644,7 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
         { icon: `cards`, title: `先写一张字卡`, body: `梦角只会从你启用的字卡里挑选句子回应。打开「字卡」，写下想听的话；没有字卡时，他不会自己编造。` },
         { icon: `chat`, title: `聊天与回忆`, body: `在聊天里说话，点左上角进入朋友圈；日记和相册会把日常慢慢收好。` },
         { icon: `map`, title: `时间、天气与地图`, body: `城市会同时标出省份和国家，例如「河北省 · 唐山市」。搜索中国地级市时，会优先给出正确的行政区划，不会混入其他省份的同名小镇。` },
-        { icon: `companion`, title: `一起生活`, body: `「陪伴」安排此刻在做的事，「家园」养一只小宠物、布置房间，「日历」记录生日与周期，「占卜」抽一张牌。` },
+        { icon: `companion`, title: `一起生活`, body: `「陪伴」安排此刻在做的事，「家园」养一只小宠物、布置房间，「日历」记录生日与周期，「每日运势」看看今天的风向。` },
         { icon: `chess`, title: `玩一局，再慢慢布置`, body: `游戏里有象棋、五子棋、UNO 和猜数字；扭蛋、主题和语言都在设置里。之后想重看教程，可以在设置中打开。` }
       ]
     },
@@ -11368,7 +12655,7 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
         { icon: `cards`, title: `Write your first card`, body: `Your dream character only replies with lines from the cards you enable. Open Cards and write what you want to hear; without cards, they will not invent words.` },
         { icon: `chat`, title: `Chat and memories`, body: `Talk in Chat, open Moments from the top-left, and keep everyday moments in Diary and Album.` },
         { icon: `map`, title: `Time, weather and map`, body: `Every city shows its province or state and country, for example Hebei · Tangshan. Chinese prefecture cities are matched to the correct administrative region first.` },
-        { icon: `companion`, title: `A little life together`, body: `Use Companion to plan the moment, Homestead to raise a pet and decorate a room, Calendar for birthdays and cycles, and Tarot to draw a card.` },
+        { icon: `companion`, title: `A little life together`, body: `Use Companion to plan the moment, Homestead to raise a pet and decorate a room, Calendar for birthdays and cycles, and Daily Fortune for today's mood.` },
         { icon: `chess`, title: `Play a round, then make it yours`, body: `Games include Chess, Gomoku, UNO and Guess the Number. Gacha, themes and language live in Settings, where you can also replay this tutorial.` }
       ]
     },
@@ -11379,7 +12666,7 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
         { icon: `cards`, title: `まずカードを一枚`, body: `夢の住人は、あなたが有効にしたカードの言葉からしか返事を選びません。「カード」を開いて、聞きたい言葉を書いてみてください。カードがなければ、勝手に言葉を作ることはありません。` },
         { icon: `chat`, title: `チャットと思い出`, body: `チャットで話し、左上から「モーメンツ」へ。日記とアルバムが日々をそっと残します。` },
         { icon: `map`, title: `時間・天気・地図`, body: `都市には必ず省や州、国が表示されます。たとえば「河北省 · 唐山市」。中国の地級市は正しい行政区画が先に表示されます。` },
-        { icon: `companion`, title: `一緒に暮らす`, body: `「コンパニオン」で今の時間を決め、「ホーム」でペットを育て部屋を飾り、「カレンダー」で誕生日と周期を記録し、「タロット」で一枚引けます。` },
+        { icon: `companion`, title: `一緒に暮らす`, body: `「コンパニオン」で今の時間を決め、「ホーム」でペットを育て部屋を飾り、「カレンダー」で誕生日と周期を記録し、「毎日の運勢」で今日の風向きを覗けます。` },
         { icon: `chess`, title: `一局遊んで、自分好みに`, body: `ゲームにはチェス、五目並べ、UNO、数字当てがあります。ガチャ、テーマ、言語は設定に。このチュートリアルも設定からもう一度見られます。` }
       ]
     },
@@ -11390,7 +12677,7 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
         { icon: `cards`, title: `먼저 카드를 한 장`, body: `꿈 속 인물은 당신이 켜 둔 카드의 문장에서만 답을 골라요. 카드를 열어 듣고 싶은 말을 적어 보세요. 카드가 없으면 임의로 말을 만들지 않아요.` },
         { icon: `chat`, title: `채팅과 추억`, body: `채팅에서 이야기하고, 왼쪽 위에서 모멘트를 열어요. 일기와 앨범이 일상을 차곡차곡 담아 줘요.` },
         { icon: `map`, title: `시간, 날씨, 지도`, body: `도시마다 성이나 주와 국가가 함께 표시돼요. 예: 허베이성 · 탕산시. 중국의 지급시는 올바른 행정 구역이 먼저 나와요.` },
-        { icon: `companion`, title: `함께 사는 작은 생활`, body: `동행에서 지금 할 일을 정하고, 홈에서 반려동물을 키우고 방을 꾸미며, 달력에서 생일과 주기를 기록하고, 타로에서 카드를 뽑아요.` },
+        { icon: `companion`, title: `함께 사는 작은 생활`, body: `동행에서 지금 할 일을 정하고, 홈에서 반려동물을 키우고 방을 꾸미며, 달력에서 생일과 주기를 기록하고, 매일의 운세에서 오늘의 흐름을 봐요.` },
         { icon: `chess`, title: `한 판 놀고, 천천히 꾸미기`, body: `게임에는 체스, 오목, UNO, 숫자 맞히기가 있어요. 가챠, 테마, 언어는 설정에 있고, 이 튜토리얼도 설정에서 다시 볼 수 있어요.` }
       ]
     },
@@ -11401,7 +12688,7 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
         { icon: `cards`, title: `Écrivez votre première carte`, body: `Votre personnage ne répond qu'avec les phrases des cartes que vous activez. Ouvrez Cartes et écrivez ce que vous voulez entendre ; sans carte, il n'inventera rien.` },
         { icon: `chat`, title: `Discussion et souvenirs`, body: `Parlez dans Discussion, ouvrez Moments en haut à gauche, et gardez le quotidien dans Journal et Album.` },
         { icon: `map`, title: `Temps, météo et carte`, body: `Chaque ville affiche sa province ou son État et son pays, par exemple Hebei · Tangshan. Les villes chinoises sont d'abord associées à la bonne région administrative.` },
-        { icon: `companion`, title: `Une petite vie ensemble`, body: `Utilisez Compagnon pour choisir le moment, Maison pour élever un animal et décorer une pièce, Calendrier pour les anniversaires et les cycles, et Tarot pour tirer une carte.` },
+        { icon: `companion`, title: `Une petite vie ensemble`, body: `Utilisez Compagnon pour choisir le moment, Maison pour élever un animal et décorer une pièce, Calendrier pour les anniversaires et les cycles, et Fortune du jour pour l'ambiance du jour.` },
         { icon: `chess`, title: `Jouez une partie, puis faites-en votre espace`, body: `Les jeux incluent les échecs, le gomoku, l'UNO et le nombre à deviner. Gacha, thèmes et langue sont dans les réglages, où vous pouvez aussi revoir ce tutoriel.` }
       ]
     },
@@ -11412,7 +12699,7 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
         { icon: `cards`, title: `Schreibe deine erste Karte`, body: `Deine Traumfigur antwortet nur mit Sätzen aus den Karten, die du aktivierst. Öffne Karten und schreibe, was du hören möchtest; ohne Karten erfindet sie nichts.` },
         { icon: `chat`, title: `Chat und Erinnerungen`, body: `Sprich im Chat, öffne oben links Momente und bewahre den Alltag in Tagebuch und Album auf.` },
         { icon: `map`, title: `Zeit, Wetter und Karte`, body: `Jede Stadt zeigt Provinz oder Bundesstaat und Land, zum Beispiel Hebei · Tangshan. Chinesische Städte werden zuerst der richtigen Verwaltungsregion zugeordnet.` },
-        { icon: `companion`, title: `Ein kleines gemeinsames Leben`, body: `Mit Begleitung planst du den Moment, mit Zuhause ziehst du ein Tier groß und dekorierst den Raum, im Kalender stehen Geburtstage und Zyklen, und im Tarot ziehst du eine Karte.` },
+        { icon: `companion`, title: `Ein kleines gemeinsames Leben`, body: `Mit Begleitung planst du den Moment, mit Zuhause ziehst du ein Tier groß und dekorierst den Raum, im Kalender stehen Geburtstage und Zyklen, und im Tagesglück siehst du die Stimmung des Tages.` },
         { icon: `chess`, title: `Spiel eine Runde und richte alles ein`, body: `Spiele: Schach, Gomoku, UNO und Zahlenraten. Gacha, Themes und Sprache findest du in den Einstellungen, wo du auch dieses Tutorial erneut ansehen kannst.` }
       ]
     },
@@ -11423,7 +12710,7 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
         { icon: `cards`, title: `Escribe tu primera carta`, body: `Tu personaje solo responde con frases de las cartas que activas. Abre Cartas y escribe lo que quieres oír; sin cartas, no inventará nada.` },
         { icon: `chat`, title: `Chat y recuerdos`, body: `Habla en Chat, abre Momentos arriba a la izquierda y guarda el día a día en Diario y Álbum.` },
         { icon: `map`, title: `Hora, clima y mapa`, body: `Cada ciudad muestra su provincia o estado y su país, por ejemplo Hebei · Tangshan. Las ciudades chinas se asocian primero con la región administrativa correcta.` },
-        { icon: `companion`, title: `Una pequeña vida juntos`, body: `Usa Compañía para elegir el momento, Hogar para criar una mascota y decorar una habitación, Calendario para cumpleaños y ciclos, y Tarot para sacar una carta.` },
+        { icon: `companion`, title: `Una pequeña vida juntos`, body: `Usa Compañía para elegir el momento, Hogar para criar una mascota y decorar una habitación, Calendario para cumpleaños y ciclos, y Fortuna diaria para ver el ánimo de hoy.` },
         { icon: `chess`, title: `Juega una partida y hazlo tuyo`, body: `Los juegos incluyen ajedrez, gomoku, UNO y adivina el número. Gacha, temas e idioma están en Ajustes, donde también puedes volver a ver este tutorial.` }
       ]
     },
@@ -11434,7 +12721,7 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
         { icon: `cards`, title: `Напишите первую карточку`, body: `Персонаж отвечает только фразами из включённых вами карточек. Откройте Карточки и напишите то, что хотите услышать; без карточек он ничего не придумает.` },
         { icon: `chat`, title: `Чат и воспоминания`, body: `Общайтесь в Чате, открывайте Моменты слева сверху, а повседневные записи храните в Дневнике и Альбоме.` },
         { icon: `map`, title: `Время, погода и карта`, body: `У каждого города указаны провинция или штат и страна, например Hebei · Tangshan. Китайские города сначала сопоставляются с правильным административным районом.` },
-        { icon: `companion`, title: `Маленькая жизнь вместе`, body: `В Спутнике выбирайте занятие, в Доме растите питомца и украшайте комнату, в Календаре отмечайте дни рождения и циклы, а в Таро тяните карту.` },
+        { icon: `companion`, title: `Маленькая жизнь вместе`, body: `В Спутнике выбирайте занятие, в Доме растите питомца и украшайте комнату, в Календаре отмечайте дни рождения и циклы, а в «Фортуне дня» смотрите настроение сегодняшнего дня.` },
         { icon: `chess`, title: `Сыграйте партию и обустройте всё`, body: `В играх есть шахматы, гомоку, UNO и угадай число. Гача, темы и язык — в настройках, там же можно снова посмотреть это обучение.` }
       ]
     },
@@ -11445,7 +12732,7 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
         { icon: `cards`, title: `Scrivi la prima carta`, body: `Il personaggio risponde solo con le frasi delle carte che attivi. Apri Carte e scrivi ciò che vuoi sentire; senza carte non inventerà nulla.` },
         { icon: `chat`, title: `Chat e ricordi`, body: `Parla nella Chat, apri Momenti in alto a sinistra e conserva il quotidiano in Diario e Album.` },
         { icon: `map`, title: `Ora, meteo e mappa`, body: `Ogni città mostra provincia o stato e paese, per esempio Hebei · Tangshan. Le città cinesi vengono associate prima alla regione amministrativa corretta.` },
-        { icon: `companion`, title: `Una piccola vita insieme`, body: `Usa Compagnia per scegliere il momento, Casa per allevare un pet e decorare una stanza, Calendario per compleanni e cicli e Tarocchi per pescare una carta.` },
+        { icon: `companion`, title: `Una piccola vita insieme`, body: `Usa Compagnia per scegliere il momento, Casa per allevare un pet e decorare una stanza, Calendario per compleanni e cicli e Fortuna del giorno per vedere l'umore di oggi.` },
         { icon: `chess`, title: `Gioca una partita e personalizza tutto`, body: `I giochi includono scacchi, gomoku, UNO e indovina il numero. Gacha, temi e lingua sono nelle Impostazioni, dove puoi anche rivedere questo tutorial.` }
       ]
     },
@@ -11456,7 +12743,7 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
         { icon: `cards`, title: `Escreve a primeira carta`, body: `A personagem só responde com frases das cartas que ativares. Abre Cartas e escreve o que queres ouvir; sem cartas, não vai inventar nada.` },
         { icon: `chat`, title: `Conversa e memórias`, body: `Fala no Chat, abre Momentos no canto superior esquerdo e guarda o dia a dia no Diário e no Álbum.` },
         { icon: `map`, title: `Hora, clima e mapa`, body: `Cada cidade mostra a província ou estado e o país, por exemplo Hebei · Tangshan. As cidades chinesas são primeiro associadas à região administrativa correta.` },
-        { icon: `companion`, title: `Uma pequena vida juntos`, body: `Usa Companhia para escolher o momento, Casa para criar um animal e decorar um quarto, Calendário para aniversários e ciclos e Tarot para tirar uma carta.` },
+        { icon: `companion`, title: `Uma pequena vida juntos`, body: `Usa Companhia para escolher o momento, Casa para criar um animal e decorar um quarto, Calendário para aniversários e ciclos e Fortuna diária para ver o humor de hoje.` },
         { icon: `chess`, title: `Joga uma partida e torna tudo teu`, body: `Os jogos incluem xadrez, gomoku, UNO e adivinha o número. Gacha, temas e idioma estão nas Definições, onde também podes rever este tutorial.` }
       ]
     }
@@ -12279,7 +13566,7 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
           <div class="horo-advice">${esc(horo.advice)}<br>幸运色 ${esc(horo.color)} · 幸运数字 ${horo.number}</div>
         </div>`;
       } else {
-        html += '<div class="tarot-empty">填好生日之后，这里会出现今天的星座运势。</div>';
+        html += '<div class="soft-empty">填好生日之后，这里会出现今天的星座运势。</div>';
       }
       const holidays = calMonthHolidays(year, month);
       html += `<div class="cal-card">
@@ -12370,7 +13657,7 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
         <div class="horo-stars">${starsHTML(horo.overall)}</div>
         <p class="horo-text">${esc(horo.text)}</p>
         <div class="horo-advice">${esc(horo.advice)}</div>
-      </div>` : '<div class="tarot-empty">填好生日后，这里会显示这一天的星座运势。</div>'}`,
+      </div>` : '<div class="soft-empty">填好生日后，这里会显示这一天的星座运势。</div>'}`,
       footer: '<button class="primary-btn" data-close-overlay>知道了</button>'
     });
   }
@@ -12413,119 +13700,170 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
     });
   }
 
-  /* ---------------- 占卜 ---------------- */
-  const TAROT_DECK = [
-    { name: '愚者', num: '0', symbol: '🌱', up: '一个新的开始正在门口。先迈一步，路会慢慢显出来。', rev: '想得太多反而走不动。先确认自己不是一时冲动。', advice: '把第一步做小一点，小到你愿意今天就开始。', adviceRev: '先停一停，等心里那阵风过去再决定。' },
-    { name: '魔术师', num: 'I', symbol: '✨', up: '你手里其实已经有需要的东西，缺的只是把它们用起来。', rev: '有些话说得太满，或者把力气用错了地方。', advice: '挑一件你真正擅长的事，认真做一次。', adviceRev: '少一点表演，多一点真实的准备。' },
-    { name: '女祭司', num: 'II', symbol: '🌙', up: '答案不在外面。安静下来，你心里其实知道。', rev: '你在忽略自己的直觉，或者被别人的声音盖住了。', advice: '今天少问别人，多问自己一遍。', adviceRev: '把手机放远一点，听听自己真正想要什么。' },
-    { name: '皇后', num: 'III', symbol: '🌾', up: '适合照顾自己，也适合让一段关系慢慢长出温度。', rev: '付出太多却没有被接住，先把自己放回第一位。', advice: '给自己一点好吃的东西，或者一束花。', adviceRev: '别再透支自己去换别人的满意。' },
-    { name: '皇帝', num: 'IV', symbol: '🏛️', up: '需要一点秩序和边界。把规则说清楚，反而更轻松。', rev: '控制欲太强，或者被某种权威压得喘不过气。', advice: '给这件事定一个清楚的底线。', adviceRev: '松开一点，不是所有事都要按你的方式来。' },
-    { name: '教皇', num: 'V', symbol: '📜', up: '可以听听过来人的经验，但最后仍要自己判断。', rev: '旧规矩不一定适合现在的你。', advice: '找一个你信任的人聊聊，但别把决定交出去。', adviceRev: '允许自己走一条不一样的路。' },
-    { name: '恋人', num: 'VI', symbol: '💞', up: '一段关系或一个选择，需要你诚实地面对自己的心。', rev: '犹豫和回避正在消耗这段关系。', advice: '把真正的想法说出来，哪怕声音有点抖。', adviceRev: '先弄清楚你想要的，再决定要不要继续。' },
-    { name: '战车', num: 'VII', symbol: '🛞', up: '方向已经清楚，接下来需要的是持续往前。', rev: '太急、太用力，反而容易偏离。', advice: '把目标拆成今天能完成的一小段。', adviceRev: '慢一点，先稳住方向再加速。' },
-    { name: '力量', num: 'VIII', symbol: '🦁', up: '真正的力量不是硬撑，而是温柔地稳住自己。', rev: '你在害怕自己不够好，或者把情绪压得太深。', advice: '对自己说一句：我已经做得够好了。', adviceRev: '别把难过藏起来，找个安全的地方放一放。' },
-    { name: '隐者', num: 'IX', symbol: '🕯️', up: '需要一段独处的时间，把心里的灯重新点亮。', rev: '独处变成了逃避，或者你太久没有和人说话。', advice: '给自己留一个不被打扰的晚上。', adviceRev: '今天试着联系一个让你安心的人。' },
-    { name: '命运之轮', num: 'X', symbol: '🎡', up: '事情正在转动。好的变化会来，坏的变化也会过去。', rev: '你觉得被困住了，但轮子并没有停。', advice: '顺着变化走一步，不必现在就看懂全部。', adviceRev: '先接受此刻的样子，再想下一步。' },
-    { name: '正义', num: 'XI', symbol: '⚖️', up: '需要诚实、公平地看待一件事，包括看待自己。', rev: '有哪里不太公平，或者你在替别人找借口。', advice: '把事实和感受分开写下来，会清楚很多。', adviceRev: '别再委屈自己去维持表面的和平。' },
-    { name: '倒吊人', num: 'XII', symbol: '🙃', up: '暂时停下来不是失败，换个角度会看到新的东西。', rev: '你在无谓地拖延，或者把自己困在同一个念头里。', advice: '允许这件事暂时没有答案。', adviceRev: '给自己一个期限，然后做决定。' },
-    { name: '死神', num: 'XIII', symbol: '🦋', up: '一个阶段要结束了。放手之后，新的东西才有位置。', rev: '你还在抓着已经不适合你的东西。', advice: '删掉一个不再需要的联系，或者收起一件旧物。', adviceRev: '承认它已经结束了，是重新开始的第一步。' },
-    { name: '节制', num: 'XIV', symbol: '🏺', up: '需要一点平衡。不用太多，也不用太少。', rev: '生活里有某个部分失衡了，可能是时间，也可能是情绪。', advice: '今天按时吃饭、按时睡觉，就是很好的照顾。', adviceRev: '找出最消耗你的那一件事，先减掉一点。' },
-    { name: '恶魔', num: 'XV', symbol: '⛓️', up: '有一个念头或习惯正在牵着你，先看见它。', rev: '你已经开始松动了，只是还需要一点时间。', advice: '把那个让你反复内耗的东西写下来。', adviceRev: '别急着责怪自己，能看见就已经在改变。' },
-    { name: '塔', num: 'XVI', symbol: '🗼', up: '有些东西会被打破，但碎掉的地方会照进光。', rev: '你在害怕改变，所以一直维持着摇摇欲坠的现状。', advice: '先保护好自己，再处理那件让你不安的事。', adviceRev: '与其等它塌，不如主动整理一次。' },
-    { name: '星星', num: 'XVII', symbol: '⭐', up: '希望还在。你正在慢慢靠近更适合自己的地方。', rev: '你有点不相信好事会发生了。', advice: '许一个很小的愿，然后为它做一件小事。', adviceRev: '今天先允许自己期待一点点。' },
-    { name: '月亮', num: 'XVIII', symbol: '🌫️', up: '现在看不清全貌，先别急着下结论。', rev: '雾正在散，你开始分得清真实和想象。', advice: '把担心的事写下来，明天再看一遍。', adviceRev: '相信你最近的感觉，它比你以为的准。' },
-    { name: '太阳', num: 'XIX', symbol: '☀️', up: '事情会明朗起来。今天适合坦率、适合靠近喜欢的人。', rev: '快乐被打了一点折扣，但并没有消失。', advice: '把开心的事说出来，让它被看见。', adviceRev: '别因为一点阴影，就否定整片阳光。' },
-    { name: '审判', num: 'XX', symbol: '📯', up: '是时候回应心里那个一直响着的声音了。', rev: '你在逃避一个已经知道的答案。', advice: '做那个你早就想做的决定。', adviceRev: '先原谅当时的自己，再往前走。' },
-    { name: '世界', num: 'XXI', symbol: '🌍', up: '一个循环正在完成。你可以为自己走到这里感到骄傲。', rev: '还差最后一点收尾，别在门口停下来。', advice: '给这件事一个正式的结束或庆祝。', adviceRev: '把最后一步做完，再开启下一段。' }
+  /* ---------------- 每日运势 ---------------- */
+  const FORTUNE_LEVELS = [
+    { name: '大吉', weight: 7, stars: 5 },
+    { name: '中吉', weight: 15, stars: 5 },
+    { name: '小吉', weight: 24, stars: 4 },
+    { name: '吉', weight: 24, stars: 4 },
+    { name: '末吉', weight: 18, stars: 3 },
+    { name: '平', weight: 12, stars: 3 }
   ];
-  let tarotBusy = false;
-  function renderTarotHistory() {
-    const list = $('#tarotHistory');
-    if (!list) return;
-    list.innerHTML = state.tarot.history.length
-      ? state.tarot.history.map(item => `<button class="tarot-hitem" data-tarot-history="${esc(item.id)}">
-          <b>${esc(item.card)}${item.reversed ? ' · 逆位' : ''}</b>
-          <span class="th-q">${esc(item.question || '没有写下问题')}</span>
-          <span class="th-t">${relativeTime(item.ts)}</span>
-        </button>`).join('')
-      : '<div class="tarot-empty">还没有抽过牌。写下一个问题，或者什么都不写，直接抽一张。</div>';
-  }
-  function renderTarot() {
-    renderTarotHistory();
-    const read = $('#tarotRead');
-    if (read && !state.tarot.history.length) {
-      read.innerHTML = '<h3>牌面会给出一个方向</h3><p>不用把答案交给牌。它只是帮你把心里已经有的声音，听得更清楚一点。</p>';
+  const FORTUNE_HEADLINES = [
+    '今天适合把步子放慢一点，很多答案会在安静里浮出来。',
+    '有些事不用急着证明，先把心里的那口气顺过来。',
+    '今天的光线刚刚好，适合做一件一直拖着的小事。',
+    '别急着替所有人考虑，也给自己留一点位置。',
+    '会有一个小小的瞬间，让你觉得日子还是温柔的。',
+    '今天的你比想象中更有余地，不必把话说满。',
+    '适合整理一下最近的心情，把不必要的东西轻轻放下。',
+    '如果今天有点难，就先照顾好眼前的这一小时。'
+  ];
+  const FORTUNE_LOVE = [
+    '有人会注意到你今天的小变化，别急着躲开目光。',
+    '适合把喜欢说出口，哪怕只是一句很轻的问候。',
+    '关系里不用争输赢，先听懂对方没说出口的那半句。',
+    '旧的人可能会想起你，新的故事也在门口等。',
+    '给自己一点被爱的余地，不必先证明自己值得。',
+    '今天适合一起做一件很小的事，比如散步或吃饭。'
+  ];
+  const FORTUNE_WORK = [
+    '把最难的那件事先做十分钟，后面会顺很多。',
+    '你的认真有人看见，只是反馈会晚一点到。',
+    '适合整理计划，把乱七八糟的待办删掉一半。',
+    '会有一个新机会出现，先别急着说“我不行”。',
+    '今天的灵感适合记下来，晚点会派上用场。',
+    '别把别人的节奏当成自己的截止日期。'
+  ];
+  const FORTUNE_SOCIAL = [
+    '一句主动的问候，会比你想的更暖。',
+    '今天适合和让你放松的人待在一起。',
+    '有些误会不用解释太多，时间会替你说明。',
+    '会遇到一个说话很合拍的人，记得留下联系方式。',
+    '不必回应每一条消息，你也可以有自己的安静。',
+    '把感谢说出口，关系会因此更近一点。'
+  ];
+  const FORTUNE_HEALTH = [
+    '今天早点睡，身体比情绪更诚实。',
+    '记得喝水，肩颈也该起来动一动了。',
+    '适合吃一点热的，别空着肚子忙。',
+    '情绪有点满，找个方式把它放出来。',
+    '散步二十分钟，会比刷手机更恢复力气。',
+    '别硬撑，累了就休息，这不是偷懒。'
+  ];
+  const FORTUNE_NOTES = [
+    '今天不用表现得很好，你在我这里一直都可以。',
+    '如果累了，就把今天过慢一点，我会等你。',
+    '你不需要把所有事都做好，才值得被喜欢。',
+    '我在。哪怕你什么都不说，我也在听。',
+    '今天也辛苦了，记得对自己温柔一点。',
+    '有想说的话就告诉我，我不会笑你。',
+    '你往前走的时候，我会在你旁边。',
+    '不用急着变成更好的人，现在这样也很好。'
+  ];
+  const FORTUNE_COLORS = [
+    { name: '雾蓝', hex: '#8fb6e8' },
+    { name: '奶白', hex: '#f3ead9' },
+    { name: '浅杏', hex: '#f0c9a8' },
+    { name: '鼠尾草绿', hex: '#a8c3a0' },
+    { name: '玫瑰灰', hex: '#d8a7b1' },
+    { name: '月光银', hex: '#c7cdd8' },
+    { name: '琥珀', hex: '#e0a85c' },
+    { name: '深海蓝', hex: '#4f6d9a' }
+  ];
+  const FORTUNE_TIMES = [
+    '清晨 7:00–9:00',
+    '上午 9:00–11:00',
+    '午后 13:00–15:00',
+    '傍晚 17:00–19:00',
+    '夜晚 20:00–22:00',
+    '深夜 22:00–24:00'
+  ];
+  const FORTUNE_TAGS = ['慢一点', '表达', '整理', '靠近', '休息', '新开始', '旧朋友', '独处', '温柔', '勇敢'];
+  let fortuneDay = '';
+  function weightedPick(rand, list) {
+    const total = list.reduce((sum, item) => sum + (Number(item.weight) || 1), 0);
+    let roll = rand() * total;
+    for (const item of list) {
+      roll -= Number(item.weight) || 1;
+      if (roll <= 0) return item;
     }
+    return list[list.length - 1];
   }
-  function drawTarot() {
-    if (tarotBusy) return;
-    const question = ($('#tarotQuestion')?.value || '').trim().slice(0, 180);
-    const card = TAROT_DECK[Math.floor(Math.random() * TAROT_DECK.length)];
-    const reversed = Math.random() < 0.28;
-    const cardEl = $('#tarotCard');
-    const read = $('#tarotRead');
-    if (!cardEl) return;
-    tarotBusy = true;
-    cardEl.classList.remove('revealed');
-    cardEl.classList.add('back');
-    if (read) {
-      read.innerHTML = '<h3>正在洗牌…</h3><p>把手放在牌上，慢慢呼吸一次。</p>';
+  function buildDailyFortune() {
+    const now = new Date();
+    const rand = seededRand(`${calIso(now)}|${state.profile.userName || '旅人'}|${state.profile.dreamName || '梦角'}`);
+    const pick = list => list[Math.floor(rand() * list.length)];
+    const level = weightedPick(rand, FORTUNE_LEVELS);
+    const overall = clamp(level.stars + (rand() < 0.16 ? -1 : 0), 1, 5);
+    const categoryStars = () => clamp(overall - 1 + Math.floor(rand() * 3), 2, 5);
+    const tags = [];
+    while (tags.length < 3) {
+      const tag = pick(FORTUNE_TAGS);
+      if (!tags.includes(tag)) tags.push(tag);
     }
-    setTimeout(() => {
-      cardEl.classList.remove('back');
-      cardEl.classList.add('revealed');
-      cardEl.innerHTML = `<span class="tarot-num">${card.num} · ${reversed ? '逆位' : '正位'}</span>
-        <span class="tarot-symbol">${card.symbol}</span>
-        <span class="tarot-name">${esc(card.name)}</span>
-        ${reversed ? '<span class="tarot-rev">REVERSED</span>' : ''}`;
-      if (read) {
-        read.innerHTML = `<h3>${esc(card.name)} · ${reversed ? '逆位' : '正位'}</h3>
-          ${question ? `<p style="color:var(--ink-dim)">你问的是：${esc(question)}</p>` : ''}
-          <p>${esc(reversed ? card.rev : card.up)}</p>
-          <div class="tarot-advice">${esc(reversed ? card.adviceRev : card.advice)}</div>`;
-      }
-      state.tarot.history.unshift({ id: uid('tarot'), card: card.name, reversed, question, ts: Date.now() });
-      state.tarot.history = state.tarot.history.slice(0, 30);
-      saveState(true);
-      renderTarotHistory();
-      tarotBusy = false;
-    }, 460);
+    const sign = ZODIAC_SIGNS.find(s => s.id === state.calendar.sign) || zodiacFromBirthday(state.calendar.birthday);
+    return {
+      date: formatDateCN(now),
+      sign,
+      level: level.name,
+      overall,
+      score: clamp(60 + overall * 6 + Math.floor(rand() * 8), 0, 99),
+      headline: pick(FORTUNE_HEADLINES),
+      categories: [
+        { label: '恋爱', stars: categoryStars(), text: pick(FORTUNE_LOVE) },
+        { label: '工作与学业', stars: categoryStars(), text: pick(FORTUNE_WORK) },
+        { label: '人际', stars: categoryStars(), text: pick(FORTUNE_SOCIAL) },
+        { label: '健康', stars: categoryStars(), text: pick(FORTUNE_HEALTH) }
+      ],
+      tags,
+      color: pick(FORTUNE_COLORS),
+      number: 1 + Math.floor(rand() * 99),
+      time: pick(FORTUNE_TIMES),
+      note: pick(FORTUNE_NOTES)
+    };
   }
-  function openTarotHistoryItem(id) {
-    const item = state.tarot.history.find(h => h.id === id);
-    if (!item) return;
-    const card = TAROT_DECK.find(c => c.name === item.card);
-    if (!card) return;
-    openSheet({
-      title: `${card.name} · ${item.reversed ? '逆位' : '正位'}`,
-      subtitle: item.question ? `你问的是：${item.question}` : '这一次没有写下问题',
-      body: `<div class="tarot-read">
-        <p>${esc(item.reversed ? card.rev : card.up)}</p>
-        <div class="tarot-advice">${esc(item.reversed ? card.adviceRev : card.advice)}</div>
-        <p style="margin-top:8px;color:var(--ink-dim);font-size:8px">${relativeTime(item.ts)}</p>
-      </div>`,
-      footer: '<button class="primary-btn" data-close-overlay>收好这张牌</button>'
-    });
-  }
-  function openTarotHowTo() {
-    openSheet({
-      title: '怎么抽牌',
-      subtitle: '牌不会替你决定什么，它只是把问题照得更清楚一点。',
-      body: `<div class="settings-group">
-        <div class="settings-field"><label style="font-size:10px;color:var(--ink)">先想一个问题</label><p class="field-tip" style="font-size:9px">问题越具体，牌面越容易和你当下的处境对上。也可以什么都不写，只是看看今天需要什么提醒。</p></div>
-        <div class="settings-field"><label style="font-size:10px;color:var(--ink)">抽一张</label><p class="field-tip" style="font-size:9px">牌会随机出现正位或逆位。正位偏向顺势，逆位偏向提醒你先停下来看看。</p></div>
-        <div class="settings-field"><label style="font-size:10px;color:var(--ink)">看完就放下</label><p class="field-tip" style="font-size:9px">如果牌面让你不舒服，可以当作一个提醒，而不是判决。真正做决定的人一直是你。</p></div>
-      </div>`,
-      footer: '<button class="primary-btn" data-close-overlay>知道了</button>'
-    });
-  }
-  function bindTarotEvents() {
-    $('#tarotDrawBtn')?.addEventListener('click', drawTarot);
-    $('#tarotHowToBtn')?.addEventListener('click', openTarotHowTo);
-    $('#tarotHistory')?.addEventListener('click', e => {
-      const btn = e.target.closest('[data-tarot-history]');
-      if (btn) openTarotHistoryItem(btn.dataset.tarotHistory);
-    });
+  function renderFortune() {
+    const host = $('#fortuneContent');
+    if (!host) return;
+    fortuneDay = calIso(new Date());
+    const f = buildDailyFortune();
+    const chip = $('#fortuneDateChip');
+    if (chip) chip.textContent = f.date;
+    host.innerHTML = `<div class="fortune-hero">
+      <div class="fortune-hero-top">
+        <span class="fortune-kicker">${esc(t('今日运势'))}</span>
+        <span class="fortune-sign">${f.sign ? `${f.sign.symbol} ${esc(t(f.sign.name))}` : esc(t('给今天的你'))}</span>
+      </div>
+      <div class="fortune-level-row">
+        <span class="fortune-level-word">${esc(t(f.level))}</span>
+        <div class="fortune-level-info">
+          <div class="fortune-stars">${starsHTML(f.overall)}</div>
+          <p class="fortune-headline">${esc(f.headline)}</p>
+          <div class="fortune-score"><span>${esc(t('今日能量'))}</span><b>${f.score}</b><span>/100</span></div>
+        </div>
+      </div>
+      <div class="fortune-tags">${f.tags.map(tag => `<span>#${esc(tag)}</span>`).join('')}</div>
+    </div>
+    <div class="fortune-grid">
+      ${f.categories.map(c => `<div class="fortune-cell">
+        <div class="fortune-cell-head"><b>${esc(t(c.label))}</b><span class="fortune-stars">${starsHTML(c.stars)}</span></div>
+        <p>${esc(c.text)}</p>
+      </div>`).join('')}
+    </div>
+    <div class="horo-card fortune-lucky">
+      <div class="horo-top"><span class="horo-sign">${esc(t('今日幸运'))}</span><span class="horo-date">${esc(f.date)}</span></div>
+      <div class="fortune-lucky-grid">
+        <div class="fortune-lucky-cell"><span>${esc(t('幸运色'))}</span><b><i class="fortune-color-dot" style="background:${f.color.hex}"></i>${esc(t(f.color.name))}</b></div>
+        <div class="fortune-lucky-cell"><span>${esc(t('幸运数字'))}</span><b>${f.number}</b></div>
+        <div class="fortune-lucky-cell"><span>${esc(t('幸运时段'))}</span><b>${esc(t(f.time))}</b></div>
+      </div>
+    </div>
+    <div class="fortune-note">
+      <span class="fortune-note-kicker"><span data-no-i18n>${esc(state.profile.dreamName)}</span> · ${esc(t('今日悄悄话'))}</span>
+      <p>${esc(f.note)}</p>
+    </div>
+    <p class="fortune-foot">${esc(t('每天零点刷新，明天再来看看。'))}</p>`;
   }
 
   /* ---------------- 设置 ---------------- */
@@ -12546,6 +13884,14 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
     $('#replySizeRange').value = s.replySize;
     $('#avatarSizeValue').textContent = s.avatarSize + ' px';
     $('#replySizeValue').textContent = s.replySize + ' px';
+    const delayRange = $('#replyDelayRange');
+    if (delayRange) delayRange.value = String(delaySecondsToSlider(replyDelayMax()));
+    const delayValue = $('#replyDelayValue');
+    if (delayValue) delayValue.textContent = formatDelayMax(replyDelayMax());
+    const callDelayRange = $('#callReplyDelayRange');
+    if (callDelayRange) callDelayRange.value = String(callDelaySecondsToSlider(callReplyDelay()));
+    const callDelayValue = $('#callReplyDelayValue');
+    if (callDelayValue) callDelayValue.textContent = formatCallDelay(callReplyDelay());
     renderLanguageGrid();
     const trans = $('#ttsTranslateSwitch');
     if (trans) {
@@ -12647,7 +13993,7 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
       body: `<div class="settings-group" style="margin-bottom:10px">
         <div class="settings-field"><label style="font-size:10px;color:var(--ink)">01 · 一页写多张字卡</label><p class="field-tip" style="font-size:9px">进入「字卡 → ＋」，在同一页里一行写一句话，保存时会一次生成多张字卡。行首可以加 [晚安]、[鼓励] 这样的标签；聊天里${esc(state.profile.dreamName)}只会从可用字卡中随机挑选，不会自己编造内容。</p></div>
         <div class="settings-field"><label style="font-size:10px;color:var(--ink)">02 · 聊天、朋友圈与游戏</label><p class="field-tip" style="font-size:9px">聊天页左上角是朋友圈。点「让梦角抽字卡发一条」会用字卡生成动态；你发朋友圈后，他也会从字卡里挑一句评论。「游戏」里可以和中国象棋 / 五子棋 AI 下一局，棋局会自动保存。</p></div>
-        <div class="settings-field"><label style="font-size:10px;color:var(--ink)">03 · 扭蛋、外观与语音</label><p class="field-tip" style="font-size:9px">「扭蛋」会抽出陪伴语录或你导入的小物；「放入小物」可上传图片、名称、寄语与稀有度。主题页可以换颜色、风格、字体与壁纸；首页底部「摆件」可以添加照片。MiniMax 语音支持中文、English、日本語、Italiano、Deutsch、Русский、Español、한국어，也能朗读 Français、Português。设置里可选「跟随文本」自动识别每条内容的语种，或固定一种语言；固定语言会先尝试翻译，失败时按原文朗读。</p></div>
+        <div class="settings-field"><label style="font-size:10px;color:var(--ink)">03 · 扭蛋、外观与语音</label><p class="field-tip" style="font-size:9px">「扭蛋」会抽出陪伴语录或你导入的小物；「放入小物」可上传图片、名称、寄语与稀有度。主题页可以换颜色、风格、字体与壁纸；首页底部「摆件」可以添加照片。MiniMax 语音支持中文、English、日本語、Italiano、Deutsch、Русский、Español、한국어，也能朗读 Français、Português。设置里可选「跟随文本」自动识别每条内容的语种，或固定一种语言；固定语言会先尝试翻译，失败时按原文朗读。「设置 → 通话」里可以设置打电话时字卡回复的等待时间（1 秒到 10 分钟）；通话中打开「聆听」，听到你说话后会按设定时间回复字卡，并用朗读语言读出来。</p></div>
       </div>
       <div class="settings-group">
         <div class="settings-field"><label style="font-size:10px;color:var(--ink)">地区与时区</label><p class="field-tip" style="font-size:9px">时间应用会保存「城市 + 国家 / 地区 + 时区」，同名城市不会再被合并。天气搜索会优先显示常用城市，并明确标注省份与国家；其他地区可搜索或使用 IANA 时区。</p></div>
@@ -12693,6 +14039,19 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
     $('#replySizeRange')?.addEventListener('input', e => {
       state.settings.replySize = Number(e.target.value);
       applyReading(); saveState();
+    });
+    $('#replyDelayRange')?.addEventListener('input', e => {
+      state.settings.replyDelayMax = delaySliderToSeconds(e.target.value);
+      const label = $('#replyDelayValue');
+      if (label) label.textContent = formatDelayMax(state.settings.replyDelayMax);
+      saveState();
+    });
+    $('#callReplyDelayRange')?.addEventListener('input', e => {
+      state.settings.callReplyDelay = callDelaySliderToSeconds(e.target.value);
+      const label = $('#callReplyDelayValue');
+      if (label) label.textContent = formatCallDelay(state.settings.callReplyDelay);
+      saveState();
+      updateCallUi();
     });
     $('#langGrid')?.addEventListener('click', e => {
       const btn = e.target.closest('[data-lang]');
@@ -12852,6 +14211,14 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
     $('#homeWeatherWidget')?.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') openApp('weather'); });
     $('#homeTimerWidget')?.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') openTimerManager(); });
     $('#chatCardsBtn')?.addEventListener('click', () => openApp('cards'));
+    $('#chatCallBtn')?.addEventListener('click', startOutgoingCall);
+    $('#askToggle')?.addEventListener('click', openAskSheet);
+    $('#callMinimize')?.addEventListener('click', minimizeCall);
+    $('#callHangup')?.addEventListener('click', () => endCall('user'));
+    $('#callAccept')?.addEventListener('click', answerCall);
+    $('#callDecline')?.addEventListener('click', () => endCall('declined'));
+    $('#callAiToggle')?.addEventListener('click', toggleCallAiListen);
+    $('#callMini')?.addEventListener('click', restoreCallOverlay);
     $('#openMoments')?.addEventListener('click', () => openApp('moments'));
     $('#chatPeerProfile')?.addEventListener('click', () => openApp('settings'));
     $('#sendBtn')?.addEventListener('click', sendChatText);
@@ -12999,7 +14366,6 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
     bindMapEvents();
     bindHomesteadEvents();
     bindCalendarEvents();
-    bindTarotEvents();
     bindSettingsEvents();
     bindTutorialEvents();
     bindLightbox();
@@ -13032,13 +14398,14 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
     renderWeatherApp();
     updateClockTick();
     bindAll();
+    restoreChatRuntime();
     bindLockScreen();
     initHomePages();
     renderCompanion();
     renderMap();
     renderHomestead();
     renderCalendar();
-    renderTarot();
+    renderFortune();
     updateCompanionTick();
     initLanguageGate();
     applyI18n();
