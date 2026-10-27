@@ -4227,6 +4227,15 @@ body.cropper-open { overflow: hidden; }
                     <p class="field-tip" style="margin:6px 0 0">打电话开启「聆听」后，听到你说话，就会在这个时间后回复字卡；可在 1 秒到 10 分钟之间选择。</p>
                   </div>
                   <div class="settings-field">
+                    <label for="callAsrModeSelect">语音识别方式</label>
+                    <select class="settings-select" id="callAsrModeSelect">
+                      <option value="auto">自动（有 MiniMax Key 时录音识别）</option>
+                      <option value="browser">浏览器识别</option>
+                      <option value="minimax">MiniMax 录音识别</option>
+                    </select>
+                    <p class="field-tip">浏览器识别免费但依赖浏览器的语音服务；MiniMax 录音识别使用「MiniMax 语音」里的 API Key，把一小段录音上传转写，国内网络更稳。</p>
+                  </div>
+                  <div class="settings-field">
                     <label for="callSpeechLangSelect">语音识别语言</label>
                     <select class="settings-select" id="callSpeechLangSelect">
                       <option value="auto">跟随网站语言</option>
@@ -4241,7 +4250,7 @@ body.cropper-open { overflow: hidden; }
                       <option value="it">Italiano · IT</option>
                       <option value="pt">Português · PT</option>
                     </select>
-                    <p class="field-tip">选择你说话时使用的语言；如果识别不到，先确认这里和你的口语一致。</p>
+                    <p class="field-tip">浏览器识别使用这个语言；MiniMax 录音识别会自动识别语种。如果浏览器识别不到，先确认这里和你的口语一致。</p>
                   </div>
                   <p class="field-tip">通话中的字卡会用「朗读语言」朗读；选择固定语言时，就算字卡是中文，也会先翻译再朗读。</p>
                 </div>
@@ -6154,7 +6163,8 @@ body.cropper-open { overflow: hidden; }
         dreamCallAuto: true,
         replyDelayMax: 5,
         callReplyDelay: 5,
-        callSpeechLang: 'auto'
+        callSpeechLang: 'auto',
+        callAsrMode: 'auto'
       },
       cards: [],
       messages: [],
@@ -6340,6 +6350,7 @@ body.cropper-open { overflow: hidden; }
     state.settings.replyDelayMax = clamp(Number(state.settings.replyDelayMax) || 5, 1, 3600);
     state.settings.callReplyDelay = clamp(Number(state.settings.callReplyDelay) || 5, 1, CALL_DELAY_MAX);
     if (!['auto'].concat(LANGS.map(l => l.id)).includes(state.settings.callSpeechLang)) state.settings.callSpeechLang = 'auto';
+    if (!['auto', 'browser', 'minimax'].includes(state.settings.callAsrMode)) state.settings.callAsrMode = 'auto';
     state.meta.languageChosen = Boolean(state.meta.languageChosen);
     state.meta.tutorialDone = Boolean(state.meta.tutorialDone);
     if (!Array.isArray(state.settings.savedCities) || !state.settings.savedCities.length) {
@@ -6634,6 +6645,8 @@ body.cropper-open { overflow: hidden; }
         speaking: Boolean(callRaw.speaking),
         hearing: false,
         micReady: false,
+        asrRecording: false,
+        asrBusy: false,
         micError: String(callRaw.micError || '').slice(0, 40),
         heardText: String(callRaw.heardText || '').slice(0, 600),
         heardLive: false,
@@ -8682,6 +8695,8 @@ body.cropper-open { overflow: hidden; }
   let callMicPermissionPending = false;
   let callRecognitionFailures = 0;
   let callRecognitionToken = 0;
+  let callAsrSession = null;
+  let callAsrToken = 0;
   let lastDreamCallCheck = 0;
 
   function activeCall() {
@@ -8749,6 +8764,8 @@ body.cropper-open { overflow: hidden; }
       if (ringing) subText = incoming ? t('来电') : t('正在呼叫…');
       else if (call.speaking) subText = t('正在朗读字卡…');
       else if (pending) subText = `${t('聆听中')} · ${formatCallDuration(remain)}`;
+      else if (call.aiListen && call.asrBusy) subText = t('正在识别…');
+      else if (call.aiListen && call.asrRecording) subText = t('正在听你说…');
       else if (call.aiListen && call.hearing) subText = t('听见了，正在识别…');
       else if (call.aiListen) subText = call.micReady ? t('聆听中 · 说点什么吧') : t('正在打开麦克风…');
       else if (call.micError) subText = t('通话中 · 麦克风未开启');
@@ -8875,6 +8892,8 @@ body.cropper-open { overflow: hidden; }
     call.speaking = false;
     call.hearing = false;
     call.micReady = false;
+    call.asrRecording = false;
+    call.asrBusy = false;
     call.micError = '';
     call.heardText = '';
     call.heardLive = false;
@@ -8899,7 +8918,7 @@ body.cropper-open { overflow: hidden; }
       id: uid('call'), direction: 'outgoing', status: 'ringing',
       startedAt: now, connectedAt: 0, autoHangupAt: 0,
       aiListen: false, replyDueAt: 0, speaking: false,
-      hearing: false, micReady: false, micError: '',
+      hearing: false, micReady: false, asrRecording: false, asrBusy: false, micError: '',
       heardText: '', heardLive: false, transcript: [],
       cardText: '', cardId: '', lastSpeech: ''
     };
@@ -8921,7 +8940,7 @@ body.cropper-open { overflow: hidden; }
       id: uid('call'), direction: 'incoming', status: 'ringing',
       startedAt: now, connectedAt: 0, autoHangupAt: 0,
       aiListen: false, replyDueAt: 0, speaking: false,
-      hearing: false, micReady: false, micError: '',
+      hearing: false, micReady: false, asrRecording: false, asrBusy: false, micError: '',
       heardText: '', heardLive: false, transcript: [],
       cardText: '', cardId: '', lastSpeech: ''
     };
@@ -9023,9 +9042,372 @@ body.cropper-open { overflow: hidden; }
       return false;
     }
   }
+  function shouldUseMinimaxAsr() {
+    const mode = state.settings.callAsrMode;
+    if (mode === 'browser') return false;
+    if (mode === 'minimax') return true;
+    return Boolean((state.settings.minimax.apiKey || '').trim());
+  }
+  async function getCallMicStream() {
+    if (!navigator.mediaDevices || typeof navigator.mediaDevices.getUserMedia !== 'function') {
+      throw new Error('当前浏览器没有麦克风接口');
+    }
+    try {
+      return await navigator.mediaDevices.getUserMedia({
+        audio: { channelCount: 1, echoCancellation: true, noiseSuppression: true, autoGainControl: true }
+      });
+    } catch (e) {
+      return navigator.mediaDevices.getUserMedia({ audio: true });
+    }
+  }
+  function stopMinimaxAsr() {
+    callAsrToken++;
+    const session = callAsrSession;
+    callAsrSession = null;
+    if (!session) return;
+    clearInterval(session.timer);
+    if (session.recorder) {
+      try {
+        session.recorder.onstop = null;
+        if (session.recorder.state !== 'inactive') session.recorder.stop();
+      } catch (e) {}
+      session.recorder = null;
+    }
+    try { session.stream.getTracks().forEach(track => track.stop()); } catch (e) {}
+    try { session.ctx.close(); } catch (e) {}
+    session.chunks = [];
+  }
+  async function startMinimaxCallAsr() {
+    const call = activeCall();
+    if (!call || call.status !== 'active' || !call.aiListen || call.speaking) return;
+    const key = (state.settings.minimax.apiKey || '').trim();
+    if (!key) {
+      call.aiListen = false;
+      call.micError = 'asr-key';
+      call.hearing = false;
+      call.asrRecording = false;
+      call.asrBusy = false;
+      saveState();
+      updateCallUi();
+      toast('请先在「设置 → MiniMax 语音」填写 API Key，或改用浏览器识别', 'error');
+      return;
+    }
+    if (callAsrSession) return;
+    stopMinimaxAsr();
+    const token = ++callAsrToken;
+    call.hearing = false;
+    call.asrRecording = false;
+    call.asrBusy = false;
+    call.micReady = false;
+    call.micError = '';
+    updateCallUi();
+    try {
+      const stream = await getCallMicStream();
+      if (token !== callAsrToken || !activeCall() || !activeCall().aiListen) {
+        stream.getTracks().forEach(track => track.stop());
+        return;
+      }
+      const Ctx = window.AudioContext || window.webkitAudioContext;
+      if (!Ctx) throw new Error('当前浏览器不支持音频分析');
+      const ctx = new Ctx();
+      if (ctx.state === 'suspended') { try { await ctx.resume(); } catch (e) {} }
+      const source = ctx.createMediaStreamSource(stream);
+      const analyser = ctx.createAnalyser();
+      analyser.fftSize = 1024;
+      analyser.smoothingTimeConstant = 0.35;
+      source.connect(analyser);
+      const session = {
+        stream, ctx, source, analyser, timer: null, recorder: null, chunks: [],
+        recording: false, busy: false, startedAt: 0, lastVoice: 0, threshold: 0.018
+      };
+      callAsrSession = session;
+      const current = activeCall();
+      if (current) {
+        current.micReady = true;
+        current.micError = '';
+        saveState();
+        updateCallUi();
+      }
+      session.timer = setInterval(() => minimaxAsrTick(token), 120);
+    } catch (e) {
+      if (token !== callAsrToken) return;
+      const current = activeCall();
+      if (current) {
+        current.aiListen = false;
+        current.micReady = false;
+        current.micError = 'permission';
+        current.hearing = false;
+        current.asrRecording = false;
+        current.asrBusy = false;
+        saveState();
+        updateCallUi();
+      }
+      toast(`无法开始录音识别：${e.message || '请检查麦克风权限'}`, 'error');
+    }
+  }
+  function minimaxAsrTick(token) {
+    if (token !== callAsrToken) return;
+    const session = callAsrSession;
+    if (!session) return;
+    const call = activeCall();
+    if (!call || call.status !== 'active' || !call.aiListen) {
+      stopMinimaxAsr();
+      return;
+    }
+    if (call.speaking || call.asrBusy || session.busy) {
+      if (session.recording) stopMinimaxRecording(session, token, false);
+      if (call.hearing || call.asrRecording) {
+        call.hearing = false;
+        call.asrRecording = false;
+        updateCallUi();
+      }
+      return;
+    }
+    const data = new Uint8Array(session.analyser.fftSize);
+    session.analyser.getByteTimeDomainData(data);
+    let sum = 0;
+    for (let i = 0; i < data.length; i++) {
+      const v = (data[i] - 128) / 128;
+      sum += v * v;
+    }
+    const rms = Math.sqrt(sum / data.length);
+    const now = Date.now();
+    if (rms >= session.threshold) {
+      session.lastVoice = now;
+      if (!session.recording) {
+        if (!startMinimaxRecording(session, token)) return;
+        call.hearing = true;
+        call.asrRecording = true;
+        updateCallUi();
+      }
+    } else if (session.recording) {
+      if (now - session.lastVoice >= 850 || now - session.startedAt >= 15000) {
+        stopMinimaxRecording(session, token, true);
+      }
+    } else if (call.hearing || call.asrRecording) {
+      call.hearing = false;
+      call.asrRecording = false;
+      updateCallUi();
+    }
+  }
+  function failMinimaxAsr(message, code = 'asr') {
+    const call = activeCall();
+    if (call) {
+      call.aiListen = false;
+      call.micReady = false;
+      call.hearing = false;
+      call.asrRecording = false;
+      call.asrBusy = false;
+      call.micError = code;
+      saveState();
+      updateCallUi();
+    }
+    toast(message, 'error');
+    stopMinimaxAsr();
+  }
+  function startMinimaxRecording(session, token) {
+    if (!window.MediaRecorder) {
+      failMinimaxAsr('当前浏览器不支持录音识别，请改用浏览器识别或文字', 'asr');
+      return false;
+    }
+    const types = ['audio/webm;codecs=opus', 'audio/webm', 'audio/mp4', 'audio/ogg;codecs=opus'];
+    let mime = '';
+    try { mime = types.find(type => MediaRecorder.isTypeSupported(type)) || ''; } catch (e) {}
+    let recorder;
+    try {
+      recorder = mime ? new MediaRecorder(session.stream, { mimeType: mime }) : new MediaRecorder(session.stream);
+    } catch (e) {
+      failMinimaxAsr('无法启动录音，请检查麦克风权限', 'asr');
+      return false;
+    }
+    session.chunks = [];
+    session.recorder = recorder;
+    recorder.ondataavailable = event => {
+      if (event.data && event.data.size) session.chunks.push(event.data);
+    };
+    recorder.onstop = () => {
+      if (token !== callAsrToken) return;
+      const chunks = session.chunks.slice();
+      const type = recorder.mimeType || mime || 'audio/webm';
+      session.recorder = null;
+      session.recording = false;
+      const call = activeCall();
+      if (!call) return;
+      if (!chunks.length) {
+        call.asrRecording = false;
+        call.hearing = false;
+        updateCallUi();
+        return;
+      }
+      const blob = new Blob(chunks, { type });
+      if (blob.size < 900) {
+        call.asrRecording = false;
+        call.hearing = false;
+        updateCallUi();
+        return;
+      }
+      transcribeMinimaxAudio(session, blob, token);
+    };
+    try { recorder.start(); } catch (e) {
+      session.recorder = null;
+      failMinimaxAsr('无法启动录音，请检查麦克风权限', 'asr');
+      return false;
+    }
+    session.recording = true;
+    session.startedAt = Date.now();
+    session.lastVoice = Date.now();
+    return true;
+  }
+  function stopMinimaxRecording(session, token, transcribe) {
+    const recorder = session.recorder;
+    session.recording = false;
+    if (!recorder || recorder.state === 'inactive') return;
+    if (!transcribe) {
+      try {
+        recorder.onstop = null;
+        recorder.stop();
+      } catch (e) {}
+      session.recorder = null;
+      session.chunks = [];
+      return;
+    }
+    try { recorder.stop(); } catch (e) {
+      session.recorder = null;
+      session.chunks = [];
+      const call = activeCall();
+      if (call) { call.asrRecording = false; call.hearing = false; updateCallUi(); }
+    }
+  }
+  async function transcribeMinimaxAudio(session, blob, token) {
+    const call = activeCall();
+    if (!call || token !== callAsrToken) return;
+    session.busy = true;
+    call.asrBusy = true;
+    call.asrRecording = false;
+    call.hearing = false;
+    updateCallUi();
+    try {
+      const wav = await blobToCallWav(blob, session.ctx);
+      if (token !== callAsrToken) return;
+      if (!wav) throw new Error('没有录到足够的声音');
+      const key = (state.settings.minimax.apiKey || '').trim();
+      if (!key) throw new Error('没有填写 MiniMax API Key');
+      const form = new FormData();
+      form.append('model', 'asr-1.0');
+      form.append('file', wav, 'call.wav');
+      const headers = { Authorization: `Bearer ${key}` };
+      const endpoint = (state.settings.minimax.asrEndpoint || 'https://api.minimax.cn/v1/speech_to_text').trim();
+      const res = await fetch(endpoint, { method: 'POST', headers, body: form });
+      if (token !== callAsrToken) return;
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        const message = data?.error?.message || data?.base_resp?.status_msg || `HTTP ${res.status}`;
+        const error = new Error(message);
+        error.status = res.status;
+        throw error;
+      }
+      const text = String(data.text || '').trim();
+      session.busy = false;
+      call.asrBusy = false;
+      call.asrRecording = false;
+      call.hearing = false;
+      if (!text) {
+        updateCallUi();
+        toast('没有听清，再说一遍吧', 'error');
+        return;
+      }
+      call.micError = '';
+      saveState();
+      updateCallUi();
+      handleCallSpeech(text, { force: true });
+    } catch (e) {
+      if (token !== callAsrToken) return;
+      session.busy = false;
+      const message = String(e.message || '录音识别失败');
+      call.asrBusy = false;
+      call.asrRecording = false;
+      call.hearing = false;
+      call.micError = (e.status === 401 || /API Key|401|授权|login fail|authorized/i.test(message))
+        ? 'asr-key'
+        : (e.status === 402 || /余额|402|balance|insufficient/i.test(message)) ? 'asr-balance' : 'asr';
+      saveState();
+      updateCallUi();
+      toast(`录音识别失败：${message}`, 'error');
+      stopMinimaxAsr();
+      const current = activeCall();
+      if (current) {
+        current.aiListen = false;
+        current.micReady = false;
+        saveState();
+        updateCallUi();
+      }
+    }
+  }
+  async function blobToCallWav(blob, ctx) {
+    const buffer = await blob.arrayBuffer();
+    let audio;
+    try {
+      audio = await ctx.decodeAudioData(buffer.slice(0));
+    } catch (e) {
+      const Ctx = window.AudioContext || window.webkitAudioContext;
+      if (!Ctx) throw new Error('无法解码录音');
+      const fallback = new Ctx();
+      try { audio = await fallback.decodeAudioData(buffer.slice(0)); }
+      finally { try { fallback.close(); } catch (err) {} }
+    }
+    if (!audio || !audio.length || audio.duration < 0.25) return null;
+    return encodeCallWav(audio);
+  }
+  function encodeCallWav(audio) {
+    const channels = audio.numberOfChannels;
+    const inputLength = audio.length;
+    if (!inputLength) return null;
+    const mono = new Float32Array(inputLength);
+    for (let channel = 0; channel < channels; channel++) {
+      const data = audio.getChannelData(channel);
+      for (let i = 0; i < inputLength; i++) mono[i] += data[i] / channels;
+    }
+    const sourceRate = audio.sampleRate || 48000;
+    const targetRate = 16000;
+    const ratio = sourceRate / targetRate;
+    const outputLength = Math.max(1, Math.floor(inputLength / ratio));
+    const pcm = new Int16Array(outputLength);
+    for (let i = 0; i < outputLength; i++) {
+      const pos = i * ratio;
+      const index = Math.floor(pos);
+      const frac = pos - index;
+      const sample = (mono[index] || 0) * (1 - frac) + (mono[index + 1] || 0) * frac;
+      const clamped = Math.max(-1, Math.min(1, sample));
+      pcm[i] = clamped < 0 ? clamped * 0x8000 : clamped * 0x7fff;
+    }
+    const buffer = new ArrayBuffer(44 + outputLength * 2);
+    const view = new DataView(buffer);
+    const writeString = (offset, value) => {
+      for (let i = 0; i < value.length; i++) view.setUint8(offset + i, value.charCodeAt(i));
+    };
+    writeString(0, 'RIFF');
+    view.setUint32(4, 36 + outputLength * 2, true);
+    writeString(8, 'WAVE');
+    writeString(12, 'fmt ');
+    view.setUint32(16, 16, true);
+    view.setUint16(20, 1, true);
+    view.setUint16(22, 1, true);
+    view.setUint32(24, targetRate, true);
+    view.setUint32(28, targetRate * 2, true);
+    view.setUint16(32, 2, true);
+    view.setUint16(34, 16, true);
+    writeString(36, 'data');
+    view.setUint32(40, outputLength * 2, true);
+    new Int16Array(buffer, 44).set(pcm);
+    return new Blob([buffer], { type: 'audio/wav' });
+  }
   async function startCallRecognition() {
     const call = activeCall();
     if (!call || call.status !== 'active' || !call.aiListen || call.speaking) return;
+    if (shouldUseMinimaxAsr()) {
+      await startMinimaxCallAsr();
+      return;
+    }
     if (!recognitionSupported()) {
       call.aiListen = false;
       call.replyDueAt = 0;
@@ -9033,7 +9415,7 @@ body.cropper-open { overflow: hidden; }
       call.micError = 'unsupported';
       saveState();
       updateCallUi();
-      toast(t('当前浏览器不支持语音识别，请使用 Chrome 或 Edge'), 'error');
+      toast('当前浏览器不支持语音识别；可在设置填 MiniMax API Key 用录音识别，或改用文字', 'error');
       return;
     }
     if (callRecognitionActive) return;
@@ -9172,7 +9554,7 @@ body.cropper-open { overflow: hidden; }
             current.micError = 'network';
             saveState();
             updateCallUi();
-            toast('语音识别服务暂时不可用；国内网络可试试 Edge，或点「改用文字说」', 'error');
+            toast('语音识别服务暂时不可用；可在设置填 MiniMax API Key 用录音识别，或点「改用文字说」', 'error');
             return;
           }
         }
@@ -9216,6 +9598,7 @@ body.cropper-open { overflow: hidden; }
   }
   function stopCallRecognition() {
     callRecognitionToken++;
+    stopMinimaxAsr();
     callRecognitionStopping = true;
     clearTimeout(callListenRestartTimer);
     callListenRestartTimer = null;
@@ -9227,6 +9610,8 @@ body.cropper-open { overflow: hidden; }
     if (current) {
       current.hearing = false;
       current.micReady = false;
+      current.asrRecording = false;
+      current.asrBusy = false;
       current.heardLive = false;
     }
     setTimeout(() => { callRecognitionStopping = false; }, 320);
@@ -9376,6 +9761,8 @@ body.cropper-open { overflow: hidden; }
       call.aiListen = false;
       call.hearing = false;
       call.micReady = false;
+      call.asrRecording = false;
+      call.asrBusy = false;
       call.heardLive = false;
       clearTimeout(callReplyTimer);
       callReplyTimer = null;
@@ -9386,10 +9773,10 @@ body.cropper-open { overflow: hidden; }
       toast(t('已关闭聆听，现在是普通通话'));
       return;
     }
-    if (!recognitionSupported()) {
+    if (!shouldUseMinimaxAsr() && !recognitionSupported()) {
       call.micError = 'unsupported';
       updateCallUi();
-      toast(t('当前浏览器不支持语音识别，请使用 Chrome 或 Edge'), 'error');
+      toast('当前浏览器不支持语音识别；可在设置填 MiniMax API Key 用录音识别，或改用文字', 'error');
       return;
     }
     call.aiListen = true;
@@ -9412,25 +9799,36 @@ body.cropper-open { overflow: hidden; }
     const secure = Boolean(window.isSecureContext);
     const inFrame = window.self !== window.top;
     const micApi = Boolean(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
+    const keyReady = Boolean((state.settings.minimax.apiKey || '').trim());
+    const engine = state.settings.callAsrMode === 'browser'
+      ? '浏览器识别'
+      : state.settings.callAsrMode === 'minimax' || keyReady
+        ? 'MiniMax 录音识别'
+        : '浏览器识别';
     const errorText = {
       unsupported: '不支持语音识别，请使用 Chrome / Edge',
       permission: '麦克风权限被拒绝',
       capture: '没有找到可用的麦克风，或被其他应用占用',
       network: '语音识别服务暂时不可用',
-      start: '麦克风启动失败'
+      start: '麦克风启动失败',
+      'asr-key': '没有填写或无效的 MiniMax API Key',
+      'asr-balance': 'MiniMax 余额不足',
+      asr: '录音识别失败'
     }[call?.micError] || '没有检测到麦克风错误';
     openSheet({
       title: '通话麦克风',
       subtitle: '梦角听不见你时，可以在这里检查。',
       overCall: true,
       body: `<div class="settings-group" style="margin-bottom:10px">
-        <div class="settings-row"><div class="sr-main"><div class="sr-label">语音识别</div><div class="sr-sub">${supported ? '当前浏览器支持' : '当前浏览器不支持'}</div></div></div>
+        <div class="settings-row"><div class="sr-main"><div class="sr-label">识别方式</div><div class="sr-sub">${esc(engine)}</div></div></div>
+        <div class="settings-row"><div class="sr-main"><div class="sr-label">MiniMax Key</div><div class="sr-sub">${keyReady ? '已填写' : '未填写（录音识别需要）'}</div></div></div>
+        <div class="settings-row"><div class="sr-main"><div class="sr-label">浏览器识别</div><div class="sr-sub">${supported ? '当前浏览器支持' : '当前浏览器不支持'}</div></div></div>
         <div class="settings-row"><div class="sr-main"><div class="sr-label">麦克风接口</div><div class="sr-sub">${micApi ? '可用' : '不可用（可能需要 https 或 localhost）'}</div></div></div>
         <div class="settings-row"><div class="sr-main"><div class="sr-label">页面环境</div><div class="sr-sub">${secure ? '安全上下文' : '非安全上下文'}${inFrame ? ' · 正在预览框内' : ''}</div></div></div>
         <div class="settings-row"><div class="sr-main"><div class="sr-label">权限状态</div><div class="sr-sub" id="callMicPermissionState">检查中…</div></div></div>
         <div class="settings-row"><div class="sr-main"><div class="sr-label">当前状态</div><div class="sr-sub">${esc(errorText)}</div></div></div>
       </div>
-      <p class="field-tip">请在浏览器地址栏允许麦克风；如果页面在预览框里，麦克风可能被拦截，请用「在新窗口打开」。仍然不行时，可以先用「改用文字说」，梦角同样会从字卡回复。</p>
+      <p class="field-tip">请在浏览器地址栏允许麦克风；如果页面在预览框里，麦克风可能被拦截，请用「在新窗口打开」。如果浏览器识别一直没反应，可以在「设置 → 通话」把识别方式改成「MiniMax 录音识别」（需要填写 MiniMax API Key，会上传一小段录音转写，国内网络更稳）。仍然不行时，可以先用「改用文字说」，梦角同样会从字卡回复。</p>
       <div class="video-actions" style="margin-top:10px">
         <button class="pill-btn" type="button" id="callMicRetry">重新请求麦克风</button>
         <button class="pill-btn" type="button" id="callOpenWindow">在新窗口打开</button>
@@ -9576,6 +9974,8 @@ body.cropper-open { overflow: hidden; }
           call.speaking = false;
           call.hearing = false;
           call.micReady = false;
+          call.asrRecording = false;
+          call.asrBusy = false;
           call.heardText = '';
           call.heardLive = false;
           saveState();
@@ -15238,6 +15638,8 @@ body.cropper-open { overflow: hidden; }
     if (callDelayValue) callDelayValue.textContent = formatCallDelay(callReplyDelay());
     const callSpeechSelect = $('#callSpeechLangSelect');
     if (callSpeechSelect) callSpeechSelect.value = s.callSpeechLang || 'auto';
+    const callAsrSelect = $('#callAsrModeSelect');
+    if (callAsrSelect) callAsrSelect.value = s.callAsrMode || 'auto';
     renderLanguageGrid();
     const trans = $('#ttsTranslateSwitch');
     if (trans) {
@@ -15413,6 +15815,18 @@ body.cropper-open { overflow: hidden; }
       }
       const picked = LANG_MAP[state.settings.callSpeechLang];
       toast(picked ? `语音识别已设为 ${picked.label}` : '语音识别会跟随网站语言');
+    });
+    $('#callAsrModeSelect')?.addEventListener('change', e => {
+      const value = e.target.value;
+      state.settings.callAsrMode = ['auto', 'browser', 'minimax'].includes(value) ? value : 'auto';
+      saveState(true);
+      const call = activeCall();
+      if (call && call.status === 'active' && call.aiListen) {
+        stopCallRecognition();
+        call.aiListen = true;
+        scheduleCallListenRestart();
+      }
+      toast('语音识别方式已更新');
     });
     $('#langGrid')?.addEventListener('click', e => {
       const btn = e.target.closest('[data-lang]');
