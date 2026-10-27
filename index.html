@@ -802,6 +802,68 @@ a { color: var(--accent); }
 }
 .bubble.image-bubble { padding: 4px; background: var(--glass); border-radius: 15px; overflow: hidden; }
 .bubble.image-bubble img { max-width: 142px; max-height: 142px; border-radius: 11px; object-fit: contain; cursor: zoom-in; }
+.bubble.photo-bubble { position: relative; padding: 4px; background: var(--glass); border-radius: 15px; overflow: hidden; }
+.bubble.photo-bubble img { display: block; max-width: 220px; max-height: 280px; border-radius: 11px; object-fit: cover; cursor: zoom-in; }
+.photo-badge {
+  position: absolute; right: 9px; bottom: 9px; padding: 2px 7px; border-radius: 999px;
+  background: rgba(10,10,18,.62); color: #fff; font-size: 6.5px; letter-spacing: .06em;
+  backdrop-filter: blur(8px);
+}
+.bubble.transfer-bubble {
+  width: min(232px, 72vw); padding: 0; overflow: hidden; border: 0; border-radius: 16px;
+  background: linear-gradient(140deg, var(--accent), var(--accent-2)); color: var(--on-accent);
+  box-shadow: 0 12px 28px color-mix(in srgb, var(--accent) 24%, transparent);
+  white-space: normal;
+}
+.bubble.music-bubble, .bubble.photo-bubble { white-space: normal; }
+.message-row.user .bubble.transfer-bubble,
+.message-row.user .bubble.music-bubble,
+.message-row.user .bubble.photo-bubble { white-space: normal; }
+.bubble.transfer-bubble.incoming { background: linear-gradient(140deg, #62c9a4, #2e8068); }
+.transfer-top { display: flex; align-items: center; gap: 9px; padding: 12px 14px 4px; }
+.transfer-icon { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: rgba(255,255,255,.2); font-family: var(--font-display); font-size: 15px; font-weight: 700; }
+.transfer-info { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.transfer-info b { font-size: 10px; }
+.transfer-info span { font-size: 7.5px; opacity: .78; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.transfer-amount { padding: 0 14px 10px; font-family: var(--font-display); font-size: 27px; line-height: 1.1; letter-spacing: -.02em; }
+.transfer-amount small { margin-right: 2px; font-size: 13px; }
+.transfer-foot { padding: 6px 14px; background: rgba(0,0,0,.12); font-size: 6.5px; letter-spacing: .06em; opacity: .72; }
+.transfer-balance {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  margin-bottom: 10px; padding: 10px 12px; border-radius: 12px;
+  border: 1px solid var(--line); background: var(--glass);
+}
+.transfer-balance span { color: var(--ink-dim); font-size: 8px; }
+.transfer-balance b { color: var(--accent); font-family: var(--font-display); font-size: 17px; font-weight: 500; }
+.transfer-presets { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 7px; }
+.transfer-presets button {
+  min-height: 28px; padding: 0 9px; border-radius: 8px;
+  border: 1px solid var(--line); background: var(--glass); color: var(--ink-soft); font-size: 8px;
+}
+.transfer-presets button:hover { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); }
+.chat-music-list { display: flex; flex-direction: column; gap: 5px; max-height: 48vh; overflow-y: auto; }
+.chat-music-row {
+  display: flex; align-items: center; gap: 9px; padding: 8px 9px; border-radius: 10px;
+  border: 1px solid var(--line); background: var(--glass); text-align: left;
+}
+.chat-music-row:hover { border-color: var(--accent); background: var(--accent-soft); }
+.cm-cover { width: 30px; height: 30px; border-radius: 8px; flex: 0 0 auto; display: grid; place-items: center; background: linear-gradient(145deg, var(--accent), var(--accent-2)); color: var(--on-accent); font-size: 14px; }
+.cm-main { min-width: 0; flex: 1; display: flex; flex-direction: column; gap: 2px; }
+.cm-main b { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--ink); font-size: 9px; }
+.cm-main span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--ink-dim); font-size: 7px; }
+.chat-music-row > .icon { width: 14px; height: 14px; color: var(--accent); flex: 0 0 auto; }
+.bubble.music-bubble {
+  display: flex; align-items: center; gap: 9px; min-width: 190px; padding: 9px 10px;
+  border-radius: 15px; border: 1px solid var(--line);
+  background: linear-gradient(140deg, color-mix(in srgb, var(--accent) 14%, var(--glass)), var(--glass));
+}
+.music-bubble-cover { width: 38px; height: 38px; border-radius: 11px; flex: 0 0 auto; display: grid; place-items: center; background: linear-gradient(145deg, var(--accent), var(--accent-2)); color: var(--on-accent); font-size: 18px; }
+.music-bubble-main { min-width: 0; flex: 1; display: flex; flex-direction: column; gap: 3px; }
+.music-bubble-main b { max-width: 130px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 10px; color: var(--ink); }
+.music-bubble-main span { max-width: 130px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 7.5px; color: var(--ink-dim); }
+.music-play { width: 30px; height: 30px; border: 0; cursor: pointer; border-radius: 50%; flex: 0 0 auto; display: grid; place-items: center; background: var(--accent); color: var(--on-accent); }
+.music-play .icon { width: 13px; height: 13px; }
+.music-play.playing { animation: pulseSoft 1.1s infinite; }
 .bubble.card-bubble { padding: 12px 14px 9px; border-color: color-mix(in srgb, var(--accent) 24%, var(--line)); background: linear-gradient(145deg, color-mix(in srgb, var(--accent-soft) 65%, var(--dream-bubble)), var(--dream-bubble)); }
 .bubble.card-bubble::before {
   content: "字卡"; position: absolute; top: -8px; left: 10px;
@@ -817,6 +879,21 @@ a { color: var(--accent); }
 .bubble-foot .speak-btn .icon { width: 12px; height: 12px; }
 .bubble-foot .speak-btn.playing { color: var(--accent); animation: pulseSoft 1.1s infinite; }
 .msg-time { margin-top: 4px; color: var(--ink-dim); font-size: 7.5px; letter-spacing: .03em; }
+.recall-link {
+  margin-left: 5px; padding: 0; border: 0; background: none; color: var(--ink-dim);
+  font: inherit; font-size: 7.5px; letter-spacing: .02em; vertical-align: baseline;
+}
+.recall-link:hover { color: var(--accent); }
+.recall-banner {
+  flex: 0 0 auto; display: flex; align-items: center; justify-content: center; gap: 6px;
+  width: 100%; min-height: 34px; padding: 7px 14px; border: 0; border-top: 1px solid var(--line);
+  background: color-mix(in srgb, var(--accent) 9%, var(--panel-2));
+  color: var(--ink-soft); font-size: 9.5px; text-align: center;
+}
+.recall-banner[hidden] { display: none; }
+.recall-banner .icon { width: 13px; height: 13px; color: var(--accent); flex: 0 0 auto; }
+.recall-banner b { margin-left: 1px; color: var(--accent); font-weight: 700; }
+.recall-banner:active { background: color-mix(in srgb, var(--accent) 15%, var(--panel-2)); }
 .sys-message {
   margin: 14px auto; max-width: 88%;
   padding: 10px 13px; border-radius: 13px;
@@ -830,6 +907,21 @@ a { color: var(--accent); }
 .typing-bubble i { width: 4px; height: 4px; background: var(--ink-soft); border-radius: 50%; animation: typeBounce 1.2s infinite; }
 .typing-bubble i:nth-child(2){ animation-delay:.16s } .typing-bubble i:nth-child(3){ animation-delay:.32s }
 @keyframes typeBounce { 0%,60%,100%{ transform: translateY(0); opacity:.35 } 30%{ transform: translateY(-4px); opacity:1 } }
+.chat-plus-tray {
+  display: none; grid-template-columns: repeat(4, 1fr); gap: 8px;
+  padding: 10px 14px 12px; border-top: 1px solid var(--line);
+  background: var(--panel);
+}
+.chat-plus-tray.open { display: grid; animation: fadeUp .2s ease both; }
+.chat-plus-item { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 0; border: 0; background: none; color: var(--ink-soft); font-size: 8px; }
+.chat-plus-item .cpi-icon {
+  width: 46px; height: 46px; border-radius: 14px; display: grid; place-items: center;
+  border: 1px solid var(--line); background: var(--glass); color: var(--accent);
+  transition: background .18s, border-color .18s, transform .16s;
+}
+.chat-plus-item:hover .cpi-icon { background: var(--accent-soft); border-color: color-mix(in srgb, var(--accent) 35%, var(--line)); }
+.chat-plus-item:active .cpi-icon { transform: scale(.94); }
+.chat-plus-item .cpi-icon .icon { width: 20px; height: 20px; }
 .composer {
   flex: 0 0 auto; display: flex; align-items: flex-end; gap: 7px;
   padding: 9px 12px calc(10px + env(safe-area-inset-bottom));
@@ -838,6 +930,8 @@ a { color: var(--accent); }
   background: color-mix(in srgb, var(--wall-base) 34%, transparent);
   backdrop-filter: blur(24px);
 }
+#chatPlusBtn { flex: 0 0 auto; }
+#chatPlusBtn.active { color: var(--accent); background: var(--accent-soft); }
 .composer .icon-btn { width: 37px; height: 37px; border-radius: 12px; }
 .composer-text {
   flex: 1; min-width: 0; display: flex; align-items: flex-end;
@@ -986,6 +1080,26 @@ a { color: var(--accent); }
 .call-card p.waiting { color: rgba(255,255,255,.6); font-family: var(--font); font-size: 10px; line-height: 1.7; letter-spacing: .05em; }
 .call-card.speaking .call-card-kicker { animation: pulseSoft 1.2s infinite; }
 .call-overlay.is-ringing .call-card { display: none; }
+.call-speech {
+  position: relative; z-index: 1; display: flex; align-items: flex-start; gap: 6px;
+  width: 100%; max-height: 82px; overflow-y: auto; overscroll-behavior: contain;
+  margin: 2px 0 8px; padding: 9px 13px; border-radius: 14px;
+  border: 1px solid color-mix(in srgb, var(--accent) 26%, rgba(255,255,255,.1));
+  background: color-mix(in srgb, var(--accent) 13%, rgba(255,255,255,.055));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.08);
+  color: rgba(255,255,255,.86); font-size: 11px; line-height: 1.65;
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  animation: callCardIn .28s ease both;
+}
+.call-speech[hidden] { display: none; }
+.call-speech-name { flex: 0 0 auto; color: color-mix(in srgb, var(--accent) 74%, #fff); font-weight: 700; }
+.call-speech-text { min-width: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+.call-speech.live .call-speech-text::after {
+  content: ""; display: inline-block; width: 1px; height: 1em; margin-left: 2px;
+  vertical-align: -.14em; background: color-mix(in srgb, var(--accent) 70%, #fff);
+  animation: callCaret 1s steps(2, end) infinite;
+}
+@keyframes callCaret { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
 .call-wave { display: flex; align-items: center; justify-content: center; gap: 3px; height: 18px; margin-top: 4px; opacity: .65; }
 .call-wave i { width: 3px; height: 5px; border-radius: 3px; background: color-mix(in srgb, var(--accent) 76%, #fff); animation: callWave 1.1s ease-in-out infinite; }
 .call-wave i:nth-child(2){ animation-delay:.1s } .call-wave i:nth-child(3){ animation-delay:.2s } .call-wave i:nth-child(4){ animation-delay:.3s } .call-wave i:nth-child(5){ animation-delay:.4s } .call-wave i:nth-child(6){ animation-delay:.5s } .call-wave i:nth-child(7){ animation-delay:.6s } .call-wave i:nth-child(8){ animation-delay:.7s } .call-wave i:nth-child(9){ animation-delay:.8s }
@@ -2621,6 +2735,7 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
 .app-glyph.homestead { background: linear-gradient(145deg, #ffe7bf, #d8a46a 54%, #8a5a44); }
 .app-glyph.calendar { background: linear-gradient(145deg, #c9dcff, #6e8fd9 54%, #3f4f9e); }
 .app-glyph.tarot { background: linear-gradient(145deg, #e3c9ff, #9a6ed8 50%, #4b2f86); }
+.app-glyph.video { background: linear-gradient(145deg, #ffd7a1, #e8895f 52%, #9e4f58); }
 
 /* =========================================================
    游戏扩展 / UNO & number
@@ -2882,6 +2997,120 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
   .hs-pet .pet-emoji { font-size: 34px; }
 }
 
+/* ---------- 图片裁剪 ---------- */
+.cropper-overlay {
+  position: fixed; inset: 0; z-index: 9000; display: flex; align-items: center; justify-content: center;
+  padding: 14px; background: rgba(5, 6, 12, .86);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+}
+.cropper-overlay[hidden] { display: none; }
+body.cropper-open { overflow: hidden; }
+.cropper-panel {
+  width: min(100%, 520px); max-height: calc(100vh - 28px); display: flex; flex-direction: column; gap: 9px;
+  padding: 14px; border-radius: 20px; border: 1px solid rgba(255,255,255,.14);
+  background: var(--panel); color: var(--ink); box-shadow: 0 30px 80px rgba(0,0,0,.5);
+}
+.cropper-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.cropper-head b { font-size: 13px; font-weight: 650; }
+.cropper-head .icon-btn { width: 30px; height: 30px; border-radius: 9px; }
+.cropper-stage {
+  position: relative; margin: 0 auto; overflow: hidden; background: #000;
+  border-radius: 12px; touch-action: none; user-select: none;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.08);
+}
+.cropper-stage canvas { display: block; width: 100%; height: 100%; cursor: grab; }
+.cropper-stage canvas:active { cursor: grabbing; }
+.cropper-frame {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  border: 1.5px solid rgba(255,255,255,.94); border-radius: 3px;
+  box-shadow: 0 0 0 9999px rgba(0,0,0,.56); pointer-events: none;
+}
+.cropper-frame::before, .cropper-frame::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .38;
+  background-image:
+    linear-gradient(to right, transparent 33.2%, rgba(255,255,255,.7) 33.2%, rgba(255,255,255,.7) 33.5%, transparent 33.5%, transparent 66.2%, rgba(255,255,255,.7) 66.2%, rgba(255,255,255,.7) 66.5%, transparent 66.5%),
+    linear-gradient(to bottom, transparent 33.2%, rgba(255,255,255,.7) 33.2%, rgba(255,255,255,.7) 33.5%, transparent 33.5%, transparent 66.2%, rgba(255,255,255,.7) 66.2%, rgba(255,255,255,.7) 66.5%, transparent 66.5%);
+}
+.cropper-tip { margin: 0; text-align: center; color: var(--ink-dim); font-size: 8px; }
+.cropper-tools { display: flex; align-items: center; gap: 9px; }
+.cropper-tools input { flex: 1; accent-color: var(--accent); }
+.cropper-tools button {
+  flex: 0 0 auto; height: 30px; padding: 0 10px; border-radius: 9px;
+  border: 1px solid var(--line); background: var(--glass); color: var(--ink-soft); font-size: 8px;
+}
+.cropper-actions { display: flex; gap: 8px; justify-content: flex-end; }
+.cropper-actions .ghost-btn, .cropper-actions .primary-btn { min-height: 36px; padding: 0 16px; border-radius: 11px; font-size: 10px; }
+
+/* ---------- 一起看 ---------- */
+.video-card {
+  padding: 14px; border-radius: var(--radius-lg); border: 1px solid var(--line-strong);
+  background: linear-gradient(150deg, color-mix(in srgb, var(--accent) 8%, transparent), var(--glass));
+  box-shadow: var(--shadow-soft);
+}
+.video-label { display: block; margin-bottom: 7px; color: var(--ink-dim); font-size: 8px; letter-spacing: .08em; text-transform: uppercase; }
+.video-input-row { display: flex; gap: 7px; }
+.video-input-row input {
+  flex: 1; min-width: 0; height: 42px; padding: 0 12px; border-radius: 12px;
+  border: 1px solid var(--line); background: var(--panel-2); color: var(--ink); font-size: 10px;
+}
+.video-input-row input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.video-input-row .primary {
+  min-width: 64px; height: 42px; padding: 0 16px; border: 0; cursor: pointer; border-radius: 12px; font-size: 10px; font-weight: 650;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: var(--on-accent);
+  box-shadow: 0 8px 20px var(--accent-soft);
+}
+.video-input-row .primary:hover { filter: brightness(1.05); }
+.video-input-row .primary:active { transform: scale(.97); }
+.video-tip { margin: 8px 0 0; color: var(--ink-dim); font-size: 8px; line-height: 1.7; }
+.video-actions { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.video-actions .pill-btn { min-height: 32px; }
+.video-actions .pill-btn.active { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 40%, var(--line)); background: var(--accent-soft); }
+.video-meta {
+  display: flex; align-items: center; gap: 8px; margin-top: 10px; padding: 10px 12px;
+  border-radius: 14px; border: 1px solid var(--line); background: var(--glass);
+}
+.video-meta-text { min-width: 0; flex: 1; display: flex; flex-direction: column; gap: 3px; }
+.video-meta-text b { color: var(--ink); font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.video-meta-text span { color: var(--ink-dim); font-size: 7.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.video-badge { flex: 0 0 auto; padding: 4px 8px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-size: 7px; font-weight: 700; }
+.video-badge.live { background: color-mix(in srgb, var(--ok) 16%, transparent); color: var(--ok); }
+.video-player {
+  position: relative; margin-top: 10px; border-radius: 18px; overflow: hidden;
+  border: 1px solid var(--line-strong); background: #070910;
+  box-shadow: 0 18px 44px rgba(0,0,0,.28);
+}
+.video-stage { position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; background: #05060a; display: grid; place-items: center; }
+.video-player.layout-portrait { width: min(100%, 320px); margin-left: auto; margin-right: auto; }
+.video-player.layout-portrait .video-stage { width: 100%; aspect-ratio: 9 / 16; margin: 0 auto; }
+.video-frame { position: absolute; inset: 0; transform-origin: center center; transition: transform .38s cubic-bezier(.2,.8,.2,1); will-change: transform; }
+.video-frame iframe, .video-frame video { width: 100%; height: 100%; border: 0; display: block; background: #000; object-fit: contain; }
+.video-frame .video-placeholder { width: 100%; height: 100%; display: grid; place-items: center; padding: 20px; color: rgba(255,255,255,.62); font-size: 9px; line-height: 1.8; text-align: center; }
+.video-controls {
+  display: flex; align-items: center; justify-content: space-around; gap: 4px;
+  padding: 7px 6px; background: rgba(255,255,255,.055); border-top: 1px solid rgba(255,255,255,.08);
+}
+.video-controls button { display: inline-flex; flex-direction: column; align-items: center; gap: 3px; min-width: 58px; padding: 5px 6px; border: 0; cursor: pointer; border-radius: 10px; background: transparent; color: rgba(255,255,255,.72); font-size: 7px; }
+.video-controls button:hover { background: rgba(255,255,255,.12); color: #fff; }
+.video-controls .icon { width: 16px; height: 16px; }
+.video-companion {
+  display: flex; align-items: center; gap: 9px; margin-top: 9px; padding: 10px 12px;
+  border-radius: 16px; border: 1px solid color-mix(in srgb, var(--accent) 24%, var(--line));
+  background: linear-gradient(140deg, var(--accent-soft), var(--glass));
+}
+.video-companion[hidden] { display: none; }
+.video-companion .avatar { --avatar-size: 38px; flex: 0 0 auto; }
+.vc-main { min-width: 0; flex: 1; display: flex; flex-direction: column; gap: 3px; }
+.vc-main b { color: var(--ink); font-size: 10.5px; }
+.vc-main span { color: var(--ink-soft); font-size: 8.5px; line-height: 1.6; }
+.vc-badge { flex: 0 0 auto; padding: 3px 7px; border-radius: 999px; background: var(--accent); color: var(--on-accent); font-size: 6.5px; font-weight: 700; letter-spacing: .08em; }
+.video-note { margin-top: 10px; padding: 11px 13px; border-radius: 14px; border: 1px dashed var(--line); background: var(--glass); }
+.video-note b { display: block; color: var(--accent); font-size: 8px; letter-spacing: .1em; margin-bottom: 4px; }
+.video-note p { margin: 0; color: var(--ink-dim); font-size: 8px; line-height: 1.8; }
+.video-player:fullscreen { width: 100vw; height: 100vh; margin: 0; border-radius: 0; background: #000; display: flex; flex-direction: column; }
+.video-player:fullscreen .video-stage { flex: 1; width: 100%; height: auto; aspect-ratio: auto; }
+.video-player:fullscreen.layout-portrait .video-stage { width: 100%; max-width: none; }
+.video-player:fullscreen .video-controls { background: rgba(0,0,0,.7); }
+
 /* ---------- 每日运势 ---------- */
 .fortune-date-chip { color: var(--ink-dim); font-size: 8px; letter-spacing: .03em; white-space: nowrap; }
 .fortune-hero {
@@ -2993,6 +3222,8 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
     <symbol id="i-tarot" viewBox="0 0 24 24"><rect x="5.4" y="2.8" width="13.2" height="18.4" rx="2.4"/><path d="M12 6.4l1.5 3.1 3.4.4-2.5 2.3.7 3.4-3.1-1.7-3.1 1.7.7-3.4-2.5-2.3 3.4-.4L12 6.4Z"/></symbol>
     <symbol id="i-paw" viewBox="0 0 24 24"><ellipse cx="7" cy="9" rx="2" ry="2.6"/><ellipse cx="12" cy="6.6" rx="2" ry="2.8"/><ellipse cx="17" cy="9" rx="2" ry="2.6"/><path d="M12 11.4c3.2 0 5.6 2.2 5.6 4.6 0 2-1.7 3.2-3.6 3.2-1 0-1.5-.4-2-.4s-1 .4-2 .4c-1.9 0-3.6-1.2-3.6-3.2 0-2.4 2.4-4.6 5.6-4.6Z"/></symbol>
     <symbol id="i-frame" viewBox="0 0 24 24"><rect x="3.2" y="3.2" width="17.6" height="17.6" rx="2.6"/><rect x="6.4" y="6.4" width="11.2" height="11.2" rx="1.2"/><path d="m8.4 15.6 2.6-2.8 1.8 1.9 1.6-1.5 1.2 2.4"/><circle cx="10.2" cy="9.8" r="1"/></symbol>
+    <symbol id="i-video" viewBox="0 0 24 24"><rect x="2.8" y="6" width="13.4" height="12" rx="3"/><path d="m16.2 12.6 4.2-2.9a.8.8 0 0 1 1.3.7v6.4a.8.8 0 0 1-1.3.7l-4.2-2.9v-2Z"/><path d="m7 11.4 3.2 2-3.2 2v-4Z" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-cast" viewBox="0 0 24 24"><path d="M3.2 8.4V6.6a2 2 0 0 1 2-2h13.6a2 2 0 0 1 2 2v10.8a2 2 0 0 1-2 2H12"/><path d="M3.2 12.4a7.4 7.4 0 0 1 7.4 7.4M3.2 16.2a3.6 3.6 0 0 1 3.6 3.6M3.4 19.9h.01"/></symbol>
     <symbol id="i-uno" viewBox="0 0 24 24"><rect x="4.4" y="2.8" width="11.4" height="15.6" rx="2.2" transform="rotate(-8 10 10)"/><rect x="8.2" y="5.6" width="11.4" height="15.6" rx="2.2" transform="rotate(6 14 13)"/><path d="M13.6 11.2a2.6 2.6 0 1 0 0 5.2"/></symbol>
     <symbol id="i-hash" viewBox="0 0 24 24"><path d="M9.2 3.6 7.6 20.4M16.4 3.6l-1.6 16.8M4.2 9h16M3.4 15h16"/></symbol>
     <symbol id="i-more" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.1" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.1" fill="currentColor" stroke="none"/><circle cx="19" cy="12" r="1.1" fill="currentColor" stroke="none"/></symbol>
@@ -3005,6 +3236,7 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
     <symbol id="i-prev" viewBox="0 0 24 24"><path d="M18 5.5 8.5 12 18 18.5v-13ZM5.5 5.5v13"/></symbol>
     <symbol id="i-volume" viewBox="0 0 24 24"><path d="M4 9.2v5.6h3.3l4.2 3.3V5.9L7.3 9.2H4Z"/><path d="M15 8.3a5.2 5.2 0 0 1 0 7.4"/></symbol>
     <symbol id="i-camera" viewBox="0 0 24 24"><path d="M4 8h3l1.4-2.2h7.2L17 8h3a1.5 1.5 0 0 1 1.5 1.5v9a1.5 1.5 0 0 1-1.5 1.5H4a1.5 1.5 0 0 1-1.5-1.5v-9A1.5 1.5 0 0 1 4 8Z"/><circle cx="12" cy="13.5" r="3.4"/></symbol>
+    <symbol id="i-wallet" viewBox="0 0 24 24"><rect x="3.2" y="6" width="17.6" height="13" rx="3"/><path d="M3.5 9.3h17"/><path d="M15.2 13.4h4.2"/><circle cx="16.6" cy="13.4" r="1.2" fill="currentColor" stroke="none"/></symbol>
     <symbol id="i-pin" viewBox="0 0 24 24"><path d="M19 10.2c0 5.2-7 11-7 11s-7-5.8-7-11a7 7 0 1 1 14 0Z"/><circle cx="12" cy="10" r="2.4"/></symbol>
     <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4.8" y="10" width="14.4" height="10.5" rx="2.3"/><path d="M8 10V7.5a4 4 0 0 1 8 0V10"/></symbol>
     <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.5 12s3.5-6.4 9.5-6.4 9.5 6.4 9.5 6.4-3.5 6.4-9.5 6.4S2.5 12 2.5 12Z"/><circle cx="12" cy="12" r="2.7"/></symbol>
@@ -3233,9 +3465,9 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
                 <span class="app-glyph map"><svg class="icon"><use href="#i-map"/></svg></span>
                 <span class="app-label">地图</span>
               </button>
-              <button class="app-item" data-open-app="homestead" aria-label="家园">
-                <span class="app-glyph homestead"><svg class="icon"><use href="#i-home"/></svg></span>
-                <span class="app-label">家园</span>
+              <button class="app-item" data-open-app="video" aria-label="一起看">
+                <span class="app-glyph video"><svg class="icon"><use href="#i-video"/></svg></span>
+                <span class="app-label">一起看</span>
               </button>
               <button class="app-item" data-open-app="calendar" aria-label="日历">
                 <span class="app-glyph calendar"><svg class="icon"><use href="#i-calendar"/></svg></span>
@@ -3321,6 +3553,16 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
           <div class="sticker-head"><span>表情包 · 我的收藏</span><span class="sticker-head-actions"><button id="stickerManage">管理</button><button id="stickerAdd"><svg class="icon"><use href="#i-plus"/></svg> 添加</button></span></div>
           <div class="sticker-grid" id="stickerGrid"></div>
         </div>
+        <button class="recall-banner" id="recallBanner" type="button" hidden>
+          <svg class="icon"><use href="#i-undo"/></svg>
+          <span>你撤回了一条内容，<b>重新编辑</b></span>
+        </button>
+        <div class="chat-plus-tray" id="chatPlusTray">
+          <button class="chat-plus-item" type="button" data-chat-plus="camera"><span class="cpi-icon"><svg class="icon"><use href="#i-camera"/></svg></span><span>拍照</span></button>
+          <button class="chat-plus-item" type="button" data-chat-plus="gallery"><span class="cpi-icon"><svg class="icon"><use href="#i-image"/></svg></span><span>相册</span></button>
+          <button class="chat-plus-item" type="button" data-chat-plus="transfer"><span class="cpi-icon"><svg class="icon"><use href="#i-wallet"/></svg></span><span>转账</span></button>
+          <button class="chat-plus-item" type="button" data-chat-plus="music"><span class="cpi-icon"><svg class="icon"><use href="#i-music"/></svg></span><span>音乐</span></button>
+        </div>
         <div class="composer">
           <button class="icon-btn" id="stickerToggle" aria-label="表情包库"><svg class="icon"><use href="#i-sticker"/></svg></button>
           <button class="icon-btn" id="askToggle" aria-label="问一问"><svg class="icon"><use href="#i-poll"/></svg></button>
@@ -3328,6 +3570,7 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
             <textarea id="chatInput" rows="1" placeholder="想对梦角说点什么…" maxlength="2000"></textarea>
             <button class="send-btn" id="sendBtn" aria-label="发送"><svg class="icon"><use href="#i-send"/></svg></button>
           </div>
+          <button class="icon-btn" id="chatPlusBtn" aria-label="更多功能"><svg class="icon"><use href="#i-plus"/></svg></button>
         </div>
       </section>
 
@@ -3599,7 +3842,7 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
             <div class="game-card" id="gameCard">
               <div class="game-player-row">
                 <span class="avatar online" id="gameAiAvatar"><span class="avatar-fallback">月</span></span>
-                <div class="game-player-copy"><b id="gameAiName">梦角</b><span><svg class="icon"><use href="#i-robot"/></svg><span id="gameAiStatus">梦角托管中</span></span></div>
+                <div class="game-player-copy"><b id="gameAiName">梦角</b><span><svg class="icon"><use href="#i-spark"/></svg><span id="gameAiStatus">梦角托管中</span></span></div>
                 <div class="game-turn-pill" id="gameTurnPill"><span class="turn-dot"></span>轮到你</div>
               </div>
               <div class="game-board-shell" id="gameBoardShell">
@@ -3635,12 +3878,12 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
               </div>
               <div class="game-extra" id="numberPanel">
                 <div class="num-wrap">
-                  <div class="num-range" id="numRange">1 — 100<small>梦角心里想了一个数字</small></div>
+                  <div class="num-range" id="numRange">1 — 100<small>你和梦角轮流猜</small></div>
                   <div class="num-input-row">
                     <input id="numInput" type="number" min="1" max="100" inputmode="numeric" placeholder="猜一个数">
                     <button id="numGuessBtn">猜</button>
                   </div>
-                  <div class="num-feedback" id="numFeedback">慢慢来，数字会越猜越近。</div>
+                  <div class="num-feedback" id="numFeedback">你和梦角轮流猜同一个数字，先猜中的人赢。</div>
                   <div class="num-history" id="numHistory"></div>
                 </div>
                 <div class="uno-actions">
@@ -3657,7 +3900,7 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
               <div class="game-record" id="gameRecord">初局 · 0 胜 0 负</div>
             </div>
             <div class="game-tip-card">
-              <span class="game-tip-icon"><svg class="icon"><use href="#i-robot"/></svg></span>
+              <span class="game-tip-icon"><svg class="icon"><use href="#i-spark"/></svg></span>
               <div><b>梦角的小提示</b><p id="gameAiTip">梦角会接管黑方。落子之后，给他一点思考的时间。</p></div>
             </div>
           </div>
@@ -3773,57 +4016,55 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
         </div>
       </section>
 
-      <!-- 家园 -->
-      <section class="app-view homestead-app" id="view-homestead" data-app="homestead">
+      <!-- 一起看 -->
+      <section class="app-view video-app" id="view-video" data-app="video">
         <header class="app-head">
           <button class="icon-btn" data-back aria-label="返回"><svg class="icon"><use href="#i-back"/></svg></button>
-          <div class="head-title"><h2>家园</h2><p>和梦角一起，把日子过成一个小房间</p></div>
-          <div class="head-actions"><button class="icon-btn" id="hsSettingsBtn" aria-label="小屋设置"><svg class="icon"><use href="#i-settings"/></svg></button></div>
+          <div class="head-title"><h2>一起看</h2><p>把想看的片子放进来，和梦角并肩坐一会儿</p></div>
+          <div class="head-actions"><button class="icon-btn" id="videoHelpBtn" aria-label="播放说明"><svg class="icon"><use href="#i-guide"/></svg></button></div>
         </header>
         <div class="app-scroll">
           <div class="app-inner">
-            <div class="hs-layout">
-              <div>
-                <div class="hs-room" id="hsRoom">
-                  <div class="hs-wall" id="hsWall"></div>
-                  <div class="hs-window"></div>
-                  <div class="hs-floor" id="hsFloor"></div>
-                  <div class="hs-rug"></div>
-                  <div id="hsFrames"></div>
-                  <div class="hs-pet" id="hsPet">
-                    <div class="pet-bubble" id="hsPetBubble"></div>
-                    <div class="pet-body" id="hsPetBody"><span class="pet-emoji">🐈</span></div>
-                    <span class="pet-name" id="hsPetName">团子</span>
-                  </div>
-                </div>
-                <div class="hs-room-tools">
-                  <button id="hsAddFrame"><svg class="icon"><use href="#i-frame"/></svg> 添加相框</button>
-                  <button id="hsWallpaperBtn"><svg class="icon"><use href="#i-image"/></svg> 换壁纸</button>
-                  <button class="primary" id="hsPetUpload"><svg class="icon"><use href="#i-camera"/></svg> 上传宠物</button>
-                  <button id="hsDesignBtn"><svg class="icon"><use href="#i-edit"/></svg> 自己设计</button>
-                </div>
+            <div class="video-card">
+              <label class="video-label" for="videoUrlInput">视频链接</label>
+              <div class="video-input-row">
+                <input id="videoUrlInput" type="url" placeholder="粘贴哔哩哔哩链接，或 .mp4 / .m3u8 直链" autocomplete="off" spellcheck="false">
+                <button class="primary" id="videoPlayBtn">播放</button>
               </div>
-              <div class="cal-side">
-                <div class="hs-panel">
-                  <h3 id="hsRoomName">我们的小屋</h3>
-                  <div class="hs-stats">
-                    <div class="hs-stat"><span>饱腹</span><span class="hs-bar"><i id="hsHungerBar"></i></span><b id="hsHungerValue">70</b></div>
-                    <div class="hs-stat"><span>心情</span><span class="hs-bar"><i id="hsMoodBar"></i></span><b id="hsMoodValue">70</b></div>
-                    <div class="hs-stat"><span>亲密</span><span class="hs-bar"><i id="hsBondBar"></i></span><b id="hsBondValue">10</b></div>
-                  </div>
-                  <div class="hs-care">
-                    <button data-hs-care="feed">喂食</button>
-                    <button data-hs-care="play">陪玩</button>
-                    <button data-hs-care="pet">摸摸</button>
-                  </div>
-                  <p class="hs-note" id="hsPetNote">宠物会随着时间慢慢饿、慢慢想你。回来看看它就好。</p>
-                </div>
-                <div class="hs-panel">
-                  <h3>小屋里的相框</h3>
-                  <div class="period-list" id="hsFrameList"></div>
-                  <p class="hs-note">相框可以直接拖动摆放。点一下相框，可以换照片、写一句话或删掉。</p>
-                </div>
+              <p class="video-tip">支持哔哩哔哩视频、直接视频链接，以及大多数公开的网页播放器。VIP / DRM 内容需要在原平台解锁后才能看。</p>
+              <div class="video-actions">
+                <button class="pill-btn" id="videoInviteBtn"><svg class="icon"><use href="#i-companion"/></svg> 邀请梦角一起看</button>
+                <button class="pill-btn" id="videoClearBtn"><svg class="icon"><use href="#i-refresh"/></svg> 清空</button>
               </div>
+            </div>
+
+            <div class="video-meta">
+              <div class="video-meta-text">
+                <b id="videoTitle" data-no-i18n>还没有选片子</b>
+                <span id="videoSource" data-no-i18n>粘贴一个链接，就能开始</span>
+              </div>
+              <span class="video-badge" id="videoBadge" data-no-i18n>未开始</span>
+            </div>
+
+            <div class="video-companion" id="videoCompanion" hidden>
+              <span class="avatar online" id="videoCompanionAvatar"><span class="avatar-fallback">月</span></span>
+              <div class="vc-main"><b id="videoCompanionName" data-no-i18n>梦角</b><span id="videoCompanionLine" data-no-i18n>坐在你旁边，一起看。</span></div>
+              <span class="vc-badge">一起看</span>
+            </div>
+
+            <div class="video-player" id="videoPlayer" hidden>
+              <div class="video-stage" id="videoStage"><div class="video-frame" id="videoFrame"></div></div>
+              <div class="video-controls">
+                <button id="videoRotateBtn"><svg class="icon"><use href="#i-rotate"/></svg><span>转动视角</span></button>
+                <button id="videoLayoutBtn"><svg class="icon"><use href="#i-phone"/></svg><span>竖屏</span></button>
+                <button id="videoFullBtn"><svg class="icon"><use href="#i-frame"/></svg><span>全屏</span></button>
+                <button id="videoCastBtn"><svg class="icon"><use href="#i-cast"/></svg><span>投屏</span></button>
+              </div>
+            </div>
+
+            <div class="video-note" id="videoNote">
+              <b>小提示</b>
+              <p>「转动视角」会把画面旋转 90°，再点一次继续转；「竖屏 / 横屏」切换观看方向。「投屏」会优先调用系统投屏，也可以复制链接到同一网络里的电脑、电视或平板打开。哔哩哔哩、YouTube 等网页播放器若无法投屏，用播放器自带的投屏按钮或在新窗口打开即可。VIP / DRM 内容仍需在原平台解锁。</p>
             </div>
           </div>
         </div>
@@ -4063,6 +4304,10 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
           <div class="call-duration" id="callDuration" data-no-i18n>00:00</div>
           <div class="call-wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
         </div>
+        <div class="call-speech" id="callUserSpeech" hidden>
+          <span class="call-speech-name" id="callSpeechName" data-no-i18n></span>
+          <span class="call-speech-text" id="callSpeechText" data-no-i18n aria-live="polite" aria-atomic="true"></span>
+        </div>
         <div class="call-card" id="callCard">
           <div class="call-card-head">
             <span class="call-card-kicker" id="callCardKicker" data-no-i18n>来自字卡</span>
@@ -4106,6 +4351,28 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
       </div>
 
       <div class="home-indicator" aria-hidden="true"></div>
+    </div>
+  </div>
+</div>
+
+<div class="cropper-overlay" id="cropperOverlay" hidden>
+  <div class="cropper-panel">
+    <div class="cropper-head">
+      <b id="cropperTitle">裁剪图片</b>
+      <button class="icon-btn" id="cropperClose" type="button" aria-label="关闭"><svg class="icon"><use href="#i-close"/></svg></button>
+    </div>
+    <div class="cropper-stage" id="cropperStage">
+      <canvas id="cropperCanvas"></canvas>
+      <div class="cropper-frame" id="cropperFrame"></div>
+    </div>
+    <p class="cropper-tip">拖动图片调整位置，滑动缩放。</p>
+    <div class="cropper-tools">
+      <input type="range" id="cropperZoom" min="1" max="3" step="0.01" value="1" aria-label="缩放图片">
+      <button type="button" id="cropperReset">重置</button>
+    </div>
+    <div class="cropper-actions">
+      <button class="ghost-btn" id="cropperCancel" type="button">取消</button>
+      <button class="primary-btn" id="cropperConfirm" type="button">使用这张</button>
     </div>
   </div>
 </div>
@@ -4165,12 +4432,13 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
     Object.keys(patch).forEach(k => { out[k] = deepMerge(base[k], patch[k]); });
     return out;
   }
-  function pickFile(accept = '', multiple = false) {
+  function pickFile(accept = '', multiple = false, options = {}) {
     return new Promise(resolve => {
       const input = document.createElement('input');
       input.type = 'file';
       input.accept = accept;
       input.multiple = multiple;
+      if (options.capture) input.setAttribute('capture', options.capture);
       input.style.cssText = 'position:fixed;left:-10000px;top:0;opacity:0;pointer-events:none';
       document.body.appendChild(input);
       let settled = false;
@@ -5850,7 +6118,7 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
         xiangqi: { board: null, turn: 'r', over: false, result: '', lastMove: null, moves: 0 },
         gomoku: { board: null, turn: 'b', over: false, result: '', lastMove: null, moves: 0, winLine: null },
         uno: { deck: [], discard: [], player: [], ai: [], turn: 'p', color: '', over: false, result: '', message: '', moves: 0, pendingWild: -1 },
-        number: { target: 0, low: 1, high: 100, guesses: [], over: false, result: '', moves: 0 },
+        number: { target: 0, low: 1, high: 100, guesses: [], over: false, result: '', moves: 0, turn: 'user', winner: '', dreamMoves: 0 },
         stats: { xqWins: 0, xqLosses: 0, gmWins: 0, gmLosses: 0, unoWins: 0, unoLosses: 0, numWins: 0, numLosses: 0 }
       },
       gacha: {
@@ -5868,17 +6136,18 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
         pendingReply: null,
         nextDreamCallAt: 0,
         call: null,
-        lastCallAt: 0
+        lastCallAt: 0,
+        recallDraft: null
       },
+      wallet: { user: 5200, dream: 5200 },
       map: {
         region: 'world',
         user: { name: '上海', admin1: '上海市', country: '中国', lat: 31.2304, lon: 121.4737, marker: 'star', mediaId: '' },
         dream: { name: '东京', admin1: '东京都', country: '日本', lat: 35.6762, lon: 139.6503, marker: 'star', mediaId: '' }
       },
-      homestead: {
-        room: { name: '我们的小屋', preset: 'dusk', mediaId: '', tint: '#8fb6e8', floorTint: '#5a4338' },
-        pet: { name: '团子', mediaId: '', hunger: 70, mood: 70, bond: 10, lastCare: 0, lastDreamAt: 0 },
-        frames: []
+      video: {
+        url: '', embed: '', kind: '', title: '', source: '',
+        invited: false, comment: '', rotate: 0, layout: 'landscape'
       },
       calendar: {
         birthday: '',
@@ -5916,6 +6185,31 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
       status: raw.status === 'done' ? 'done' : 'pending',
       dueAt: Number(raw.dueAt) || 0,
       answeredAt: Number(raw.answeredAt) || 0
+    };
+  }
+
+  function normalizeTransferData(raw) {
+    if (!raw || typeof raw !== 'object') return null;
+    const amount = Math.round(Math.max(0, Math.min(99999999, Number(raw.amount) || 0)) * 100) / 100;
+    if (!amount) return null;
+    return {
+      direction: raw.direction === 'to-user' ? 'to-user' : 'to-dream',
+      amount,
+      note: String(raw.note || '').slice(0, 80),
+      ts: Number(raw.ts) || 0
+    };
+  }
+  function normalizeMusicData(raw) {
+    if (!raw || typeof raw !== 'object') return null;
+    const name = String(raw.name || '').slice(0, 120);
+    if (!name) return null;
+    return {
+      id: typeof raw.id === 'string' ? raw.id : '',
+      name,
+      artist: String(raw.artist || '').slice(0, 120),
+      kind: raw.kind === 'url' ? 'url' : 'local',
+      mediaId: typeof raw.mediaId === 'string' ? raw.mediaId : '',
+      url: typeof raw.url === 'string' ? raw.url : ''
     };
   }
 
@@ -5991,14 +6285,24 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
     if (!Array.isArray(state.messages)) state.messages = [];
     state.messages = state.messages.filter(m => m && typeof m.text === 'string' && ['user', 'dream', 'system'].includes(m.role)).map(m => {
       const ask = m.type === 'ask' ? normalizeAskData(m.ask) : null;
+      const transfer = m.type === 'transfer' ? normalizeTransferData(m.transfer) : null;
+      const music = m.type === 'music' ? normalizeMusicData(m.music) : null;
+      const type = ask ? 'ask'
+        : transfer ? 'transfer'
+        : music ? 'music'
+        : m.type === 'photo' ? 'photo'
+        : m.type === 'image' ? 'image' : 'text';
       return {
         id: typeof m.id === 'string' && m.id ? m.id : uid('msg'),
         role: m.role,
         text: m.text.slice(0, 3000),
-        type: ask ? 'ask' : (m.type === 'image' ? 'image' : 'text'),
+        type,
         mediaId: typeof m.mediaId === 'string' ? m.mediaId : '',
         cardId: typeof m.cardId === 'string' ? m.cardId : '',
+        photoSource: m.photoSource === 'camera' ? 'camera' : 'gallery',
         ask,
+        transfer,
+        music,
         ts: Number(m.ts) || Date.now()
       };
     }).slice(-1200);
@@ -6138,10 +6442,17 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
         target: clamp(Number(numSource.target) || 0, 0, 100),
         low: clamp(Number(numSource.low) || 1, 1, 100),
         high: clamp(Number(numSource.high) || 100, 1, 100),
-        guesses: (Array.isArray(numSource.guesses) ? numSource.guesses : []).filter(g => g && Number.isFinite(Number(g.n))).map(g => ({ n: clamp(Number(g.n), 1, 100), r: ['high', 'low', 'hit'].includes(g.r) ? g.r : 'low' })).slice(-60),
+        guesses: (Array.isArray(numSource.guesses) ? numSource.guesses : []).filter(g => g && Number.isFinite(Number(g.n))).map(g => ({
+          n: clamp(Number(g.n), 1, 100),
+          r: ['high', 'low', 'hit'].includes(g.r) ? g.r : 'low',
+          by: g.by === 'dream' ? 'dream' : 'user'
+        })).slice(-60),
         over: Boolean(numSource.over),
         result: ['win', 'lose', 'draw'].includes(numSource.result) ? numSource.result : '',
-        moves: Number(numSource.moves) || 0
+        moves: Number(numSource.moves) || 0,
+        turn: numSource.turn === 'dream' ? 'dream' : 'user',
+        winner: ['user', 'dream', 'draw'].includes(numSource.winner) ? numSource.winner : '',
+        dreamMoves: Number(numSource.dreamMoves) || 0
       },
       stats: {
         xqWins: Number(state.game?.stats?.xqWins) || 0,
@@ -6220,6 +6531,9 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
       } : null,
       nextDreamCallAt: Number(chatRaw.nextDreamCallAt) || 0,
       lastCallAt: Number(chatRaw.lastCallAt) || 0,
+      recallDraft: chatRaw.recallDraft && typeof chatRaw.recallDraft === 'object' && String(chatRaw.recallDraft.text || '').trim()
+        ? { text: String(chatRaw.recallDraft.text).slice(0, 2000), ts: Number(chatRaw.recallDraft.ts) || Date.now() }
+        : null,
       call: null
     };
     const callRaw = chatRaw.call;
@@ -6233,6 +6547,10 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
         connectedAt: Number(callRaw.connectedAt) || 0,
         autoHangupAt: Number(callRaw.autoHangupAt) || 0,
         aiListen: Boolean(callRaw.aiListen),
+        replyDueAt: Number(callRaw.replyDueAt) || 0,
+        speaking: Boolean(callRaw.speaking),
+        heardText: String(callRaw.heardText || '').slice(0, 600),
+        heardLive: false,
         cardText: String(callRaw.cardText || '').slice(0, 1200),
         cardId: typeof callRaw.cardId === 'string' ? callRaw.cardId : '',
         lastSpeech: String(callRaw.lastSpeech || '').slice(0, 300)
@@ -6241,6 +6559,13 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
         state.chat.call.connectedAt = state.chat.call.startedAt;
       }
     }
+
+    const walletRaw = state.wallet && typeof state.wallet === 'object' ? state.wallet : {};
+    const walletValue = (value, fallback) => Math.round(clamp(Number(value) || fallback, 0, 99999999) * 100) / 100;
+    state.wallet = {
+      user: walletValue(walletRaw.user, 5200),
+      dream: walletValue(walletRaw.dream, 5200)
+    };
 
     const mapRaw = state.map && typeof state.map === 'object' ? state.map : {};
     const normPoint = p => repairChinaMapPoint({
@@ -6258,35 +6583,18 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
       dream: normPoint(mapRaw.dream || base.map.dream)
     };
 
-    const hsRaw = state.homestead && typeof state.homestead === 'object' ? state.homestead : {};
-    const hsRoom = hsRaw.room && typeof hsRaw.room === 'object' ? hsRaw.room : {};
-    const hsPet = hsRaw.pet && typeof hsRaw.pet === 'object' ? hsRaw.pet : {};
-    state.homestead = {
-      room: {
-        name: String(hsRoom.name || '我们的小屋').slice(0, 30),
-        preset: ['dusk', 'dawn', 'mint', 'rose', 'night', 'paper'].includes(hsRoom.preset) ? hsRoom.preset : 'dusk',
-        mediaId: typeof hsRoom.mediaId === 'string' ? hsRoom.mediaId : '',
-        tint: /^#[0-9a-f]{6}$/i.test(String(hsRoom.tint || '')) ? String(hsRoom.tint) : '#8fb6e8',
-        floorTint: /^#[0-9a-f]{6}$/i.test(String(hsRoom.floorTint || '')) ? String(hsRoom.floorTint) : '#5a4338'
-      },
-      pet: {
-        name: String(hsPet.name || '团子').slice(0, 20),
-        mediaId: typeof hsPet.mediaId === 'string' ? hsPet.mediaId : '',
-        hunger: clamp(Number(hsPet.hunger) || 70, 0, 100),
-        mood: clamp(Number(hsPet.mood) || 70, 0, 100),
-        bond: clamp(Number(hsPet.bond) || 10, 0, 100),
-        lastCare: Number(hsPet.lastCare) || 0,
-        lastDreamAt: Number(hsPet.lastDreamAt) || 0
-      },
-      frames: (Array.isArray(hsRaw.frames) ? hsRaw.frames : []).filter(f => f && typeof f === 'object').map(f => ({
-        id: typeof f.id === 'string' && f.id ? f.id : uid('frame'),
-        mediaId: typeof f.mediaId === 'string' ? f.mediaId : '',
-        caption: String(f.caption || '').slice(0, 60),
-        x: clamp(Number(f.x) || 30, 6, 94),
-        y: clamp(Number(f.y) || 26, 8, 62),
-        size: clamp(Number(f.size) || 74, 38, 160),
-        rot: clamp(Number(f.rot) || 0, -18, 18)
-      })).slice(0, 8)
+    const videoRaw = state.video && typeof state.video === 'object' ? state.video : {};
+    const videoUrl = typeof videoRaw.url === 'string' && /^https?:\/\//i.test(videoRaw.url.trim()) ? videoRaw.url.trim() : '';
+    state.video = {
+      url: videoUrl,
+      embed: typeof videoRaw.embed === 'string' && /^https?:\/\//i.test(videoRaw.embed.trim()) ? videoRaw.embed.trim() : '',
+      kind: ['bilibili', 'youtube', 'vimeo', 'direct', 'iframe'].includes(videoRaw.kind) ? videoRaw.kind : '',
+      title: String(videoRaw.title || '').slice(0, 160),
+      source: String(videoRaw.source || '').slice(0, 80),
+      invited: Boolean(videoRaw.invited),
+      comment: String(videoRaw.comment || '').slice(0, 300),
+      rotate: [0, 90, 180, 270].includes(Number(videoRaw.rotate)) ? Number(videoRaw.rotate) : 0,
+      layout: videoRaw.layout === 'portrait' ? 'portrait' : 'landscape'
     };
 
     const calRaw = state.calendar && typeof state.calendar === 'object' ? state.calendar : {};
@@ -6468,8 +6776,10 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
     if (file.type === 'image/svg+xml') return file;
     let source;
     try {
-      if (window.createImageBitmap) source = await createImageBitmap(file);
-      else {
+      if (window.createImageBitmap) {
+        try { source = await createImageBitmap(file, { imageOrientation: 'from-image' }); }
+        catch (e) { source = await createImageBitmap(file); }
+      } else {
         const url = URL.createObjectURL(file);
         source = await new Promise((res, rej) => {
           const im = new Image(); im.onload = () => res(im); im.onerror = rej; im.src = url;
@@ -6498,6 +6808,241 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
   async function saveImageFile(file, max = 1600, quality = 0.82, preserveGif = true) {
     const blob = await compressImage(file, max, quality, preserveGif);
     return saveMediaBlob(blob, 'image');
+  }
+
+  /* ---------------- 图片裁剪 ---------------- */
+  let cropper = null;
+  let cropperResolver = null;
+  let cropperToken = 0;
+  function screenAspect() {
+    const screen = $('#screen');
+    const w = screen?.clientWidth || 390;
+    const h = screen?.clientHeight || 844;
+    return clamp(w / h, 0.32, 1.4);
+  }
+  function cropperClampOffsets() {
+    if (!cropper) return;
+    const s = cropper;
+    const maxX = Math.max(0, (s.imgW * s.scale - s.frameW) / 2);
+    const maxY = Math.max(0, (s.imgH * s.scale - s.frameH) / 2);
+    s.x = clamp(s.x, -maxX, maxX);
+    s.y = clamp(s.y, -maxY, maxY);
+  }
+  function cropperDraw() {
+    if (!cropper) return;
+    const s = cropper;
+    const canvas = $('#cropperCanvas');
+    if (!canvas) return;
+    const dpr = Math.min(2.4, window.devicePixelRatio || 1);
+    const pixelW = Math.max(1, Math.round(s.stageW * dpr));
+    const pixelH = Math.max(1, Math.round(s.stageH * dpr));
+    if (canvas.width !== pixelW || canvas.height !== pixelH) {
+      canvas.width = pixelW;
+      canvas.height = pixelH;
+    }
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, s.stageW, s.stageH);
+    ctx.fillStyle = '#000';
+    ctx.fillRect(0, 0, s.stageW, s.stageH);
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
+    ctx.save();
+    ctx.translate(s.stageW / 2 + s.x, s.stageH / 2 + s.y);
+    ctx.drawImage(s.img, -s.imgW * s.scale / 2, -s.imgH * s.scale / 2, s.imgW * s.scale, s.imgH * s.scale);
+    ctx.restore();
+  }
+  function cropperApplyZoom() {
+    if (!cropper) return;
+    const s = cropper;
+    const slider = $('#cropperZoom');
+    s.zoom = clamp(Number(slider?.value) || 1, 1, 3);
+    s.scale = s.minScale * s.zoom;
+    cropperClampOffsets();
+    cropperDraw();
+  }
+  function closeCropper(result = null) {
+    const resolver = cropperResolver;
+    cropperResolver = null;
+    cropperToken++;
+    const overlay = $('#cropperOverlay');
+    if (overlay) overlay.hidden = true;
+    document.body.classList.remove('cropper-open');
+    if (cropper && cropper.url) { try { URL.revokeObjectURL(cropper.url); } catch (e) {} }
+    cropper = null;
+    if (resolver) resolver(result);
+  }
+  async function cropperConfirm() {
+    if (!cropper) return;
+    const s = cropper;
+    const sourceW = s.frameW / s.scale;
+    const sourceH = s.frameH / s.scale;
+    const sourceX = s.imgW / 2 + (-s.frameW / 2 - s.x) / s.scale;
+    const sourceY = s.imgH / 2 + (-s.frameH / 2 - s.y) / s.scale;
+    const sx = clamp(sourceX, 0, s.imgW);
+    const sy = clamp(sourceY, 0, s.imgH);
+    const sw = Math.min(sourceW, s.imgW - sx);
+    const sh = Math.min(sourceH, s.imgH - sy);
+    if (sw < 1 || sh < 1) { toast('裁剪区域太小，请重新调整', 'error'); return; }
+    let outW = Math.max(64, Math.round(Number(s.opts.outSize) || 1200));
+    let outH = Math.max(64, Math.round(outW / s.aspect));
+    const maxSize = Math.max(256, Number(s.opts.maxSize) || 2400);
+    if (outH > maxSize) { outH = maxSize; outW = Math.max(64, Math.round(outH * s.aspect)); }
+    if (outW > maxSize) { outW = maxSize; outH = Math.max(64, Math.round(outW / s.aspect)); }
+    const canvas = document.createElement('canvas');
+    canvas.width = outW;
+    canvas.height = outH;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) { toast('浏览器无法完成裁剪', 'error'); return; }
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
+    if (!/png|webp|svg|gif/i.test(s.file.type)) {
+      ctx.fillStyle = '#000';
+      ctx.fillRect(0, 0, outW, outH);
+    }
+    ctx.drawImage(s.img, sx, sy, sw, sh, 0, 0, outW, outH);
+    const type = /png|webp|svg|gif/i.test(s.file.type) ? 'image/png' : 'image/jpeg';
+    const blob = await new Promise(resolve => canvas.toBlob(resolve, type, 0.9));
+    if (!blob) { toast('裁剪失败，请再试一次', 'error'); return; }
+    closeCropper(blob);
+  }
+  function openImageCropper(file, opts = {}) {
+    return new Promise(resolve => {
+      if (!file || !/^image\//.test(file.type || '')) {
+        toast('请选择图片文件', 'error');
+        resolve(null);
+        return;
+      }
+      if (cropperResolver) {
+        const previous = cropperResolver;
+        cropperResolver = null;
+        try { previous(null); } catch (e) {}
+      }
+      const overlay = $('#cropperOverlay');
+      const stage = $('#cropperStage');
+      const frame = $('#cropperFrame');
+      if (!overlay || !stage || !frame) { resolve(null); return; }
+      cropperResolver = resolve;
+      const token = ++cropperToken;
+      overlay.hidden = false;
+      document.body.classList.add('cropper-open');
+      const title = $('#cropperTitle');
+      if (title) {
+        title.textContent = '';
+        title.appendChild(document.createTextNode(t(opts.title || '裁剪图片')));
+      }
+      try { applyI18n(overlay); } catch (e) {}
+      const objectUrl = URL.createObjectURL(file);
+      const img = new Image();
+      img.onload = () => {
+        if (token !== cropperToken) { URL.revokeObjectURL(objectUrl); return; }
+        const aspect = clamp(Number(opts.aspect) || 1, 0.2, 3);
+        const maxStageH = Math.max(160, Math.min(window.innerHeight - 238, 620));
+        let stageW = Math.min(window.innerWidth - 52, 500);
+        let stageH = stageW / aspect;
+        if (stageH > maxStageH) { stageH = maxStageH; stageW = stageH * aspect; }
+        stageW = Math.max(150, Math.round(stageW));
+        stageH = Math.max(110, Math.round(stageH));
+        const pad = 16;
+        let frameW = stageW - pad * 2;
+        let frameH = frameW / aspect;
+        if (frameH > stageH - pad * 2) { frameH = stageH - pad * 2; frameW = frameH * aspect; }
+        frameW = Math.max(80, frameW);
+        frameH = Math.max(60, frameH);
+        stage.style.width = stageW + 'px';
+        stage.style.height = stageH + 'px';
+        frame.style.width = frameW + 'px';
+        frame.style.height = frameH + 'px';
+        const imgW = img.naturalWidth || img.width || 1;
+        const imgH = img.naturalHeight || img.height || 1;
+        cropper = {
+          img, url: objectUrl, file, opts, aspect,
+          stageW, stageH, frameW, frameH, imgW, imgH,
+          minScale: Math.max(frameW / imgW, frameH / imgH),
+          zoom: 1, scale: 0, x: 0, y: 0, drag: null
+        };
+        cropper.scale = cropper.minScale;
+        const slider = $('#cropperZoom');
+        if (slider) slider.value = '1';
+        cropperClampOffsets();
+        cropperDraw();
+      };
+      img.onerror = () => {
+        URL.revokeObjectURL(objectUrl);
+        if (token !== cropperToken) return;
+        toast('图片读取失败，请换一张试试', 'error');
+        closeCropper(null);
+      };
+      img.src = objectUrl;
+    });
+  }
+  async function pickAndCropImage(opts = {}) {
+    const files = await pickFile('image/*', false);
+    if (!files || !files.length) return '';
+    const blob = await openImageCropper(files[0], opts);
+    if (!blob) return '';
+    return saveMediaBlob(blob, 'image');
+  }
+  async function cropImageFile(file, opts = {}) {
+    if (!file) return '';
+    const blob = await openImageCropper(file, opts);
+    if (!blob) return '';
+    return saveMediaBlob(blob, 'image');
+  }
+  function bindCropperEvents() {
+    const stage = $('#cropperStage');
+    stage?.addEventListener('pointerdown', e => {
+      if (!cropper) return;
+      const s = cropper;
+      s.drag = { id: e.pointerId, x: e.clientX, y: e.clientY, ox: s.x, oy: s.y };
+      try { stage.setPointerCapture(e.pointerId); } catch (err) {}
+      e.preventDefault();
+    });
+    stage?.addEventListener('pointermove', e => {
+      if (!cropper || !cropper.drag || cropper.drag.id !== e.pointerId) return;
+      const s = cropper;
+      s.x = s.drag.ox + (e.clientX - s.drag.x);
+      s.y = s.drag.oy + (e.clientY - s.drag.y);
+      cropperClampOffsets();
+      cropperDraw();
+    });
+    const endDrag = e => {
+      if (cropper && cropper.drag && cropper.drag.id === e.pointerId) cropper.drag = null;
+    };
+    stage?.addEventListener('pointerup', endDrag);
+    stage?.addEventListener('pointercancel', endDrag);
+    stage?.addEventListener('wheel', e => {
+      if (!cropper) return;
+      e.preventDefault();
+      const slider = $('#cropperZoom');
+      const next = clamp(cropper.zoom - e.deltaY * 0.0018, 1, 3);
+      if (slider) slider.value = String(next);
+      cropperApplyZoom();
+    }, { passive: false });
+    $('#cropperZoom')?.addEventListener('input', cropperApplyZoom);
+    $('#cropperReset')?.addEventListener('click', () => {
+      if (!cropper) return;
+      cropper.zoom = 1;
+      cropper.scale = cropper.minScale;
+      cropper.x = 0;
+      cropper.y = 0;
+      const slider = $('#cropperZoom');
+      if (slider) slider.value = '1';
+      cropperClampOffsets();
+      cropperDraw();
+    });
+    $('#cropperConfirm')?.addEventListener('click', cropperConfirm);
+    $('#cropperCancel')?.addEventListener('click', () => closeCropper(null));
+    $('#cropperClose')?.addEventListener('click', () => closeCropper(null));
+    document.addEventListener('keydown', e => {
+      const overlay = $('#cropperOverlay');
+      if (overlay && !overlay.hidden && e.key === 'Escape') {
+        e.preventDefault();
+        e.stopPropagation();
+        closeCropper(null);
+      }
+    }, true);
   }
 
   /* ---------------- 状态与初始化 ---------------- */
@@ -6662,7 +7207,7 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
     chat: 'c-chat', cards: 'c-cards', moments: 'c-moments', diary: 'c-diary', album: 'c-album',
     clock: 'c-clock', weather: 'c-weather', theme: 'c-theme', music: 'c-music',
     settings: 'c-settings', chess: 'c-game', capsule: 'c-gacha',
-    companion: 'c-companion', map: 'c-map', homestead: 'c-home', calendar: 'c-calendar', tarot: 'c-tarot'
+    companion: 'c-companion', map: 'c-map', calendar: 'c-calendar', tarot: 'c-tarot'
   };
   const CAT_ICON_OFF = Object.fromEntries(Object.entries(CAT_ICON_ON).map(([k, v]) => [v.slice(2), k]));
   let catObserver = null;
@@ -6673,7 +7218,7 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
     if (!root) return;
     $$('use', root).forEach(u => {
       const href = u.getAttribute('href') || '';
-      let m = href.match(/^#i-(chat|cards|moments|diary|album|clock|weather|theme|music|settings|chess|capsule|companion|map|homestead|calendar|tarot)$/);
+      let m = href.match(/^#i-(chat|cards|moments|diary|album|clock|weather|theme|music|settings|chess|capsule|companion|map|calendar|tarot)$/);
       if (m) {
         if (on) u.setAttribute('href', '#' + CAT_ICON_ON[m[1]]);
         return;
@@ -6821,11 +7366,13 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
     chat: '#view-chat', moments: '#view-moments', diary: '#view-diary', cards: '#view-cards', album: '#view-album',
     time: '#view-time', weather: '#view-weather', theme: '#view-theme', music: '#view-music',
     game: '#view-game', gacha: '#view-gacha', settings: '#view-settings',
-    companion: '#view-companion', map: '#view-map',
-    homestead: '#view-homestead', calendar: '#view-calendar', tarot: '#view-tarot'
+    companion: '#view-companion', map: '#view-map', video: '#view-video',
+    calendar: '#view-calendar', tarot: '#view-tarot'
   };
   function openApp(name, opts = {}) {
     if (!APP_VIEWS[name]) return;
+    if (currentApp === 'video' && name !== 'video') releaseVideoPlayer();
+    if (currentApp === 'chat' && name !== 'chat') { closeChatPlus(); stopChatMusic(); }
     if (name !== 'game') cancelGameAI();
     closeOverlay();
     closeLightbox();
@@ -6855,12 +7402,14 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
     if (name === 'gacha') renderGachaApp();
     if (name === 'companion') renderCompanion();
     if (name === 'map') renderMap();
-    if (name === 'homestead') renderHomestead();
+    if (name === 'video') renderVideo();
     if (name === 'calendar') renderCalendar();
     if (name === 'tarot') renderFortune();
     if (name === 'settings') populateSettings();
   }
   function goHome() {
+    if (currentApp === 'video') releaseVideoPlayer();
+    if (currentApp === 'chat') { closeChatPlus(); stopChatMusic(); }
     cancelGameAI();
     closeOverlay();
     closeLightbox();
@@ -7311,7 +7860,7 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
     try { if (currentApp === 'gacha') renderGachaApp(); } catch (e) { console.warn(e); }
     try { if (currentApp === 'companion') renderCompanion(); } catch (e) { console.warn(e); }
     try { if (currentApp === 'map') renderMap(); } catch (e) { console.warn(e); }
-    try { if (currentApp === 'homestead') renderHomestead(); } catch (e) { console.warn(e); }
+    try { if (currentApp === 'video') renderVideo(); } catch (e) { console.warn(e); }
     try { if (currentApp === 'calendar') renderCalendar(); } catch (e) { console.warn(e); }
     try { if (currentApp === 'tarot') renderFortune(); } catch (e) { console.warn(e); }
     try { if (currentApp === 'settings') populateSettings(); } catch (e) { console.warn(e); }
@@ -7319,6 +7868,67 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
 
   /* ---------------- 聊天 ---------------- */
   const recentDreamCards = [];
+  let dreamRecallTimer = null;
+  let chatReplyTimer = null;
+  let chatMusicAudio = null;
+  let chatMusicPlayingId = '';
+  function updateRecallBanner() {
+    const banner = $('#recallBanner');
+    if (!banner) return;
+    banner.hidden = !(state.chat && state.chat.recallDraft && state.chat.recallDraft.text);
+  }
+  function recallUserMessage(id) {
+    const index = state.messages.findIndex(m => m.id === id && m.role === 'user' && m.type === 'text');
+    if (index < 0) return;
+    const message = state.messages[index];
+    state.messages.splice(index, 1);
+    state.chat.recallDraft = { text: message.text.slice(0, 2000), ts: Date.now() };
+    if (state.chat.pendingReply) {
+      state.chat.pendingReply = null;
+      pendingTyping = false;
+      clearTimeout(chatReplyTimer);
+      chatReplyTimer = null;
+    }
+    saveState();
+    renderChat();
+    scrollChatToBottom(true);
+    toast('已撤回，点下方提示可以重新编辑');
+  }
+  function applyRecallDraft() {
+    const draft = state.chat && state.chat.recallDraft;
+    if (!draft || !draft.text) return;
+    const input = $('#chatInput');
+    if (!input) return;
+    input.value = draft.text;
+    state.chat.recallDraft = null;
+    saveState();
+    updateRecallBanner();
+    autoGrowInput();
+    input.focus();
+    const end = input.value.length;
+    try { input.setSelectionRange(end, end); } catch (e) {}
+  }
+  function maybeScheduleDreamRecall(message) {
+    clearTimeout(dreamRecallTimer);
+    dreamRecallTimer = null;
+    if (currentApp !== 'chat' || !message || message.role !== 'dream' || !message.cardId) return;
+    if (Math.random() > 0.06) return;
+    const messageId = message.id;
+    dreamRecallTimer = setTimeout(() => {
+      dreamRecallTimer = null;
+      if (currentApp !== 'chat') return;
+      const index = state.messages.findIndex(m => m.id === messageId && m.role === 'dream');
+      if (index < 0) return;
+      if (state.messages.slice(index + 1).some(m => m.role === 'user')) return;
+      state.messages.splice(index, 1);
+      addMessage({ role: 'system', text: `${state.profile.dreamName}${t('撤回了一条字卡')}`, type: 'text' });
+      saveState();
+      if (currentApp === 'chat') {
+        renderChat();
+        scrollChatToBottom(true);
+      }
+    }, 5000 + Math.random() * 7000);
+  }
   function scrollChatToBottom(force = false) {
     const list = $('#messageList');
     if (!list) return;
@@ -7350,10 +7960,29 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
         <div class="ask-foot">${esc(pending ? t('梦角正在看你的选项…') : `${t('梦角选了')} ${a.selected.length} ${t('项')}`)}</div>
       </div>`;
     }
+    if (m.type === 'photo') {
+      const url = mediaURL(m.mediaId);
+      if (url) return `<div class="bubble photo-bubble"><img src="${url}" alt="照片" data-lightbox-src="${url}" data-lightbox-caption="发给${esc(state.profile.dreamName)}的照片"><span class="photo-badge">${m.photoSource === 'camera' ? '相机' : '相册'}</span></div>`;
+      return `<div class="bubble photo-bubble" style="padding:12px;color:var(--ink-dim);font-size:10px">照片已丢失</div>`;
+    }
     if (m.type === 'image') {
       const url = mediaURL(m.mediaId);
       if (url) return `<div class="bubble image-bubble"><img src="${url}" alt="表情包" data-lightbox-src="${url}" data-lightbox-caption="表情包"></div>`;
       return `<div class="bubble image-bubble" style="padding:12px;color:var(--ink-dim);font-size:10px">图片已丢失</div>`;
+    }
+    if (m.type === 'transfer' && m.transfer) {
+      const tr = m.transfer;
+      const incoming = tr.direction === 'to-user';
+      return `<div class="bubble transfer-bubble ${incoming ? 'incoming' : 'outgoing'}">
+        <div class="transfer-top"><span class="transfer-icon">¥</span><div class="transfer-info"><b>${incoming ? `${esc(state.profile.dreamName)}转给你` : `转给${esc(state.profile.dreamName)}`}</b><span>${esc(tr.note || '虚拟转账')}</span></div></div>
+        <div class="transfer-amount">${incoming ? '+' : '-'}<small>¥</small>${tr.amount.toFixed(2)}</div>
+        <div class="transfer-foot">虚拟转账 · 仅模拟</div>
+      </div>`;
+    }
+    if (m.type === 'music' && m.music) {
+      const mu = m.music;
+      const playing = chatMusicPlayingId === m.id;
+      return `<div class="bubble music-bubble"><div class="music-bubble-cover">♪</div><div class="music-bubble-main"><b>${esc(mu.name)}</b><span>${esc(mu.artist || '分享音乐')}</span></div><button class="music-play ${playing ? 'playing' : ''}" type="button" data-chat-music="${esc(m.id)}" aria-label="${playing ? '暂停音乐' : '播放音乐'}"><svg class="icon"><use href="#${playing ? 'i-pause' : 'i-play'}"/></svg></button></div>`;
     }
     if (m.role === 'dream') {
       const isCard = Boolean(m.cardId);
@@ -7372,12 +8001,13 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
       ? avatarMarkup(state.profile.dreamAvatar, dreamFallback(), '')
       : avatarMarkup(state.profile.userAvatar, userFallback(), 'self');
     const name = peer ? state.profile.dreamName : state.profile.userName;
+    const canRecall = !peer && m.type === 'text' && String(m.text || '').trim();
     return `<div class="message-row ${peer ? 'peer' : 'user'}" data-msg-id="${esc(m.id)}">
       ${avatar}
       <div class="msg-stack">
         <span class="msg-name">${esc(name)}</span>
         ${messageBubble(m)}
-        <span class="msg-time">${esc(dayLabel(m.ts))} ${pad2(new Date(m.ts).getHours())}:${pad2(new Date(m.ts).getMinutes())}</span>
+        <span class="msg-time">${esc(dayLabel(m.ts))} ${pad2(new Date(m.ts).getHours())}:${pad2(new Date(m.ts).getMinutes())}${canRecall ? ` <button class="recall-link" type="button" data-recall-msg="${esc(m.id)}" aria-label="撤回这条内容">撤回</button>` : ''}</span>
       </div>
     </div>`;
   }
@@ -7390,6 +8020,7 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
   function renderChat() {
     const list = $('#messageList');
     if (!list) return;
+    updateRecallBanner();
     applyIdentity();
     const pendingReply = state.chat?.pendingReply;
     $('#chatPeerStatus').textContent = pendingTyping
@@ -7451,6 +8082,8 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
   function finalizeDreamReply() {
     const pending = state.chat?.pendingReply;
     if (!pending) return;
+    clearTimeout(chatReplyTimer);
+    chatReplyTimer = null;
     state.chat.pendingReply = null;
     pendingTyping = false;
     const avoid = recentDreamCards.slice(-Math.min(3, Math.max(0, enabledCards().length - 1)));
@@ -7464,12 +8097,14 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
     }
     recentDreamCards.push(card.id);
     if (recentDreamCards.length > 8) recentDreamCards.shift();
-    addMessage({ role: 'dream', text: card.text, cardId: card.id, type: 'text' });
+    const dreamMessage = addMessage({ role: 'dream', text: card.text, cardId: card.id, type: 'text' });
     setTyping(false);
     if (currentApp === 'chat') {
       renderChat();
       scrollChatToBottom(true);
     }
+    maybeScheduleDreamRecall(dreamMessage);
+    maybeDreamTransfer();
     if (state.settings.autoSpeak) {
       speakText(fillTemplate(card.text), { openSettings: false }).catch(() => {});
     }
@@ -7483,6 +8118,11 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
     }
     const dueAt = Date.now() + randomReplyDelayMs();
     state.chat.pendingReply = { id: uid('reply'), dueAt, createdAt: Date.now() };
+    clearTimeout(chatReplyTimer);
+    chatReplyTimer = setTimeout(() => {
+      chatReplyTimer = null;
+      try { processChatDue(); } catch (e) {}
+    }, Math.max(0, dueAt - Date.now()) + 30);
     saveState();
     if (currentApp === 'chat') {
       if (dueAt - Date.now() <= 2200) setTyping(true);
@@ -7642,8 +8282,11 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
       return;
     }
     addMessage({ role: 'user', text, type: 'text' });
+    if (state.chat && state.chat.recallDraft) state.chat.recallDraft = null;
+    closeChatPlus();
     input.value = '';
     input.style.height = 'auto';
+    saveState();
     renderChat();
     scrollChatToBottom(true);
     scheduleDreamReply();
@@ -7657,6 +8300,7 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
     }
     addMessage({ role: 'user', text: '', type: 'image', mediaId });
     closeStickerTray();
+    closeChatPlus();
     renderChat();
     scrollChatToBottom(true);
     scheduleDreamReply();
@@ -7669,6 +8313,195 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
   }
   function closeStickerTray() {
     $('#stickerTray')?.classList.remove('open');
+  }
+  function closeChatPlus() {
+    $('#chatPlusTray')?.classList.remove('open');
+    $('#chatPlusBtn')?.classList.remove('active');
+  }
+  function toggleChatPlus() {
+    const tray = $('#chatPlusTray');
+    if (!tray) return;
+    const open = !tray.classList.contains('open');
+    tray.classList.toggle('open', open);
+    $('#chatPlusBtn')?.classList.toggle('active', open);
+    if (open) closeStickerTray();
+  }
+  async function pickChatPhoto(useCamera = false) {
+    closeChatPlus();
+    const files = await pickFile('image/*', false, useCamera ? { capture: 'environment' } : {});
+    if (!files || !files.length) return;
+    await sendChatPhoto(files[0], useCamera ? 'camera' : 'gallery');
+  }
+  async function sendChatPhoto(file, source = 'gallery') {
+    if (!file) return;
+    toast(source === 'camera' ? '正在保存照片…' : '正在发送照片…');
+    try {
+      const id = await saveImageFile(file, 1600, 0.86, false);
+      addMessage({ role: 'user', text: '', type: 'photo', mediaId: id, photoSource: source });
+      saveState();
+      if (currentApp === 'chat') {
+        renderChat();
+        scrollChatToBottom(true);
+      }
+      scheduleDreamReply();
+    } catch (e) {
+      toast(e.message || '照片发送失败', 'error');
+    }
+  }
+  function roundMoney(value) {
+    return Math.round((Number(value) || 0) * 100) / 100;
+  }
+  function openTransferSheet() {
+    closeChatPlus();
+    const dreamName = state.profile.dreamName;
+    const balance = roundMoney(state.wallet?.user || 0);
+    openSheet({
+      title: `给${dreamName}转账`,
+      subtitle: '虚拟转账 · 只保存在这台设备里，不涉及任何真实金钱。',
+      body: `<div class="transfer-balance"><span>我的虚拟余额</span><b>¥ ${balance.toFixed(2)}</b></div>
+        <div class="field"><label for="transferAmount">金额</label><input class="settings-input" id="transferAmount" type="number" min="0.01" step="0.01" inputmode="decimal" placeholder="0.00"></div>
+        <div class="transfer-presets">${[5.2, 13.14, 52, 131.4, 520].map(v => `<button type="button" data-transfer-amount="${v}">¥${v}</button>`).join('')}</div>
+        <div class="field"><label for="transferNote">留言 <small>可选</small></label><input class="settings-input" id="transferNote" type="text" maxlength="60" placeholder="想对梦角说点什么"></div>
+        <p class="field-tip">转出去的钱会进入梦角的虚拟余额；他也会随机给你转一点，全部只是模拟。</p>`,
+      footer: `<button class="ghost-btn" data-close-overlay>取消</button><button class="primary-btn" id="transferSendBtn">转给${esc(dreamName)}</button>`,
+      onMount(root) {
+        const amount = $('#transferAmount', root);
+        root.querySelectorAll('[data-transfer-amount]').forEach(btn => btn.addEventListener('click', () => {
+          if (amount) { amount.value = btn.dataset.transferAmount; amount.focus(); }
+        }));
+        $('#transferSendBtn', root)?.addEventListener('click', () => {
+          const value = roundMoney(amount?.value);
+          if (!value || value <= 0) { toast('请输入大于 0 的金额', 'error'); return; }
+          if (value > roundMoney(state.wallet?.user || 0) + 0.001) { toast('虚拟余额不够啦', 'error'); return; }
+          const note = ($('#transferNote', root)?.value || '').trim().slice(0, 60);
+          sendUserTransfer(value, note);
+        });
+      }
+    });
+  }
+  function sendUserTransfer(amount, note = '') {
+    const value = roundMoney(amount);
+    if (!value || value <= 0) return;
+    if (value > roundMoney(state.wallet?.user || 0) + 0.001) { toast('虚拟余额不够啦', 'error'); return; }
+    state.wallet.user = roundMoney(state.wallet.user - value);
+    state.wallet.dream = roundMoney((state.wallet.dream || 0) + value);
+    addMessage({
+      role: 'user', text: `转账 ¥${value.toFixed(2)}`, type: 'transfer',
+      transfer: { direction: 'to-dream', amount: value, note, ts: Date.now() }
+    });
+    saveState();
+    closeOverlay();
+    if (currentApp === 'chat') { renderChat(); scrollChatToBottom(true); }
+    scheduleDreamReply();
+    toast(`已转给${state.profile.dreamName} ¥${value.toFixed(2)}`);
+  }
+  function maybeDreamTransfer() {
+    if (currentApp !== 'chat') return;
+    if (Math.random() > 0.08) return;
+    if (!state.wallet || roundMoney(state.wallet.dream) < 5.2) return;
+    const amounts = [5.2, 13.14, 52, 88, 131.4, 520].filter(v => v <= roundMoney(state.wallet.dream));
+    if (!amounts.length) return;
+    const amount = amounts[Math.floor(Math.random() * amounts.length)];
+    const notes = ['请你喝杯奶茶', '收下吧，今天也辛苦了', '想给你买点小东西', '一点点心意', '拿去买喜欢的东西'];
+    const note = notes[Math.floor(Math.random() * notes.length)];
+    setTimeout(() => {
+      if (currentApp !== 'chat') return;
+      if (!state.wallet || roundMoney(state.wallet.dream) < amount) return;
+      state.wallet.dream = roundMoney(state.wallet.dream - amount);
+      state.wallet.user = roundMoney(state.wallet.user + amount);
+      addMessage({
+        role: 'dream', text: `转账 ¥${amount.toFixed(2)}`, type: 'transfer',
+        transfer: { direction: 'to-user', amount, note, ts: Date.now() }
+      });
+      saveState();
+      if (currentApp === 'chat') { renderChat(); scrollChatToBottom(true); }
+      toast(`${state.profile.dreamName}给你转了 ¥${amount.toFixed(2)}`);
+    }, 900 + Math.random() * 1400);
+  }
+  function openChatMusicSheet() {
+    closeChatPlus();
+    const tracks = (state.music || []).slice();
+    const body = tracks.length
+      ? `<div class="chat-music-list">${tracks.map((track, index) => `<button class="chat-music-row" type="button" data-chat-music-track="${index}">
+          <span class="cm-cover">♪</span>
+          <span class="cm-main" data-no-i18n><b>${esc(track.name)}</b><span>${esc(track.artist || '未知歌手')}</span></span>
+          <svg class="icon"><use href="#i-send"/></svg>
+        </button>`).join('')}</div>
+        <p class="field-tip">选一首发给梦角；他会从字卡里挑一句回你。</p>`
+      : '<div class="soft-empty">音乐库还是空的。<br>先去「音乐」导入歌曲或音频直链吧。</div>';
+    openSheet({
+      title: '分享音乐',
+      subtitle: '从音乐库里选一首，和梦角一起听。',
+      body,
+      footer: tracks.length ? '<button class="primary-btn" data-close-overlay>关闭</button>' : '<button class="primary-btn" data-open-app="music" data-close-overlay>去音乐应用</button>',
+      onMount(root) {
+        root.querySelectorAll('[data-chat-music-track]').forEach(btn => btn.addEventListener('click', () => {
+          const track = tracks[Number(btn.dataset.chatMusicTrack)];
+          if (track) sendChatMusic(track);
+        }));
+      }
+    });
+  }
+  function sendChatMusic(track) {
+    if (!track) return;
+    const url = track.kind === 'url' ? track.url : mediaURL(track.mediaId);
+    if (!url) { toast('这首歌的文件已经不在了', 'error'); return; }
+    addMessage({
+      role: 'user', text: `分享音乐：${track.name}`, type: 'music',
+      music: {
+        id: track.id, name: track.name, artist: track.artist || '未知歌手',
+        kind: track.kind === 'url' ? 'url' : 'local',
+        mediaId: track.kind === 'url' ? '' : track.mediaId,
+        url: track.kind === 'url' ? track.url : ''
+      }
+    });
+    saveState();
+    closeOverlay();
+    if (currentApp === 'chat') { renderChat(); scrollChatToBottom(true); }
+    scheduleDreamReply();
+    toast('音乐已经分享给梦角');
+  }
+  function refreshChatMusicButtons() {
+    $$('[data-chat-music]').forEach(btn => {
+      const on = btn.dataset.chatMusic === chatMusicPlayingId;
+      btn.classList.toggle('playing', on);
+      const use = btn.querySelector('use');
+      if (use) use.setAttribute('href', on ? '#i-pause' : '#i-play');
+    });
+  }
+  function stopChatMusic() {
+    if (chatMusicAudio) { try { chatMusicAudio.pause(); } catch (e) {} chatMusicAudio = null; }
+    chatMusicPlayingId = '';
+    refreshChatMusicButtons();
+  }
+  async function toggleChatMusic(messageId) {
+    const message = state.messages.find(m => m.id === messageId && m.type === 'music' && m.music);
+    if (!message) return;
+    if (chatMusicPlayingId === messageId && chatMusicAudio && !chatMusicAudio.paused) {
+      try { chatMusicAudio.pause(); } catch (e) {}
+      chatMusicAudio = null;
+      chatMusicPlayingId = '';
+      refreshChatMusicButtons();
+      return;
+    }
+    const track = message.music;
+    const url = track.kind === 'url' ? track.url : mediaURL(track.mediaId);
+    if (!url) { toast('音乐文件已丢失', 'error'); return; }
+    stopChatMusic();
+    const mainAudio = audioEl();
+    if (mainAudio && !mainAudio.paused) { try { mainAudio.pause(); } catch (e) {} }
+    try {
+      const audio = new Audio(url);
+      chatMusicAudio = audio;
+      chatMusicPlayingId = messageId;
+      audio.onended = () => { if (chatMusicPlayingId === messageId) stopChatMusic(); };
+      audio.onerror = () => { toast('音乐播放失败', 'error'); stopChatMusic(); };
+      await audio.play();
+      refreshChatMusicButtons();
+    } catch (e) {
+      toast('音乐播放失败', 'error');
+      stopChatMusic();
+    }
   }
   function renderStickers() {
     const grid = $('#stickerGrid');
@@ -7758,6 +8591,8 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
       }
       mini?.classList.remove('show');
       $('#callCard')?.classList.remove('show', 'speaking');
+      const speech = $('#callUserSpeech');
+      if (speech) speech.hidden = true;
       return;
     }
     const name = state.profile.dreamName || '梦角';
@@ -7806,6 +8641,19 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
       if (use) use.setAttribute('href', call.aiListen ? '#i-mic' : '#i-mic-off');
       const label = aiBtn.querySelector('span:last-child');
       if (label) label.textContent = t('聆听');
+    }
+    const speech = $('#callUserSpeech');
+    if (speech) {
+      const heardText = active && !ringing ? (call.heardText || call.lastSpeech || '') : '';
+      speech.hidden = !heardText;
+      speech.classList.toggle('live', Boolean(active && call.aiListen && call.heardLive && !call.speaking));
+      if (heardText) {
+        const speechName = $('#callSpeechName');
+        const speechText = $('#callSpeechText');
+        const nameText = `${state.profile.userName || '你'}：`;
+        if (speechName && speechName.textContent !== nameText) speechName.textContent = nameText;
+        if (speechText && speechText.textContent !== heardText) speechText.textContent = heardText;
+      }
     }
     const card = $('#callCard');
     if (card) {
@@ -7884,6 +8732,8 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
     call.autoHangupAt = now + (90 + Math.random() * 330) * 1000;
     call.replyDueAt = 0;
     call.speaking = false;
+    call.heardText = '';
+    call.heardLive = false;
     clearTimeout(callReplyTimer);
     callReplyTimer = null;
     saveState();
@@ -7892,6 +8742,8 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
   }
   function startOutgoingCall() {
     if (activeCall()) { showCallOverlay(); return; }
+    closeChatPlus();
+    stopChatMusic();
     if (!enabledCards().length) {
       toast('字卡库里还没有可用的字卡，先写几张吧', 'error');
       setTimeout(() => openApp('cards'), 500);
@@ -7902,6 +8754,7 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
       id: uid('call'), direction: 'outgoing', status: 'ringing',
       startedAt: now, connectedAt: 0, autoHangupAt: 0,
       aiListen: false, replyDueAt: 0, speaking: false,
+      heardText: '', heardLive: false,
       cardText: '', cardId: '', lastSpeech: ''
     };
     saveState();
@@ -7915,11 +8768,14 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
   }
   function startIncomingCall() {
     if (activeCall() || !state.settings.dreamCallAuto || !enabledCards().length) return false;
+    closeChatPlus();
+    stopChatMusic();
     const now = Date.now();
     state.chat.call = {
       id: uid('call'), direction: 'incoming', status: 'ringing',
       startedAt: now, connectedAt: 0, autoHangupAt: 0,
       aiListen: false, replyDueAt: 0, speaking: false,
+      heardText: '', heardLive: false,
       cardText: '', cardId: '', lastSpeech: ''
     };
     saveState();
@@ -7982,16 +8838,25 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
       if (!callRecognition) {
         callRecognition = new Ctor();
         callRecognition.continuous = true;
-        callRecognition.interimResults = false;
+        callRecognition.interimResults = true;
         callRecognition.maxAlternatives = 1;
         callRecognition.onresult = event => {
           const current = activeCall();
-          if (!current || !current.aiListen) return;
-          let transcript = '';
+          if (!current || !current.aiListen || current.speaking) return;
+          let finalTranscript = '';
+          let preview = '';
           for (let i = event.resultIndex; i < event.results.length; i++) {
-            if (event.results[i].isFinal) transcript += event.results[i][0].transcript;
+            const result = event.results[i];
+            const text = result[0]?.transcript || '';
+            preview += text;
+            if (result.isFinal) finalTranscript += text;
           }
-          if (transcript.trim()) handleCallSpeech(transcript.trim());
+          if (preview.trim()) {
+            current.heardText = preview.trim().slice(0, 600);
+            current.heardLive = !finalTranscript.trim();
+            updateCallUi();
+          }
+          if (finalTranscript.trim()) handleCallSpeech(finalTranscript.trim());
         };
         callRecognition.onerror = event => {
           const current = activeCall();
@@ -8010,8 +8875,12 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
         };
         callRecognition.onend = () => {
           callRecognitionActive = false;
-          if (callRecognitionStopping) return;
           const current = activeCall();
+          if (current && current.heardLive) {
+            current.heardLive = false;
+            updateCallUi();
+          }
+          if (callRecognitionStopping) return;
           if (current && current.status === 'active' && current.aiListen) scheduleCallListenRestart();
         };
       }
@@ -8139,6 +9008,8 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
     const value = String(text || '').trim();
     if (!value) return;
     call.lastSpeech = value.slice(0, 300);
+    call.heardText = value.slice(0, 600);
+    call.heardLive = false;
     if (call.replyDueAt) { saveState(); updateCallUi(); return; }
     if (!enabledCards().length) {
       toast(t('没有可用的字卡了'), 'error');
@@ -8164,6 +9035,7 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
     if (!call || call.status !== 'active') return;
     if (call.aiListen) {
       call.aiListen = false;
+      call.heardLive = false;
       clearTimeout(callReplyTimer);
       callReplyTimer = null;
       call.replyDueAt = 0;
@@ -8244,6 +9116,8 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
           callReplyTimer = null;
           call.replyDueAt = 0;
           call.speaking = false;
+          call.heardText = '';
+          call.heardLive = false;
           saveState();
         }
         showCallOverlay();
@@ -8735,8 +9609,6 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
     if (state.settings.chatBackground?.mediaId === id) return true;
     if (Object.values(state.settings.customIcons || {}).includes(id)) return true;
     if (state.map?.user?.mediaId === id || state.map?.dream?.mediaId === id) return true;
-    if (state.homestead?.room?.mediaId === id || state.homestead?.pet?.mediaId === id) return true;
-    if ((state.homestead?.frames || []).some(f => f.mediaId === id)) return true;
     if (state.stickers.some(s => s.mediaId === id)) return true;
     if (state.album.some(p => p.mediaId === id)) return true;
     if (state.moments.some(m => m.mediaId === id)) return true;
@@ -9021,9 +9893,23 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
         closeLightbox();
         await addOrnament('user', photo.mediaId, '相册里的照片');
       }},
-      { label: '设为壁纸', icon: 'image', onClick: () => {
-        state.settings.wallpaper = { type: 'image', mediaId: photo.mediaId };
-        saveState(true); applyWallpaper(); applyTheme(); closeLightbox(); toast('壁纸已经换好了');
+      { label: '设为壁纸', icon: 'image', onClick: async () => {
+        try {
+          const response = await fetch(url);
+          const blob = await response.blob();
+          const id = await cropImageFile(blob, {
+            aspect: screenAspect(), outSize: 2000, maxSize: 2400, title: '裁剪主页背景'
+          });
+          if (!id) return;
+          const old = state.settings.wallpaper.mediaId;
+          state.settings.wallpaper = { type: 'image', mediaId: id };
+          saveState(true);
+          applyWallpaper();
+          applyTheme();
+          closeLightbox();
+          if (old) removeMediaIfUnused(old);
+          toast('壁纸已经换好了');
+        } catch (e) { toast(e.message || '壁纸设置失败', 'error'); }
       }},
       photo.comment && photo.comment.text
         ? { label: '换一句', icon: 'refresh', onClick: () => {
@@ -10381,7 +11267,7 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
     }
   }
 
-  /* ---------------- AI 对弈：中国象棋 / 五子棋 ---------------- */
+  /* ---------------- 梦角对弈：中国象棋 / 五子棋 ---------------- */
   const XQ_NAMES = {
     rK: '帅', rA: '仕', rE: '相', rH: '马', rR: '车', rC: '炮', rP: '兵',
     bK: '将', bA: '士', bE: '象', bH: '马', bR: '车', bC: '炮', bP: '卒'
@@ -10390,6 +11276,7 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
   const XQ_W = 760, XQ_H = 860, XQ_M = 58;
   const GM_SIZE = 15, GM_W = 780, GM_M = 48;
   let gameAITimer = null;
+  let numDreamTimer = null;
   let gameEpoch = 0;
   let gameThinking = false;
   let xqSelected = null;
@@ -10696,6 +11583,7 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
     gameEpoch++;
     gameThinking = false;
     if (gameAITimer) { clearTimeout(gameAITimer); gameAITimer = null; }
+    if (numDreamTimer) { clearTimeout(numDreamTimer); numDreamTimer = null; }
   }
   function gameCss(name, fallback) {
     try {
@@ -10786,7 +11674,7 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
     ctx.font = '11px "PingFang SC", "Microsoft YaHei", sans-serif';
     ctx.fillStyle = inkSoft;
     ctx.globalAlpha = .35;
-    ctx.fillText('AI 托管 · ' + dream, XQ_W / 2, XQ_H - 16);
+    ctx.fillText('与 ' + dream + ' 对弈', XQ_W / 2, XQ_H - 16);
     ctx.globalAlpha = 1;
     const radius = Math.min(cw, ch) * .41;
     for (let i = 0; i < 90; i++) {
@@ -10900,7 +11788,7 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
       ctx.restore();
     }
     ctx.fillStyle = inkSoft; ctx.globalAlpha = .35; ctx.font = '11px "PingFang SC", "Microsoft YaHei", sans-serif';
-    ctx.textAlign = 'center'; ctx.fillText('AI 托管 · ' + (state.settings.dreamLocation?.city || '梦角'), GM_W / 2, GM_W - 16);
+    ctx.textAlign = 'center'; ctx.fillText('与 ' + (state.profile.dreamName || '梦角') + ' 对弈', GM_W / 2, GM_W - 16);
     ctx.restore();
   }
   function ensureGameBoards() {
@@ -10924,19 +11812,20 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
     const aiTurn = active === 'xiangqi' ? current.turn === 'b'
       : active === 'gomoku' ? current.turn === 'w'
       : active === 'uno' ? current.turn === 'a'
+      : active === 'number' ? current.turn === 'dream'
       : false;
     const check = active === 'xiangqi' && !over ? xqInCheck(current.board, current.turn) : false;
     paintAvatar($('#gameAiAvatar'), state.profile.dreamAvatar, dreamFallback(), 'online');
     $('#gameAiName').textContent = state.profile.dreamName;
     const aiStatus = $('#gameAiStatus');
-    if (aiStatus) aiStatus.textContent = over ? '本局已结束' : (aiTurn ? '正在想' : (isUno ? '陪你打牌' : isNum ? '心里想着数字' : '梦角托管中'));
+    if (aiStatus) aiStatus.textContent = over ? '本局已结束' : (aiTurn ? '正在想' : (isUno ? '陪你打牌' : isNum ? '轮到你猜' : '梦角托管中'));
     $$('#gameTabs [data-game-tab]').forEach(btn => btn.classList.toggle('active', btn.dataset.gameTab === active));
     const pill = $('#gameTurnPill');
     pill.classList.toggle('thinking', aiTurn && !over);
     pill.classList.toggle('over', over);
     if (over) pill.innerHTML = `<span class="turn-dot"></span>本局结束`;
     else if (aiTurn) pill.innerHTML = `<span class="turn-dot"></span>${esc(state.profile.dreamName)}思考中`;
-    else if (isNum) pill.innerHTML = `<span class="turn-dot"></span>猜一猜`;
+    else if (isNum) pill.innerHTML = `<span class="turn-dot"></span>轮到你猜`;
     else pill.innerHTML = `<span class="turn-dot"></span>轮到你`;
 
     const shell = $('#gameBoardShell');
@@ -10963,7 +11852,9 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
     } else if (isUno) {
       hint.textContent = over ? '这一局结束了，点「重开」再来一局。' : (aiTurn ? '梦角正在出牌…' : '选一张同色或同数字的牌。');
     } else {
-      hint.textContent = over ? '猜中了。要不要换一个数字再来？' : `在 ${current.low} 到 ${current.high} 之间猜一个数字。`;
+      hint.textContent = over ? '这一局结束了。要不要换一个数字再来？'
+        : aiTurn ? `${state.profile.dreamName}正在猜…`
+        : `轮到你猜，在 ${current.low} 到 ${current.high} 之间选一个数字。`;
     }
 
     const stats = state.game.stats;
@@ -11001,7 +11892,7 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
           ? '梦角会接管白子。你执黑先行；横、竖、斜任意方向连成五子即获胜。'
           : isUno
             ? '同色或同数字就能接上；变色牌可以随时出，出完记得选一个颜色。'
-            : '梦角心里有一个 1 到 100 的数字。每次猜完，范围都会缩小一点。';
+            : '你和梦角轮流猜同一个 1 到 100 的数字，先猜中的人赢。每次猜完，范围都会缩小一点。';
     }
     if (isUno) renderUno();
     if (isNum) renderNumber();
@@ -11021,6 +11912,7 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
       if (state.game.active === 'xiangqi' && state.game.xiangqi.turn === 'b' && !state.game.xiangqi.over) scheduleXqAI();
       if (state.game.active === 'gomoku' && state.game.gomoku.turn === 'w' && !state.game.gomoku.over) scheduleGomokuAI();
       if (state.game.active === 'uno' && state.game.uno.turn === 'a' && !state.game.uno.over) scheduleUnoAI();
+      if (state.game.active === 'number' && state.game.number.turn === 'dream' && !state.game.number.over) scheduleNumDream();
     }
   }
 
@@ -11270,64 +12162,150 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
   }
 
   /* ---------------- 猜数字 ---------------- */
+  function cancelNumDream() {
+    clearTimeout(numDreamTimer);
+    numDreamTimer = null;
+  }
   function numStart(silent = false) {
+    cancelNumDream();
     state.game.number = {
       target: 1 + Math.floor(Math.random() * 100),
-      low: 1, high: 100, guesses: [], over: false, result: '', moves: 0
+      low: 1, high: 100, guesses: [], over: false, result: '', moves: 0,
+      turn: 'user', winner: '', dreamMoves: 0
     };
     saveGame();
-    if (!silent) { renderGameBoard(); toast('换了一个新的数字，开始猜吧'); }
+    if (!silent) { renderGameChrome(); toast('换了一个新的数字，你和梦角轮流猜'); }
   }
   function numEnsure() {
     if (!state.game.number || !state.game.number.target) numStart(true);
   }
+  function numFeedbackFor(n, by) {
+    const last = n.guesses[n.guesses.length - 1];
+    if (!last) return by === 'dream' ? `${state.profile.dreamName}正在想…` : '你和梦角轮流猜，先猜中的人赢。';
+    const hint = last.r === 'low' ? '再大一点' : last.r === 'high' ? '再小一点' : '猜中了';
+    return `${by === 'dream' ? state.profile.dreamName : '你'}猜了 ${last.n}，${hint}。`;
+  }
+  function numUserWins(n) {
+    n.over = true;
+    n.result = 'win';
+    n.winner = 'user';
+    state.game.stats.numWins++;
+    toast(`你猜中了！就是 ${n.target}`);
+  }
+  function numDreamWins(n) {
+    n.over = true;
+    n.result = 'lose';
+    n.winner = 'dream';
+    state.game.stats.numLosses++;
+    toast(`${state.profile.dreamName}先猜中了，答案是 ${n.target}`);
+  }
+  function scheduleNumDream() {
+    cancelNumDream();
+    const n = state.game.number;
+    if (!n || n.over || n.turn !== 'dream' || state.game.active !== 'number') return;
+    const epoch = gameEpoch;
+    const targetId = n.target;
+    renderGameChrome();
+    numDreamTimer = setTimeout(() => {
+      numDreamTimer = null;
+      const current = state.game.number;
+      if (epoch !== gameEpoch || !current || current.target !== targetId || current.over || current.turn !== 'dream') return;
+      const taken = new Set(current.guesses.map(g => g.n));
+      const pool = [];
+      for (let v = current.low; v <= current.high; v++) if (!taken.has(v)) pool.push(v);
+      if (!pool.length) {
+        current.over = true;
+        current.result = 'draw';
+        current.winner = 'draw';
+        current.turn = 'user';
+        saveGame();
+        renderGameChrome();
+        toast('数字范围已经用完了，这一局算平手');
+        return;
+      }
+      let pick = Math.floor((current.low + current.high) / 2);
+      if (!pool.includes(pick) || Math.random() < 0.18) pick = pool[Math.floor(Math.random() * pool.length)];
+      current.moves++;
+      current.dreamMoves++;
+      if (pick === current.target) {
+        current.guesses.push({ n: pick, r: 'hit', by: 'dream' });
+        numDreamWins(current);
+      } else if (pick < current.target) {
+        current.guesses.push({ n: pick, r: 'low', by: 'dream' });
+        current.low = Math.max(current.low, pick + 1);
+        current.turn = 'user';
+      } else {
+        current.guesses.push({ n: pick, r: 'high', by: 'dream' });
+        current.high = Math.min(current.high, pick - 1);
+        current.turn = 'user';
+      }
+      saveGame();
+      renderGameChrome();
+      if (!current.over) setTimeout(() => $('#numInput')?.focus(), 60);
+    }, 780 + Math.random() * 520);
+  }
   function numGuess() {
     const n = state.game.number;
-    if (n.over) { toast('这一局已经猜中了，点「换一个数字」再来'); return; }
+    if (n.over) { toast('这一局已经结束，点「换一个数字」再来'); return; }
+    if (n.turn !== 'user') { toast(`${state.profile.dreamName}还在猜，等他猜完`); return; }
     const input = $('#numInput');
     const value = Math.round(Number(input?.value));
     if (!Number.isFinite(value) || value < 1 || value > 100) { toast('请输入 1 到 100 之间的整数'); return; }
     if (n.guesses.some(g => g.n === value)) { toast('这个数字已经猜过了'); return; }
     n.moves++;
     if (value === n.target) {
-      n.guesses.push({ n: value, r: 'hit' });
-      n.over = true;
-      n.result = 'win';
-      state.game.stats.numWins++;
-      toast(`猜中了！就是 ${value}`);
+      n.guesses.push({ n: value, r: 'hit', by: 'user' });
+      numUserWins(n);
     } else if (value < n.target) {
-      n.guesses.push({ n: value, r: 'low' });
+      n.guesses.push({ n: value, r: 'low', by: 'user' });
       n.low = Math.max(n.low, value + 1);
+      n.turn = 'dream';
     } else {
-      n.guesses.push({ n: value, r: 'high' });
+      n.guesses.push({ n: value, r: 'high', by: 'user' });
       n.high = Math.min(n.high, value - 1);
+      n.turn = 'dream';
     }
     if (input) input.value = '';
     saveGame();
-    renderGameBoard();
-    if (!n.over) setTimeout(() => $('#numInput')?.focus(), 40);
+    renderGameChrome();
+    if (!n.over) scheduleNumDream();
   }
   function renderNumber() {
     const n = state.game.number;
     const range = $('#numRange');
-    if (range) range.innerHTML = `${n.low} — ${n.high}<small>${n.over ? `答案就是 ${n.target}` : '范围会随着每次猜测缩小'}</small>`;
+    if (range) {
+      const turnText = n.over
+        ? `答案就是 ${n.target}`
+        : n.turn === 'dream' ? `${state.profile.dreamName}正在猜…` : '轮到你猜';
+      range.innerHTML = `${n.low} — ${n.high}<small>${turnText}</small>`;
+    }
     const history = $('#numHistory');
     if (history) {
-      history.innerHTML = n.guesses.map(g => `<span class="num-chip ${g.r}">${g.n}${g.r === 'low' ? ' ↑' : g.r === 'high' ? ' ↓' : ' ✓'}</span>`).join('');
+      history.innerHTML = n.guesses.map(g => `<span class="num-chip ${g.r} ${g.by === 'dream' ? 'dream' : 'user'}">${g.by === 'dream' ? '梦 ' : '你 '}${g.n}${g.r === 'low' ? ' ↑' : g.r === 'high' ? ' ↓' : ' ✓'}</span>`).join('');
     }
     const fb = $('#numFeedback');
     if (fb) {
-      if (n.over) fb.textContent = `用了 ${n.moves} 次猜中。${n.moves <= 6 ? '很准。' : n.moves <= 9 ? '还不错。' : '下次会更快。'}`;
-      else if (!n.guesses.length) fb.textContent = '慢慢来，数字会越猜越近。';
-      else {
-        const last = n.guesses[n.guesses.length - 1];
-        fb.textContent = last.r === 'low' ? '再大一点。' : last.r === 'high' ? '再小一点。' : '猜中了。';
+      if (n.over) {
+        fb.textContent = n.winner === 'user'
+          ? `你用了 ${n.guesses.filter(g => g.by === 'user').length} 次猜中，赢下了这一局。`
+          : n.winner === 'dream'
+            ? `${state.profile.dreamName}先猜中了 ${n.target}。再来一局，把场子找回来。`
+            : '数字范围用完了，这一局算平手。';
+      } else if (!n.guesses.length) {
+        fb.textContent = '你和梦角轮流猜同一个数字，先猜中的人赢。';
+      } else if (n.turn === 'dream') {
+        fb.textContent = `${numFeedbackFor(n, 'user')} 轮到${state.profile.dreamName}了。`;
+      } else {
+        fb.textContent = `${numFeedbackFor(n, 'dream')} 轮到你了。`;
       }
     }
     const input = $('#numInput');
-    if (input) input.disabled = n.over;
+    if (input) {
+      input.disabled = n.over || n.turn !== 'user';
+      input.placeholder = n.over ? '这一局已经结束' : n.turn === 'dream' ? `${state.profile.dreamName}正在猜…` : '猜一个数';
+    }
     const btn = $('#numGuessBtn');
-    if (btn) btn.disabled = n.over;
+    if (btn) btn.disabled = n.over || n.turn !== 'user';
   }
   function saveGame() { saveState(); }
   function finishGame(type, winner) {
@@ -11551,7 +12529,7 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
         <div class="settings-field"><label style="font-size:10px;color:var(--ink)">中国象棋</label><p class="field-tip" style="font-size:9px">你执红先行，梦角托管黑方。点击自己的棋子会显示所有合法落点；系统会自动判断将军、困毙与胜负。</p></div>
         <div class="settings-field"><label style="font-size:10px;color:var(--ink)">五子棋</label><p class="field-tip" style="font-size:9px">你执黑先行，梦角执白。横、竖、斜任意方向先连成五子者获胜。</p></div>
         <div class="settings-field"><label style="font-size:10px;color:var(--ink)">UNO</label><p class="field-tip" style="font-size:9px">出和桌面同色或同数字的牌。跳过、反转、+2 会让对手停一轮；变色牌可以随时出，出完选一个颜色。先出完手里所有牌的人获胜。</p></div>
-        <div class="settings-field"><label style="font-size:10px;color:var(--ink)">猜数字</label><p class="field-tip" style="font-size:9px">梦角心里想一个 1 到 100 的数字。每次猜完会告诉你偏大还是偏小，范围也会跟着缩小。</p></div>
+        <div class="settings-field"><label style="font-size:10px;color:var(--ink)">猜数字</label><p class="field-tip" style="font-size:9px">你和梦角轮流猜同一个 1 到 100 的数字。每次猜完会提示偏大还是偏小，先猜中的人赢。</p></div>
       </div>
       <p class="field-tip">棋局和牌局都会保存在这台设备里；从主页再次打开可以继续。悔棋只能撤回到你上一次落子前。</p>`,
       footer: `<button class="primary-btn" data-close-overlay>开始玩</button>`
@@ -12437,17 +13415,347 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
     } catch (e) { toast(e.message || '图片导入失败', 'error'); }
   }
 
+  /* ---------------- 一起看 ---------------- */
+  function videoMediaKey() {
+    return [state.video.url, state.video.kind, state.video.embed].join('|');
+  }
+  function parseVideoSource(raw) {
+    let input = String(raw || '').trim();
+    if (!input) throw new Error('先粘贴一个视频链接');
+    const urlMatch = input.match(/https?:\/\/[^\s<>"']+/i);
+    if (urlMatch) input = urlMatch[0];
+    input = input.replace(/[)\]}>，。；;、]+$/g, '');
+    if (/^BV[0-9A-Za-z]{10}$/.test(input)) input = 'https://www.bilibili.com/video/' + input;
+    if (/^av\d+$/i.test(input)) input = 'https://www.bilibili.com/video/' + input;
+    if (/\.(mp4|webm|ogg|ogv|mov|m4v)(?:[?#]|$)/i.test(input)) {
+      let name = '直接视频';
+      try { name = decodeURIComponent(input.split(/[?#]/)[0].split('/').pop() || '') || name; } catch (e) {}
+      return { kind: 'direct', url: input, embed: input, title: name, source: '直链视频' };
+    }
+    if (/\.m3u8(?:[?#]|$)/i.test(input)) {
+      return { kind: 'direct', url: input, embed: input, title: 'HLS 视频', source: 'm3u8 直链 · Chrome / Edge 可能不支持' };
+    }
+    const bv = input.match(/BV[0-9A-Za-z]{10}/);
+    if (bv) {
+      const page = (input.match(/[?&]p=(\d+)/) || [])[1] || '1';
+      return {
+        kind: 'bilibili', url: input,
+        embed: `https://player.bilibili.com/player.html?bvid=${bv[0]}&page=${page}&high_quality=1&autoplay=0`,
+        title: `哔哩哔哩 · ${bv[0]}`, source: 'Bilibili'
+      };
+    }
+    const av = input.match(/\/video\/av(\d+)/i) || input.match(/\bav(\d+)\b/i);
+    if (av) {
+      const page = (input.match(/[?&]p=(\d+)/) || [])[1] || '1';
+      return {
+        kind: 'bilibili', url: input,
+        embed: `https://player.bilibili.com/player.html?aid=${av[1]}&page=${page}&high_quality=1&autoplay=0`,
+        title: `哔哩哔哩 · av${av[1]}`, source: 'Bilibili'
+      };
+    }
+    const ep = input.match(/\/bangumi\/play\/ep(\d+)/i) || input.match(/\bep(\d+)\b/i);
+    if (ep) {
+      return {
+        kind: 'bilibili', url: input,
+        embed: `https://player.bilibili.com/player.html?ep_id=${ep[1]}&autoplay=0`,
+        title: `哔哩哔哩 · ep${ep[1]}`, source: 'Bilibili 番剧'
+      };
+    }
+    if (/b23\.tv/i.test(input)) throw new Error('哔哩哔哩短链接需要先在浏览器里展开，再粘贴完整链接');
+    const yt = input.match(/(?:youtube\.com\/(?:watch\?v=|shorts\/|embed\/)|youtu\.be\/)([A-Za-z0-9_-]{6,})/i);
+    if (yt) {
+      return {
+        kind: 'youtube', url: input,
+        embed: `https://www.youtube.com/embed/${yt[1]}?autoplay=0&rel=0`,
+        title: `YouTube · ${yt[1]}`, source: 'YouTube'
+      };
+    }
+    const vm = input.match(/vimeo\.com\/(?:video\/)?(\d+)/i);
+    if (vm) {
+      return {
+        kind: 'vimeo', url: input,
+        embed: `https://player.vimeo.com/video/${vm[1]}?autoplay=0`,
+        title: `Vimeo · ${vm[1]}`, source: 'Vimeo'
+      };
+    }
+    if (!/^https?:\/\//i.test(input)) throw new Error('请粘贴以 http(s) 开头的视频链接');
+    let host = '';
+    try { host = new URL(input).hostname.replace(/^www\./, ''); } catch (e) { throw new Error('链接格式不正确'); }
+    return { kind: 'iframe', url: input, embed: input, title: `${host} 上的视频`, source: host };
+  }
+  function releaseVideoPlayer() {
+    if (document.fullscreenElement && document.exitFullscreen) {
+      const result = document.exitFullscreen();
+      if (result && result.catch) result.catch(() => {});
+    }
+    const frame = $('#videoFrame');
+    if (!frame) return;
+    const video = frame.querySelector('video');
+    if (video) { try { video.pause(); } catch (e) {} }
+    frame.innerHTML = '';
+    frame.removeAttribute('data-key');
+  }
+  function buildVideoMedia() {
+    const frame = $('#videoFrame');
+    if (!frame) return;
+    const video = state.video;
+    if (!video.url) { frame.innerHTML = ''; frame.removeAttribute('data-key'); return; }
+    if (video.kind === 'direct') {
+      frame.innerHTML = `<video id="videoElement" src="${esc(video.embed || video.url)}" controls playsinline preload="metadata"></video>`;
+      const el = frame.querySelector('video');
+      if (el) el.addEventListener('error', () => {
+        const source = $('#videoSource');
+        if (source) source.textContent = '这个直链可能失效了，试试投屏里的「在新窗口打开」';
+      }, { once: true });
+    } else {
+      frame.innerHTML = `<iframe src="${esc(video.embed || video.url)}" allow="autoplay; fullscreen; picture-in-picture; encrypted-media" allowfullscreen referrerpolicy="no-referrer"></iframe>`;
+    }
+    frame.dataset.key = videoMediaKey();
+  }
+  function applyVideoView() {
+    const stage = $('#videoStage');
+    const frame = $('#videoFrame');
+    if (!stage || !frame) return;
+    const w = stage.clientWidth || 0;
+    const h = stage.clientHeight || 0;
+    if (!w || !h) return;
+    const deg = ((Number(state.video.rotate) || 0) % 360 + 360) % 360;
+    let scale = 1;
+    if (deg === 90 || deg === 270) scale = Math.min(w / h, h / w);
+    frame.style.transform = deg ? `rotate(${deg}deg) scale(${scale})` : 'none';
+  }
+  function renderVideo(opts = {}) {
+    const v = state.video;
+    if (v.url && !v.embed) {
+      try { Object.assign(v, parseVideoSource(v.url)); } catch (e) {}
+    }
+    const input = $('#videoUrlInput');
+    if (input && document.activeElement !== input) input.value = v.url || '';
+    const title = $('#videoTitle');
+    if (title) title.textContent = v.url ? (v.title || '正在播放') : '还没有选片子';
+    const source = $('#videoSource');
+    if (source) source.textContent = v.url ? (v.source || v.kind || '视频') : '粘贴一个链接，就能开始';
+    const badge = $('#videoBadge');
+    if (badge) {
+      badge.textContent = v.url ? '已就绪' : '未开始';
+      badge.classList.toggle('live', Boolean(v.url));
+    }
+    const player = $('#videoPlayer');
+    if (player) {
+      player.hidden = !v.url;
+      player.classList.toggle('layout-portrait', v.layout === 'portrait');
+    }
+    if (v.url) {
+      const frame = $('#videoFrame');
+      if (frame && (opts.force || frame.dataset.key !== videoMediaKey())) buildVideoMedia();
+      applyVideoView();
+    } else {
+      releaseVideoPlayer();
+    }
+    const invite = $('#videoInviteBtn');
+    if (invite) {
+      invite.innerHTML = `<svg class="icon"><use href="#i-companion"/></svg> ${v.invited ? '梦角已加入' : '邀请梦角一起看'}`;
+      invite.classList.toggle('active', Boolean(v.invited));
+    }
+    const companion = $('#videoCompanion');
+    if (companion) {
+      companion.hidden = !v.invited;
+      if (v.invited) {
+        paintAvatar($('#videoCompanionAvatar'), state.profile.dreamAvatar, dreamFallback(), 'online');
+        const name = $('#videoCompanionName');
+        if (name) name.textContent = state.profile.dreamName;
+        const line = $('#videoCompanionLine');
+        if (line) line.textContent = v.comment || '坐在你旁边，一起看。';
+      }
+    }
+    const layoutLabel = $('#videoLayoutBtn span');
+    if (layoutLabel) layoutLabel.textContent = v.layout === 'portrait' ? '横屏' : '竖屏';
+    const rotateBtn = $('#videoRotateBtn');
+    if (rotateBtn) rotateBtn.setAttribute('aria-label', `当前视角 ${v.rotate}°，点击旋转`);
+  }
+  function playVideoFromInput() {
+    const input = $('#videoUrlInput');
+    const raw = input ? input.value.trim() : '';
+    try {
+      const parsed = parseVideoSource(raw);
+      state.video = Object.assign({}, state.video, parsed);
+      if (input) input.value = parsed.url;
+      saveState(true);
+      renderVideo({ force: true });
+      setTimeout(() => $('#videoPlayer')?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 120);
+      toast(parsed.kind === 'iframe' ? '已经开始放映；如果画面空白，请用投屏里的「在新窗口打开」' : '已经开始放映');
+      if (parsed.kind === 'direct' && /\.m3u8(?:[?#]|$)/i.test(parsed.url)) {
+        toast('m3u8 在 Chrome / Edge 里可能无法播放，可以换 Safari 或原播放器', 'error');
+      }
+    } catch (e) {
+      toast(e.message || '这个链接暂时无法播放', 'error');
+    }
+  }
+  function toggleVideoCompanion() {
+    if (state.video.invited) {
+      state.video.invited = false;
+      state.video.comment = '';
+      saveState(true);
+      renderVideo();
+      toast('梦角先离开了一会儿');
+      return;
+    }
+    state.video.invited = true;
+    const cards = enabledCards();
+    const card = cards.length ? cards[Math.floor(Math.random() * cards.length)] : null;
+    state.video.comment = card ? fillTemplate(card.text) : '我坐这边，开始了叫我。';
+    saveState(true);
+    renderVideo();
+    toast(`${state.profile.dreamName}坐到你旁边了`);
+  }
+  function clearVideo() {
+    releaseVideoPlayer();
+    state.video = {
+      url: '', embed: '', kind: '', title: '', source: '',
+      invited: false, comment: '', rotate: 0, layout: 'landscape'
+    };
+    saveState(true);
+    renderVideo({ force: true });
+    toast('已经清空');
+  }
+  function toggleVideoRotate() {
+    state.video.rotate = ((Number(state.video.rotate) || 0) + 90) % 360;
+    saveState(true);
+    renderVideo();
+  }
+  function toggleVideoLayout() {
+    state.video.layout = state.video.layout === 'portrait' ? 'landscape' : 'portrait';
+    saveState(true);
+    renderVideo();
+  }
+  function toggleVideoFullscreen() {
+    const player = $('#videoPlayer');
+    if (!player || player.hidden) return;
+    if (document.fullscreenElement) {
+      if (document.exitFullscreen) {
+        const result = document.exitFullscreen();
+        if (result && result.catch) result.catch(() => {});
+      }
+      return;
+    }
+    const request = player.requestFullscreen || player.webkitRequestFullscreen;
+    if (!request) {
+      const media = $('#videoFrame video');
+      if (media && media.webkitEnterFullscreen) media.webkitEnterFullscreen();
+      else toast('当前浏览器不支持全屏');
+      return;
+    }
+    Promise.resolve(request.call(player)).then(() => {
+      setTimeout(applyVideoView, 180);
+    }).catch(() => toast('全屏被浏览器拦截了'));
+  }
+  async function copyVideoLink() {
+    const url = state.video.url;
+    if (!url) { toast('先播放一个视频再投屏'); return; }
+    let copied = false;
+    try { await navigator.clipboard.writeText(url); copied = true; } catch (e) {}
+    if (!copied) {
+      try {
+        const ta = document.createElement('textarea');
+        ta.value = url;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        copied = document.execCommand('copy');
+        ta.remove();
+      } catch (e) {}
+    }
+    if (copied) toast('播放链接已复制，可以在电脑、电视或平板上打开');
+    else toast('复制失败，请手动选中链接复制', 'error');
+  }
+  async function requestVideoCast() {
+    const video = $('#videoFrame video');
+    if (video && video.remote && typeof video.remote.prompt === 'function') {
+      try { await video.remote.prompt(); toast('已打开系统投屏选择'); return; }
+      catch (e) { toast('没有找到可投屏的设备', 'error'); return; }
+    }
+    if (window.PresentationRequest && state.video.url) {
+      try {
+        const request = new PresentationRequest([state.video.url]);
+        await request.start();
+        toast('已打开投屏窗口，把它拖到目标屏幕即可');
+        return;
+      } catch (e) {}
+    }
+    toast('当前浏览器没有系统投屏入口，可以用「复制播放链接」或「在新窗口打开」');
+  }
+  function openVideoCastSheet() {
+    if (!state.video.url) { toast('先播放一个视频再投屏'); return; }
+    openSheet({
+      title: '投屏到其他设备',
+      subtitle: '把画面送到电脑、电视或平板',
+      body: `<div class="settings-group" style="margin-bottom:10px">
+        <button class="settings-link" id="castSystemBtn" type="button"><svg class="icon"><use href="#i-cast"/></svg> 使用系统投屏 <span class="chev">›</span></button>
+        <button class="settings-link" id="castShareBtn" type="button"><svg class="icon"><use href="#i-upload"/></svg> 分享到其他设备 <span class="chev">›</span></button>
+        <button class="settings-link" id="castCopyBtn" type="button"><svg class="icon"><use href="#i-download"/></svg> 复制播放链接 <span class="chev">›</span></button>
+        <button class="settings-link" id="castOpenBtn" type="button"><svg class="icon"><use href="#i-frame"/></svg> 在新窗口打开 <span class="chev">›</span></button>
+      </div>
+      <p class="field-tip">手机和电脑 / 电视 / 平板连在同一个网络时，优先用系统投屏。浏览器没有投屏入口时，复制链接到目标设备的浏览器打开；哔哩哔哩、YouTube 等播放器也可以使用它们自带的投屏按钮。VIP / DRM 内容需要在原平台解锁，网页播放器不会绕过。</p>`,
+      footer: '<button class="ghost-btn" data-close-overlay>关闭</button>',
+      onMount(root) {
+        $('#castSystemBtn', root)?.addEventListener('click', requestVideoCast);
+        $('#castShareBtn', root)?.addEventListener('click', async () => {
+          if (!navigator.share) { toast('当前浏览器不支持系统分享，可以复制链接'); return; }
+          try { await navigator.share({ title: state.video.title || '一起看', text: '和梦角一起看', url: state.video.url }); }
+          catch (e) {}
+        });
+        $('#castCopyBtn', root)?.addEventListener('click', copyVideoLink);
+        $('#castOpenBtn', root)?.addEventListener('click', () => {
+          if (!state.video.url) return;
+          window.open(state.video.url, '_blank', 'noopener,noreferrer');
+        });
+      }
+    });
+  }
+  function openVideoHelp() {
+    openSheet({
+      title: '一起看 · 播放说明',
+      subtitle: '把想看的片子放进来，和梦角并肩坐一会儿',
+      body: `<div class="settings-group" style="margin-bottom:10px">
+        <div class="settings-field"><label style="font-size:10px;color:var(--ink)">支持的链接</label><p class="field-tip" style="font-size:9px">哔哩哔哩完整视频链接、BV 号、av 号、番剧 ep 号；YouTube、Vimeo；以 .mp4 / .webm / .ogg / .mov 结尾的直链。其他公开网页会尝试用内嵌播放器打开，部分网站会拒绝嵌入，这时用「在新窗口打开」。</p></div>
+        <div class="settings-field"><label style="font-size:10px;color:var(--ink)">短链接与会员内容</label><p class="field-tip" style="font-size:9px">哔哩哔哩 b23.tv 短链接需要先在浏览器展开为完整链接。VIP / DRM / 登录后才能看的内容无法在网页播放器里绕过，请先在原平台解锁。</p></div>
+        <div class="settings-field"><label style="font-size:10px;color:var(--ink)">转动视角与投屏</label><p class="field-tip" style="font-size:9px">「转动视角」每次旋转 90°；「竖屏 / 横屏」切换观看方向；全屏后仍然可以转动。投屏优先调用系统投屏，也可以用复制链接把画面送到同一网络的电脑、电视或平板。</p></div>
+      </div>`,
+      footer: '<button class="primary-btn" data-close-overlay>开始看</button>'
+    });
+  }
+  function bindVideoEvents() {
+    $('#videoPlayBtn')?.addEventListener('click', playVideoFromInput);
+    $('#videoUrlInput')?.addEventListener('keydown', e => {
+      if (e.key === 'Enter') { e.preventDefault(); playVideoFromInput(); }
+    });
+    $('#videoInviteBtn')?.addEventListener('click', toggleVideoCompanion);
+    $('#videoClearBtn')?.addEventListener('click', clearVideo);
+    $('#videoRotateBtn')?.addEventListener('click', toggleVideoRotate);
+    $('#videoLayoutBtn')?.addEventListener('click', toggleVideoLayout);
+    $('#videoFullBtn')?.addEventListener('click', toggleVideoFullscreen);
+    $('#videoCastBtn')?.addEventListener('click', openVideoCastSheet);
+    $('#videoHelpBtn')?.addEventListener('click', openVideoHelp);
+    window.addEventListener('resize', () => {
+      if (currentApp === 'video') requestAnimationFrame(applyVideoView);
+    });
+    document.addEventListener('fullscreenchange', () => {
+      if (currentApp === 'video') setTimeout(applyVideoView, 80);
+    });
+  }
+
   /* ---------------- 自定义外观 ---------------- */
   const APP_ICON_IDS = {
     chat: 'i-chat', cards: 'i-cards', moments: 'i-moments', diary: 'i-diary', album: 'i-album',
     time: 'i-clock', weather: 'i-weather', theme: 'i-theme', music: 'i-music', settings: 'i-settings',
-    game: 'i-chess', gacha: 'i-capsule', companion: 'i-companion', map: 'i-map',
-    homestead: 'i-home', calendar: 'i-calendar', tarot: 'i-tarot'
+    game: 'i-chess', gacha: 'i-capsule', companion: 'i-companion', map: 'i-map', video: 'i-video',
+    calendar: 'i-calendar', tarot: 'i-tarot'
   };
   const APP_ICON_LABELS = {
     chat: '聊天', cards: '字卡', moments: '朋友圈', diary: '日记', album: '相册', time: '时间',
     weather: '天气', theme: '主题', music: '音乐', settings: '设置', game: '游戏', gacha: '扭蛋',
-    companion: '陪伴', map: '地图', homestead: '家园', calendar: '日历', tarot: '每日运势'
+    companion: '陪伴', map: '地图', video: '一起看', calendar: '日历', tarot: '每日运势'
   };
   function applyCustomIcons() {
     $$('#homeScreen [data-open-app] .app-glyph').forEach(glyph => {
@@ -12504,7 +13812,7 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
           <button class="ghost-btn" id="surfaceUploadBtn"><svg class="icon"><use href="#i-upload"/></svg> 导入图片</button>
           <button class="danger-btn" id="surfaceClearBtn">清除</button>
         </div>
-        <p class="field-tip">图片会保存在这台设备里。建议使用横向图片，效果会更完整。</p>`,
+        <p class="field-tip">图片会保存在这台设备里。背景会按手机屏幕比例裁剪，建议用竖屏或接近手机比例的照片。</p>`,
       onMount(root) {
         root.querySelectorAll('[data-surface-choice]').forEach(btn => btn.addEventListener('click', () => {
           if (btn.dataset.surfaceChoice === 'image' && !(state.settings[config.key].mediaId && mediaURL(state.settings[config.key].mediaId))) {
@@ -12518,11 +13826,13 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
           root.querySelectorAll('[data-surface-choice]').forEach(b => b.classList.toggle('active', b === btn));
         }));
         $('#surfaceUploadBtn', root)?.addEventListener('click', async () => {
-          const files = await pickFile('image/*', false);
-          if (!files || !files.length) return;
           try {
+            const id = await pickAndCropImage({
+              aspect: screenAspect(), outSize: 2000, maxSize: 2400,
+              title: `裁剪${config.title}`
+            });
+            if (!id) return;
             const old = state.settings[config.key].mediaId;
-            const id = await saveImageFile(files[0], 2200, 0.85, false);
             state.settings[config.key] = { type: 'image', mediaId: id };
             saveState(true);
             applyWallpaper();
@@ -12564,11 +13874,13 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
       onMount(root) {
         root.querySelectorAll('[data-icon-upload]').forEach(btn => btn.addEventListener('click', async () => {
           const key = btn.dataset.iconUpload;
-          const files = await pickFile('image/*', false);
-          if (!files || !files.length) return;
           try {
+            const id = await pickAndCropImage({
+              aspect: 1, outSize: 512, maxSize: 1024,
+              title: `裁剪${APP_ICON_LABELS[key] || '软件'}图标`
+            });
+            if (!id) return;
             const old = state.settings.customIcons[key];
-            const id = await saveImageFile(files[0], 512, 0.88, false);
             state.settings.customIcons[key] = id;
             saveState(true);
             applyCustomIcons();
@@ -12644,7 +13956,7 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
         { icon: `cards`, title: `先写一张字卡`, body: `梦角只会从你启用的字卡里挑选句子回应。打开「字卡」，写下想听的话；没有字卡时，他不会自己编造。` },
         { icon: `chat`, title: `聊天与回忆`, body: `在聊天里说话，点左上角进入朋友圈；日记和相册会把日常慢慢收好。` },
         { icon: `map`, title: `时间、天气与地图`, body: `城市会同时标出省份和国家，例如「河北省 · 唐山市」。搜索中国地级市时，会优先给出正确的行政区划，不会混入其他省份的同名小镇。` },
-        { icon: `companion`, title: `一起生活`, body: `「陪伴」安排此刻在做的事，「家园」养一只小宠物、布置房间，「日历」记录生日与周期，「每日运势」看看今天的风向。` },
+        { icon: `companion`, title: `一起生活`, body: `「陪伴」安排此刻在做的事，「日历」记录生日与周期，「每日运势」看看今天的风向。` },
         { icon: `chess`, title: `玩一局，再慢慢布置`, body: `游戏里有象棋、五子棋、UNO 和猜数字；扭蛋、主题和语言都在设置里。之后想重看教程，可以在设置中打开。` }
       ]
     },
@@ -12655,7 +13967,7 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
         { icon: `cards`, title: `Write your first card`, body: `Your dream character only replies with lines from the cards you enable. Open Cards and write what you want to hear; without cards, they will not invent words.` },
         { icon: `chat`, title: `Chat and memories`, body: `Talk in Chat, open Moments from the top-left, and keep everyday moments in Diary and Album.` },
         { icon: `map`, title: `Time, weather and map`, body: `Every city shows its province or state and country, for example Hebei · Tangshan. Chinese prefecture cities are matched to the correct administrative region first.` },
-        { icon: `companion`, title: `A little life together`, body: `Use Companion to plan the moment, Homestead to raise a pet and decorate a room, Calendar for birthdays and cycles, and Daily Fortune for today's mood.` },
+        { icon: `companion`, title: `A little life together`, body: `Use Companion to plan the moment, Calendar for birthdays and cycles, and Daily Fortune for today's mood.` },
         { icon: `chess`, title: `Play a round, then make it yours`, body: `Games include Chess, Gomoku, UNO and Guess the Number. Gacha, themes and language live in Settings, where you can also replay this tutorial.` }
       ]
     },
@@ -12666,7 +13978,7 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
         { icon: `cards`, title: `まずカードを一枚`, body: `夢の住人は、あなたが有効にしたカードの言葉からしか返事を選びません。「カード」を開いて、聞きたい言葉を書いてみてください。カードがなければ、勝手に言葉を作ることはありません。` },
         { icon: `chat`, title: `チャットと思い出`, body: `チャットで話し、左上から「モーメンツ」へ。日記とアルバムが日々をそっと残します。` },
         { icon: `map`, title: `時間・天気・地図`, body: `都市には必ず省や州、国が表示されます。たとえば「河北省 · 唐山市」。中国の地級市は正しい行政区画が先に表示されます。` },
-        { icon: `companion`, title: `一緒に暮らす`, body: `「コンパニオン」で今の時間を決め、「ホーム」でペットを育て部屋を飾り、「カレンダー」で誕生日と周期を記録し、「毎日の運勢」で今日の風向きを覗けます。` },
+        { icon: `companion`, title: `一緒に暮らす`, body: `「コンパニオン」で今の時間を決め、「カレンダー」で誕生日と周期を記録し、「毎日の運勢」で今日の風向きを覗けます。` },
         { icon: `chess`, title: `一局遊んで、自分好みに`, body: `ゲームにはチェス、五目並べ、UNO、数字当てがあります。ガチャ、テーマ、言語は設定に。このチュートリアルも設定からもう一度見られます。` }
       ]
     },
@@ -12677,7 +13989,7 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
         { icon: `cards`, title: `먼저 카드를 한 장`, body: `꿈 속 인물은 당신이 켜 둔 카드의 문장에서만 답을 골라요. 카드를 열어 듣고 싶은 말을 적어 보세요. 카드가 없으면 임의로 말을 만들지 않아요.` },
         { icon: `chat`, title: `채팅과 추억`, body: `채팅에서 이야기하고, 왼쪽 위에서 모멘트를 열어요. 일기와 앨범이 일상을 차곡차곡 담아 줘요.` },
         { icon: `map`, title: `시간, 날씨, 지도`, body: `도시마다 성이나 주와 국가가 함께 표시돼요. 예: 허베이성 · 탕산시. 중국의 지급시는 올바른 행정 구역이 먼저 나와요.` },
-        { icon: `companion`, title: `함께 사는 작은 생활`, body: `동행에서 지금 할 일을 정하고, 홈에서 반려동물을 키우고 방을 꾸미며, 달력에서 생일과 주기를 기록하고, 매일의 운세에서 오늘의 흐름을 봐요.` },
+        { icon: `companion`, title: `함께 사는 작은 생활`, body: `동행에서 지금 할 일을 정하고, 달력에서 생일과 주기를 기록하고, 매일의 운세에서 오늘의 흐름을 봐요.` },
         { icon: `chess`, title: `한 판 놀고, 천천히 꾸미기`, body: `게임에는 체스, 오목, UNO, 숫자 맞히기가 있어요. 가챠, 테마, 언어는 설정에 있고, 이 튜토리얼도 설정에서 다시 볼 수 있어요.` }
       ]
     },
@@ -12688,7 +14000,7 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
         { icon: `cards`, title: `Écrivez votre première carte`, body: `Votre personnage ne répond qu'avec les phrases des cartes que vous activez. Ouvrez Cartes et écrivez ce que vous voulez entendre ; sans carte, il n'inventera rien.` },
         { icon: `chat`, title: `Discussion et souvenirs`, body: `Parlez dans Discussion, ouvrez Moments en haut à gauche, et gardez le quotidien dans Journal et Album.` },
         { icon: `map`, title: `Temps, météo et carte`, body: `Chaque ville affiche sa province ou son État et son pays, par exemple Hebei · Tangshan. Les villes chinoises sont d'abord associées à la bonne région administrative.` },
-        { icon: `companion`, title: `Une petite vie ensemble`, body: `Utilisez Compagnon pour choisir le moment, Maison pour élever un animal et décorer une pièce, Calendrier pour les anniversaires et les cycles, et Fortune du jour pour l'ambiance du jour.` },
+        { icon: `companion`, title: `Une petite vie ensemble`, body: `Utilisez Compagnon pour choisir le moment, Calendrier pour les anniversaires et les cycles, et Fortune du jour pour l'ambiance du jour.` },
         { icon: `chess`, title: `Jouez une partie, puis faites-en votre espace`, body: `Les jeux incluent les échecs, le gomoku, l'UNO et le nombre à deviner. Gacha, thèmes et langue sont dans les réglages, où vous pouvez aussi revoir ce tutoriel.` }
       ]
     },
@@ -12699,7 +14011,7 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
         { icon: `cards`, title: `Schreibe deine erste Karte`, body: `Deine Traumfigur antwortet nur mit Sätzen aus den Karten, die du aktivierst. Öffne Karten und schreibe, was du hören möchtest; ohne Karten erfindet sie nichts.` },
         { icon: `chat`, title: `Chat und Erinnerungen`, body: `Sprich im Chat, öffne oben links Momente und bewahre den Alltag in Tagebuch und Album auf.` },
         { icon: `map`, title: `Zeit, Wetter und Karte`, body: `Jede Stadt zeigt Provinz oder Bundesstaat und Land, zum Beispiel Hebei · Tangshan. Chinesische Städte werden zuerst der richtigen Verwaltungsregion zugeordnet.` },
-        { icon: `companion`, title: `Ein kleines gemeinsames Leben`, body: `Mit Begleitung planst du den Moment, mit Zuhause ziehst du ein Tier groß und dekorierst den Raum, im Kalender stehen Geburtstage und Zyklen, und im Tagesglück siehst du die Stimmung des Tages.` },
+        { icon: `companion`, title: `Ein kleines gemeinsames Leben`, body: `Mit Begleitung planst du den Moment, im Kalender stehen Geburtstage und Zyklen, und im Tagesglück siehst du die Stimmung des Tages.` },
         { icon: `chess`, title: `Spiel eine Runde und richte alles ein`, body: `Spiele: Schach, Gomoku, UNO und Zahlenraten. Gacha, Themes und Sprache findest du in den Einstellungen, wo du auch dieses Tutorial erneut ansehen kannst.` }
       ]
     },
@@ -12710,7 +14022,7 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
         { icon: `cards`, title: `Escribe tu primera carta`, body: `Tu personaje solo responde con frases de las cartas que activas. Abre Cartas y escribe lo que quieres oír; sin cartas, no inventará nada.` },
         { icon: `chat`, title: `Chat y recuerdos`, body: `Habla en Chat, abre Momentos arriba a la izquierda y guarda el día a día en Diario y Álbum.` },
         { icon: `map`, title: `Hora, clima y mapa`, body: `Cada ciudad muestra su provincia o estado y su país, por ejemplo Hebei · Tangshan. Las ciudades chinas se asocian primero con la región administrativa correcta.` },
-        { icon: `companion`, title: `Una pequeña vida juntos`, body: `Usa Compañía para elegir el momento, Hogar para criar una mascota y decorar una habitación, Calendario para cumpleaños y ciclos, y Fortuna diaria para ver el ánimo de hoy.` },
+        { icon: `companion`, title: `Una pequeña vida juntos`, body: `Usa Compañía para elegir el momento, Calendario para cumpleaños y ciclos, y Fortuna diaria para ver el ánimo de hoy.` },
         { icon: `chess`, title: `Juega una partida y hazlo tuyo`, body: `Los juegos incluyen ajedrez, gomoku, UNO y adivina el número. Gacha, temas e idioma están en Ajustes, donde también puedes volver a ver este tutorial.` }
       ]
     },
@@ -12721,7 +14033,7 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
         { icon: `cards`, title: `Напишите первую карточку`, body: `Персонаж отвечает только фразами из включённых вами карточек. Откройте Карточки и напишите то, что хотите услышать; без карточек он ничего не придумает.` },
         { icon: `chat`, title: `Чат и воспоминания`, body: `Общайтесь в Чате, открывайте Моменты слева сверху, а повседневные записи храните в Дневнике и Альбоме.` },
         { icon: `map`, title: `Время, погода и карта`, body: `У каждого города указаны провинция или штат и страна, например Hebei · Tangshan. Китайские города сначала сопоставляются с правильным административным районом.` },
-        { icon: `companion`, title: `Маленькая жизнь вместе`, body: `В Спутнике выбирайте занятие, в Доме растите питомца и украшайте комнату, в Календаре отмечайте дни рождения и циклы, а в «Фортуне дня» смотрите настроение сегодняшнего дня.` },
+        { icon: `companion`, title: `Маленькая жизнь вместе`, body: `В Спутнике выбирайте занятие, в Календаре отмечайте дни рождения и циклы, а в «Фортуне дня» смотрите настроение сегодняшнего дня.` },
         { icon: `chess`, title: `Сыграйте партию и обустройте всё`, body: `В играх есть шахматы, гомоку, UNO и угадай число. Гача, темы и язык — в настройках, там же можно снова посмотреть это обучение.` }
       ]
     },
@@ -12732,7 +14044,7 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
         { icon: `cards`, title: `Scrivi la prima carta`, body: `Il personaggio risponde solo con le frasi delle carte che attivi. Apri Carte e scrivi ciò che vuoi sentire; senza carte non inventerà nulla.` },
         { icon: `chat`, title: `Chat e ricordi`, body: `Parla nella Chat, apri Momenti in alto a sinistra e conserva il quotidiano in Diario e Album.` },
         { icon: `map`, title: `Ora, meteo e mappa`, body: `Ogni città mostra provincia o stato e paese, per esempio Hebei · Tangshan. Le città cinesi vengono associate prima alla regione amministrativa corretta.` },
-        { icon: `companion`, title: `Una piccola vita insieme`, body: `Usa Compagnia per scegliere il momento, Casa per allevare un pet e decorare una stanza, Calendario per compleanni e cicli e Fortuna del giorno per vedere l'umore di oggi.` },
+        { icon: `companion`, title: `Una piccola vita insieme`, body: `Usa Compagnia per scegliere il momento, Calendario per compleanni e cicli e Fortuna del giorno per vedere l'umore di oggi.` },
         { icon: `chess`, title: `Gioca una partita e personalizza tutto`, body: `I giochi includono scacchi, gomoku, UNO e indovina il numero. Gacha, temi e lingua sono nelle Impostazioni, dove puoi anche rivedere questo tutorial.` }
       ]
     },
@@ -12743,7 +14055,7 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
         { icon: `cards`, title: `Escreve a primeira carta`, body: `A personagem só responde com frases das cartas que ativares. Abre Cartas e escreve o que queres ouvir; sem cartas, não vai inventar nada.` },
         { icon: `chat`, title: `Conversa e memórias`, body: `Fala no Chat, abre Momentos no canto superior esquerdo e guarda o dia a dia no Diário e no Álbum.` },
         { icon: `map`, title: `Hora, clima e mapa`, body: `Cada cidade mostra a província ou estado e o país, por exemplo Hebei · Tangshan. As cidades chinesas são primeiro associadas à região administrativa correta.` },
-        { icon: `companion`, title: `Uma pequena vida juntos`, body: `Usa Companhia para escolher o momento, Casa para criar um animal e decorar um quarto, Calendário para aniversários e ciclos e Fortuna diária para ver o humor de hoje.` },
+        { icon: `companion`, title: `Uma pequena vida juntos`, body: `Usa Companhia para escolher o momento, Calendário para aniversários e ciclos e Fortuna diária para ver o humor de hoje.` },
         { icon: `chess`, title: `Joga uma partida e torna tudo teu`, body: `Os jogos incluem xadrez, gomoku, UNO e adivinha o número. Gacha, temas e idioma estão nas Definições, onde também podes rever este tutorial.` }
       ]
     }
@@ -12823,434 +14135,6 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
       ? '<span class="gap"></span>'
       : `<span style="animation-delay:${(i * 0.046).toFixed(3)}s">${esc(ch)}</span>`).join('');
     setTimeout(() => { overlay.style.display = 'none'; }, 2450);
-  }
-
-  /* ---------------- 家园 ---------------- */
-  const HS_PRESETS = {
-    dusk: { name: '黄昏', wallA: '#3a3f66', wallB: '#23253f', floorA: '#4a3a34', floorB: '#2a211f' },
-    dawn: { name: '清晨', wallA: '#f0d9c8', wallB: '#c9a9a0', floorA: '#a98b72', floorB: '#7c6250' },
-    mint: { name: '薄荷', wallA: '#cfe8dd', wallB: '#8fbfb3', floorA: '#8fa88f', floorB: '#63796a' },
-    rose: { name: '玫瑰', wallA: '#e9c8d4', wallB: '#c292a6', floorA: '#9a7a72', floorB: '#6d544f' },
-    night: { name: '夜航', wallA: '#202a4a', wallB: '#121628', floorA: '#2c3040', floorB: '#171a24' },
-    paper: { name: '纸屋', wallA: '#efe7d8', wallB: '#d8cbb4', floorA: '#c0a98c', floorB: '#8e7a61' }
-  };
-  const HS_CARE_LINES = {
-    feed: ['吃得尾巴都翘起来了。', '小口小口地吃，很认真。', '它把最后一口留给了你。'],
-    play: ['追着光点跑了两圈，累得趴下了。', '玩得眼睛亮亮的。', '它把最喜欢的玩具推到你面前。'],
-    pet: ['眯起眼睛，往你手心里蹭。', '发出很轻的呼噜声。', '它把脑袋靠在你掌心，不动了。']
-  };
-  let hsBubbleTimer = null;
-  let hsDrag = null;
-
-  function hsDecayPet() {
-    const pet = state.homestead?.pet;
-    if (!pet) return;
-    const now = Date.now();
-    if (!pet.lastCare) { pet.lastCare = now; saveState(); return; }
-    const hours = Math.min(36, Math.max(0, (now - pet.lastCare) / 3600000));
-    if (hours < 0.4) return;
-    pet.hunger = clamp(pet.hunger - hours * 2.1, 0, 100);
-    pet.mood = clamp(pet.mood - hours * 1.5, 0, 100);
-    pet.lastCare = now;
-    saveState();
-  }
-  function hsPetLine() {
-    const pet = state.homestead.pet;
-    const name = state.profile.dreamName;
-    if (pet.hunger < 25) return `${name}说：它好像有点饿了，碗是空的。`;
-    if (pet.mood < 25) return `${name}说：它今天有点蔫，陪它玩一会儿吧。`;
-    if (pet.bond > 75) return `${name}说：它现在最黏的人是你。`;
-    if (pet.bond > 40) return `${name}说：它已经把你当成家里的人了。`;
-    return `${name}说：它还在慢慢熟悉你，别急。`;
-  }
-  function hsBubble(text) {
-    const bubble = $('#hsPetBubble');
-    if (!bubble) return;
-    bubble.textContent = text;
-    bubble.classList.add('show');
-    clearTimeout(hsBubbleTimer);
-    hsBubbleTimer = setTimeout(() => bubble.classList.remove('show'), 3800);
-  }
-  function hsSetPreset(name) {
-    const preset = HS_PRESETS[name];
-    if (!preset) return;
-    const room = state.homestead.room;
-    room.preset = name;
-    room.tint = preset.wallA;
-    room.floorTint = preset.floorA;
-    saveState(true);
-    renderHomestead();
-  }
-  function renderHomestead() {
-    hsDecayPet();
-    const hs = state.homestead;
-    if (!hs) return;
-    const room = hs.room;
-    const pet = hs.pet;
-    const preset = HS_PRESETS[room.preset] || HS_PRESETS.dusk;
-    const roomEl = $('#hsRoom');
-    if (roomEl) {
-      roomEl.style.setProperty('--hs-wall-a', room.tint || preset.wallA);
-      roomEl.style.setProperty('--hs-wall-b', preset.wallB);
-      roomEl.style.setProperty('--hs-floor-a', room.floorTint || preset.floorA);
-      roomEl.style.setProperty('--hs-floor-b', preset.floorB);
-    }
-    const wall = $('#hsWall');
-    if (wall) {
-      const url = mediaURL(room.mediaId);
-      wall.style.backgroundImage = url
-        ? `linear-gradient(180deg, rgba(8,10,20,.18), rgba(8,10,20,.34)), url("${url}")`
-        : '';
-    }
-    const nameEl = $('#hsRoomName');
-    if (nameEl) nameEl.textContent = room.name || '我们的小屋';
-
-    const body = $('#hsPetBody');
-    if (body) {
-      const url = mediaURL(pet.mediaId);
-      body.innerHTML = url ? `<img src="${url}" alt="${esc(pet.name)}">` : '<span class="pet-emoji">🐈</span>';
-    }
-    const petName = $('#hsPetName');
-    if (petName) petName.textContent = pet.name || '团子';
-    const bars = [
-      ['#hsHungerBar', '#hsHungerValue', pet.hunger],
-      ['#hsMoodBar', '#hsMoodValue', pet.mood],
-      ['#hsBondBar', '#hsBondValue', pet.bond]
-    ];
-    bars.forEach(([barSel, valueSel, value]) => {
-      const bar = $(barSel);
-      if (bar) bar.style.width = `${clamp(value, 0, 100)}%`;
-      const label = $(valueSel);
-      if (label) label.textContent = String(Math.round(value));
-    });
-    const note = $('#hsPetNote');
-    if (note) note.textContent = hsPetLine();
-
-    const frames = $('#hsFrames');
-    if (frames) {
-      frames.innerHTML = hs.frames.map(frame => {
-        const url = mediaURL(frame.mediaId);
-        return `<div class="hs-frame ${url ? '' : 'empty'}" data-hs-frame="${esc(frame.id)}" style="left:${frame.x}%;top:${frame.y}%;width:${frame.size}px;height:${frame.size}px;transform:translate(-50%,-50%) rotate(${frame.rot}deg)">
-          ${url ? `<img src="${url}" alt="${esc(frame.caption || '相框')}">` : '<span>+</span>'}
-          <button class="hf-del" data-hs-frame-del="${esc(frame.id)}" aria-label="删除相框">×</button>
-        </div>`;
-      }).join('');
-    }
-    const list = $('#hsFrameList');
-    if (list) {
-      list.innerHTML = hs.frames.length
-        ? hs.frames.map(frame => `<div class="period-item">
-            <b>${esc(frame.caption || (frame.mediaId ? '一张照片' : '空相框'))}</b>
-            <span>${frame.mediaId ? '已放照片' : '点一下放照片'}</span>
-            <button data-hs-frame-open="${esc(frame.id)}">编辑</button>
-          </div>`).join('')
-        : '<p class="hs-note">还没有相框。点上面的「添加相框」，把想留住的画面放进来。</p>';
-    }
-  }
-  function hsCare(kind) {
-    const pet = state.homestead.pet;
-    if (kind === 'feed') {
-      pet.hunger = clamp(pet.hunger + 18, 0, 100);
-      pet.mood = clamp(pet.mood + 4, 0, 100);
-      pet.bond = clamp(pet.bond + 2, 0, 100);
-    } else if (kind === 'play') {
-      pet.hunger = clamp(pet.hunger - 5, 0, 100);
-      pet.mood = clamp(pet.mood + 14, 0, 100);
-      pet.bond = clamp(pet.bond + 4, 0, 100);
-    } else {
-      pet.mood = clamp(pet.mood + 6, 0, 100);
-      pet.bond = clamp(pet.bond + 3, 0, 100);
-    }
-    pet.lastCare = Date.now();
-    saveState(true);
-    renderHomestead();
-    const lines = HS_CARE_LINES[kind] || HS_CARE_LINES.pet;
-    hsBubble(lines[Math.floor(Math.random() * lines.length)]);
-  }
-  async function hsUploadPet() {
-    const files = await pickFile('image/*', false);
-    if (!files || !files.length) return;
-    try {
-      const id = await saveImageFile(files[0], 720, 0.88, false);
-      const old = state.homestead.pet.mediaId;
-      state.homestead.pet.mediaId = id;
-      saveState(true);
-      renderHomestead();
-      if (old) removeMediaIfUnused(old);
-      hsBubble('新的样子，也很可爱。');
-      toast('宠物的样子已经换好了');
-    } catch (e) { toast(e.message || '宠物照片上传失败', 'error'); }
-  }
-  function addHsFrame() {
-    if (state.homestead.frames.length >= 8) { toast('最多放 8 个相框'); return; }
-    const frame = {
-      id: uid('frame'), mediaId: '', caption: '',
-      x: 24 + Math.round(Math.random() * 52),
-      y: 18 + Math.round(Math.random() * 30),
-      size: 74, rot: Math.round(Math.random() * 10 - 5)
-    };
-    state.homestead.frames.push(frame);
-    saveState(true);
-    renderHomestead();
-    openHsFrameSheet(frame.id);
-  }
-  function hsPresetButtons(active) {
-    return Object.entries(HS_PRESETS).map(([id, preset]) => `<button data-hs-preset="${id}" style="background:linear-gradient(145deg,${preset.wallA},${preset.wallB});color:#fff;border-color:${id === active ? 'var(--accent)' : 'rgba(255,255,255,.22)'}">${preset.name}</button>`).join('');
-  }
-  function openHsWallpaperSheet() {
-    const room = state.homestead.room;
-    openSheet({
-      title: '换一面墙',
-      subtitle: '选一个喜欢的颜色，或者上传自己的背景。',
-      body: `<div class="hs-room-tools" id="hsPresetRow">${hsPresetButtons(room.preset)}</div>
-        <button class="cal-btn" id="hsWallUpload" style="margin-top:10px">上传自己的壁纸</button>
-        ${room.mediaId ? '<button class="cal-btn" id="hsWallClear" style="background:transparent;border:1px solid var(--line);color:var(--ink-soft)">恢复预设墙面</button>' : ''}
-        <p class="hs-note">壁纸只保存在这台设备里。换掉之后，旧图片会自动清理。</p>`,
-      onMount(root) {
-        $('#hsPresetRow', root)?.addEventListener('click', e => {
-          const btn = e.target.closest('[data-hs-preset]');
-          if (!btn) return;
-          hsSetPreset(btn.dataset.hsPreset);
-          closeOverlay();
-          toast('墙面换好了');
-        });
-        $('#hsWallUpload', root)?.addEventListener('click', async () => {
-          const files = await pickFile('image/*', false);
-          if (!files || !files.length) return;
-          try {
-            const id = await saveImageFile(files[0], 1600, 0.85, false);
-            const old = room.mediaId;
-            room.mediaId = id;
-            saveState(true);
-            renderHomestead();
-            closeOverlay();
-            if (old) removeMediaIfUnused(old);
-            toast('小屋换上了新的背景');
-          } catch (e) { toast(e.message || '壁纸上传失败', 'error'); }
-        });
-        $('#hsWallClear', root)?.addEventListener('click', () => {
-          const old = room.mediaId;
-          room.mediaId = '';
-          saveState(true);
-          renderHomestead();
-          closeOverlay();
-          if (old) removeMediaIfUnused(old);
-          toast('已经恢复预设墙面');
-        });
-      }
-    });
-  }
-  function openHsDesignSheet() {
-    const room = state.homestead.room;
-    openSheet({
-      title: '自己设计小屋',
-      subtitle: '名字、颜色、背景，都可以按你喜欢来。',
-      body: `<div class="cal-setup">
-        <label>小屋名字</label>
-        <input id="hsRoomNameInput" maxlength="30" value="${esc(room.name)}">
-        <div class="cal-setup-row" style="margin-top:8px">
-          <div><label>墙面颜色</label><input type="color" id="hsWallColor" value="${room.tint}"></div>
-          <div><label>地板颜色</label><input type="color" id="hsFloorColor" value="${room.floorTint}"></div>
-        </div>
-        <label>预设配色</label>
-        <div class="hs-room-tools" id="hsDesignPresets">${hsPresetButtons(room.preset)}</div>
-        <button class="cal-btn" id="hsDesignUpload" style="margin-top:8px">上传自己的背景</button>
-        <p class="hs-note">保存后，小屋会立刻变成你设计的样子。</p>
-      </div>`,
-      footer: '<button class="primary-btn" id="hsDesignSave">保存小屋</button>',
-      onMount(root) {
-        let pendingMedia = room.mediaId;
-        let pendingOld = '';
-        $('#hsDesignPresets', root)?.addEventListener('click', e => {
-          const btn = e.target.closest('[data-hs-preset]');
-          if (!btn) return;
-          const preset = HS_PRESETS[btn.dataset.hsPreset];
-          if (!preset) return;
-          const wallColor = $('#hsWallColor', root);
-          const floorColor = $('#hsFloorColor', root);
-          if (wallColor) wallColor.value = preset.wallA;
-          if (floorColor) floorColor.value = preset.floorA;
-        });
-        $('#hsDesignUpload', root)?.addEventListener('click', async () => {
-          const files = await pickFile('image/*', false);
-          if (!files || !files.length) return;
-          try {
-            const id = await saveImageFile(files[0], 1600, 0.85, false);
-            pendingOld = pendingMedia;
-            pendingMedia = id;
-            toast('背景已经选好了，记得保存');
-          } catch (e) { toast(e.message || '背景上传失败', 'error'); }
-        });
-        $('#hsDesignSave', root)?.addEventListener('click', () => {
-          const name = ($('#hsRoomNameInput', root)?.value || '').trim();
-          const wall = $('#hsWallColor', root)?.value || room.tint;
-          const floor = $('#hsFloorColor', root)?.value || room.floorTint;
-          if (!name) { toast('给小屋起个名字吧'); return; }
-          room.name = name.slice(0, 30);
-          if (/^#[0-9a-f]{6}$/i.test(wall)) room.tint = wall;
-          if (/^#[0-9a-f]{6}$/i.test(floor)) room.floorTint = floor;
-          room.mediaId = pendingMedia;
-          saveState(true);
-          closeOverlay();
-          renderHomestead();
-          if (pendingOld && pendingOld !== pendingMedia) removeMediaIfUnused(pendingOld);
-          toast('小屋已经按你的样子布置好了');
-        });
-      }
-    });
-  }
-  function openHsFrameSheet(id) {
-    const frame = state.homestead.frames.find(f => f.id === id);
-    if (!frame) return;
-    const url = mediaURL(frame.mediaId);
-    openSheet({
-      title: '这个相框',
-      subtitle: '放一张照片，或者写一句话。',
-      body: `<div class="cal-setup">
-        <div class="hs-frame-preview">${url ? `<img src="${url}" alt="">` : '<span>还没有照片</span>'}</div>
-        <label>照片</label>
-        <button class="cal-btn" id="hsFramePhoto">选择照片</button>
-        <label>想写的话</label>
-        <input id="hsFrameCaption" maxlength="60" value="${esc(frame.caption)}" placeholder="例如：那天的海">
-        <div class="cal-setup-row" style="margin-top:8px">
-          <div><label>大小</label><input type="range" id="hsFrameSize" min="38" max="160" value="${frame.size}"></div>
-          <div><label>角度</label><input type="range" id="hsFrameRot" min="-18" max="18" value="${frame.rot}"></div>
-        </div>
-        <button class="cal-btn" id="hsFrameDelete" style="background:transparent;border:1px solid var(--line);color:#e58aa9">删掉这个相框</button>
-      </div>`,
-      footer: '<button class="primary-btn" id="hsFrameSave">保存</button>',
-      onMount(root) {
-        let pendingMedia = frame.mediaId;
-        let pendingOld = '';
-        $('#hsFramePhoto', root)?.addEventListener('click', async () => {
-          const files = await pickFile('image/*', false);
-          if (!files || !files.length) return;
-          try {
-            const mediaId = await saveImageFile(files[0], 900, 0.86, false);
-            pendingOld = pendingMedia;
-            pendingMedia = mediaId;
-            const preview = $('.hs-frame-preview', root);
-            if (preview) preview.innerHTML = `<img src="${mediaURL(mediaId)}" alt="">`;
-            toast('照片放进相框了');
-          } catch (e) { toast(e.message || '照片上传失败', 'error'); }
-        });
-        $('#hsFrameSave', root)?.addEventListener('click', () => {
-          frame.caption = ($('#hsFrameCaption', root)?.value || '').trim().slice(0, 60);
-          frame.size = clamp(Number($('#hsFrameSize', root)?.value) || 74, 38, 160);
-          frame.rot = clamp(Number($('#hsFrameRot', root)?.value) || 0, -18, 18);
-          frame.mediaId = pendingMedia;
-          saveState(true);
-          closeOverlay();
-          renderHomestead();
-          if (pendingOld && pendingOld !== pendingMedia) removeMediaIfUnused(pendingOld);
-          toast('相框已经摆好了');
-        });
-        $('#hsFrameDelete', root)?.addEventListener('click', () => {
-          const old = frame.mediaId;
-          state.homestead.frames = state.homestead.frames.filter(f => f.id !== id);
-          saveState(true);
-          closeOverlay();
-          renderHomestead();
-          if (old) removeMediaIfUnused(old);
-          toast('相框已经收起来了');
-        });
-      }
-    });
-  }
-  function openHsPetSheet() {
-    const pet = state.homestead.pet;
-    openSheet({
-      title: '宠物的小档案',
-      subtitle: '可以改名字，也可以上传它真正的样子。',
-      body: `<div class="cal-setup">
-        <label>名字</label>
-        <input id="hsPetNameInput" maxlength="20" value="${esc(pet.name)}">
-        <label>它的样子</label>
-        <button class="cal-btn" id="hsPetSheetUpload">上传一张照片</button>
-        <p class="hs-note">照片会变成它的头像，只保存在这台设备里。</p>
-      </div>`,
-      footer: '<button class="primary-btn" id="hsPetSheetSave">保存</button>',
-      onMount(root) {
-        $('#hsPetSheetUpload', root)?.addEventListener('click', hsUploadPet);
-        $('#hsPetSheetSave', root)?.addEventListener('click', () => {
-          const name = ($('#hsPetNameInput', root)?.value || '').trim();
-          if (!name) { toast('给它起个名字吧'); return; }
-          pet.name = name.slice(0, 20);
-          saveState(true);
-          closeOverlay();
-          renderHomestead();
-          toast('名字已经改好了');
-        });
-      }
-    });
-  }
-  function bindHomesteadEvents() {
-    $('#hsSettingsBtn')?.addEventListener('click', openHsDesignSheet);
-    $('#hsAddFrame')?.addEventListener('click', addHsFrame);
-    $('#hsWallpaperBtn')?.addEventListener('click', openHsWallpaperSheet);
-    $('#hsPetUpload')?.addEventListener('click', hsUploadPet);
-    $('#hsDesignBtn')?.addEventListener('click', openHsDesignSheet);
-    $('#hsPet')?.addEventListener('click', () => openHsPetSheet());
-    $$('[data-hs-care]').forEach(btn => btn.addEventListener('click', () => hsCare(btn.dataset.hsCare)));
-    $('#hsFrameList')?.addEventListener('click', e => {
-      const btn = e.target.closest('[data-hs-frame-open]');
-      if (btn) openHsFrameSheet(btn.dataset.hsFrameOpen);
-    });
-
-    const frames = $('#hsFrames');
-    if (!frames) return;
-    frames.addEventListener('pointerdown', e => {
-      const del = e.target.closest('[data-hs-frame-del]');
-      if (del) {
-        const id = del.dataset.hsFrameDel;
-        const frame = state.homestead.frames.find(f => f.id === id);
-        if (!frame) return;
-        e.stopPropagation();
-        e.preventDefault();
-        const old = frame.mediaId;
-        state.homestead.frames = state.homestead.frames.filter(f => f.id !== id);
-        saveState(true);
-        renderHomestead();
-        if (old) removeMediaIfUnused(old);
-        toast('相框已经收起来了');
-        return;
-      }
-      const el = e.target.closest('[data-hs-frame]');
-      if (!el) return;
-      const room = $('#hsRoom');
-      const frame = state.homestead.frames.find(f => f.id === el.dataset.hsFrame);
-      if (!room || !frame) return;
-      hsDrag = {
-        id: frame.id, el, room: room.getBoundingClientRect(),
-        startX: e.clientX, startY: e.clientY,
-        origX: frame.x, origY: frame.y, moved: false
-      };
-      try { el.setPointerCapture(e.pointerId); } catch (err) {}
-      e.preventDefault();
-    });
-    frames.addEventListener('pointermove', e => {
-      if (!hsDrag) return;
-      const dx = e.clientX - hsDrag.startX;
-      const dy = e.clientY - hsDrag.startY;
-      if (!hsDrag.moved && Math.abs(dx) + Math.abs(dy) > 4) hsDrag.moved = true;
-      if (!hsDrag.moved) return;
-      const frame = state.homestead.frames.find(f => f.id === hsDrag.id);
-      if (!frame || !hsDrag.room.width || !hsDrag.room.height) return;
-      frame.x = clamp(hsDrag.origX + (dx / hsDrag.room.width) * 100, 6, 94);
-      frame.y = clamp(hsDrag.origY + (dy / hsDrag.room.height) * 100, 8, 62);
-      hsDrag.el.style.left = frame.x + '%';
-      hsDrag.el.style.top = frame.y + '%';
-    });
-    const endDrag = () => {
-      if (!hsDrag) return;
-      const moved = hsDrag.moved;
-      const id = hsDrag.id;
-      hsDrag = null;
-      if (moved) saveState();
-      else openHsFrameSheet(id);
-    };
-    frames.addEventListener('pointerup', endDrag);
-    frames.addEventListener('pointercancel', () => { hsDrag = null; });
   }
 
   /* ---------------- 日历 ---------------- */
@@ -13909,10 +14793,12 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
   }
   const persistProfileText = debounce(() => { saveState(); }, 300);
   async function uploadAvatar(which) {
-    const files = await pickFile('image/*', false);
-    if (!files || !files.length) return;
     try {
-      const id = await saveImageFile(files[0], 640, 0.86, false);
+      const id = await pickAndCropImage({
+        aspect: 1, outSize: 640, maxSize: 1024,
+        title: which === 'dream' ? '裁剪梦角头像' : '裁剪我的头像'
+      });
+      if (!id) return;
       const oldId = mediaRefId(which === 'dream' ? state.profile.dreamAvatar : state.profile.userAvatar);
       if (which === 'dream') state.profile.dreamAvatar = 'media:' + id;
       else state.profile.userAvatar = 'media:' + id;
@@ -13992,7 +14878,7 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
       subtitle: '三步开始，把想听的话交给他。',
       body: `<div class="settings-group" style="margin-bottom:10px">
         <div class="settings-field"><label style="font-size:10px;color:var(--ink)">01 · 一页写多张字卡</label><p class="field-tip" style="font-size:9px">进入「字卡 → ＋」，在同一页里一行写一句话，保存时会一次生成多张字卡。行首可以加 [晚安]、[鼓励] 这样的标签；聊天里${esc(state.profile.dreamName)}只会从可用字卡中随机挑选，不会自己编造内容。</p></div>
-        <div class="settings-field"><label style="font-size:10px;color:var(--ink)">02 · 聊天、朋友圈与游戏</label><p class="field-tip" style="font-size:9px">聊天页左上角是朋友圈。点「让梦角抽字卡发一条」会用字卡生成动态；你发朋友圈后，他也会从字卡里挑一句评论。「游戏」里可以和中国象棋 / 五子棋 AI 下一局，棋局会自动保存。</p></div>
+        <div class="settings-field"><label style="font-size:10px;color:var(--ink)">02 · 聊天、朋友圈与游戏</label><p class="field-tip" style="font-size:9px">聊天页左上角是朋友圈。点「让梦角抽字卡发一条」会用字卡生成动态；你发朋友圈后，他也会从字卡里挑一句评论。「游戏」里可以和梦角下中国象棋 / 五子棋，棋局会自动保存。</p></div>
         <div class="settings-field"><label style="font-size:10px;color:var(--ink)">03 · 扭蛋、外观与语音</label><p class="field-tip" style="font-size:9px">「扭蛋」会抽出陪伴语录或你导入的小物；「放入小物」可上传图片、名称、寄语与稀有度。主题页可以换颜色、风格、字体与壁纸；首页底部「摆件」可以添加照片。MiniMax 语音支持中文、English、日本語、Italiano、Deutsch、Русский、Español、한국어，也能朗读 Français、Português。设置里可选「跟随文本」自动识别每条内容的语种，或固定一种语言；固定语言会先尝试翻译，失败时按原文朗读。「设置 → 通话」里可以设置打电话时字卡回复的等待时间（1 秒到 10 分钟）；通话中打开「聆听」，听到你说话后会按设定时间回复字卡，并用朗读语言读出来。</p></div>
       </div>
       <div class="settings-group">
@@ -14153,11 +15039,13 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
       saveState(); applyWallpaper();
     }));
     $('#wallUploadBtn')?.addEventListener('click', async () => {
-      const files = await pickFile('image/*', false);
-      if (!files || !files.length) return;
       try {
+        const id = await pickAndCropImage({
+          aspect: screenAspect(), outSize: 2000, maxSize: 2400,
+          title: '裁剪主页背景'
+        });
+        if (!id) return;
         const oldId = state.settings.wallpaper.mediaId;
-        const id = await saveImageFile(files[0], 2200, 0.85, false);
         state.settings.wallpaper = { type: 'image', mediaId: id };
         saveState(true); applyWallpaper(); applyTheme();
         if (oldId) removeMediaIfUnused(oldId);
@@ -14212,7 +15100,17 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
     $('#homeTimerWidget')?.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') openTimerManager(); });
     $('#chatCardsBtn')?.addEventListener('click', () => openApp('cards'));
     $('#chatCallBtn')?.addEventListener('click', startOutgoingCall);
-    $('#askToggle')?.addEventListener('click', openAskSheet);
+    $('#askToggle')?.addEventListener('click', () => { closeChatPlus(); openAskSheet(); });
+    $('#chatPlusBtn')?.addEventListener('click', toggleChatPlus);
+    $('#chatPlusTray')?.addEventListener('click', e => {
+      const item = e.target.closest('[data-chat-plus]');
+      if (!item) return;
+      const action = item.dataset.chatPlus;
+      if (action === 'camera') pickChatPhoto(true);
+      else if (action === 'gallery') pickChatPhoto(false);
+      else if (action === 'transfer') openTransferSheet();
+      else if (action === 'music') openChatMusicSheet();
+    });
     $('#callMinimize')?.addEventListener('click', minimizeCall);
     $('#callHangup')?.addEventListener('click', () => endCall('user'));
     $('#callAccept')?.addEventListener('click', answerCall);
@@ -14227,6 +15125,7 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
       if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) { e.preventDefault(); sendChatText(); }
     });
     $('#stickerToggle')?.addEventListener('click', () => {
+      closeChatPlus();
       renderStickers();
       $('#stickerTray')?.classList.toggle('open');
     });
@@ -14256,12 +15155,23 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
       sendSticker(item.dataset.stickerId);
     });
     $('#messageList')?.addEventListener('click', e => {
+      const music = e.target.closest('[data-chat-music]');
+      if (music) {
+        toggleChatMusic(music.dataset.chatMusic);
+        return;
+      }
+      const recall = e.target.closest('[data-recall-msg]');
+      if (recall) {
+        recallUserMessage(recall.dataset.recallMsg);
+        return;
+      }
       const speak = e.target.closest('[data-speak]');
       if (speak) {
         const msg = state.messages.find(m => m.id === speak.dataset.speak);
         if (msg) speakText(fillTemplate(msg.text), { button: speak }).catch(() => {});
       }
     });
+    $('#recallBanner')?.addEventListener('click', applyRecallDraft);
     $('#addCardBtn')?.addEventListener('click', () => openCardSheet());
     $('#bulkAddBtn')?.addEventListener('click', openBulkSheet);
     $('#cardMenuBtn')?.addEventListener('click', openCardMenu);
@@ -14353,6 +15263,7 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
   }
   function bindAll() {
     bindGlobalEvents();
+    bindCropperEvents();
     bindCardEvents();
     bindMomentEvents();
     bindDiaryEvents();
@@ -14364,7 +15275,7 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
     bindGachaEvents();
     bindCompanionEvents();
     bindMapEvents();
-    bindHomesteadEvents();
+    bindVideoEvents();
     bindCalendarEvents();
     bindSettingsEvents();
     bindTutorialEvents();
@@ -14403,7 +15314,6 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
     initHomePages();
     renderCompanion();
     renderMap();
-    renderHomestead();
     renderCalendar();
     renderFortune();
     updateCompanionTick();
