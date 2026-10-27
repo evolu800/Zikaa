@@ -901,6 +901,35 @@ a { color: var(--accent); }
   color: var(--ink-soft); font-size: 10px; line-height: 1.7; text-align: center;
 }
 .sys-message button { color: var(--accent); font-weight: 700; margin-left: 4px; }
+.calllog {
+  margin: 12px 8px; border: 1px solid var(--line); border-radius: 14px;
+  background: var(--glass); overflow: hidden;
+}
+.calllog-head {
+  display: flex; align-items: center; gap: 9px; width: 100%;
+  padding: 9px 10px; border: 0; background: transparent; color: var(--ink); text-align: left;
+}
+.calllog-head:hover { background: var(--accent-soft); }
+.calllog-icon {
+  width: 30px; height: 30px; border-radius: 9px; flex: 0 0 auto;
+  display: grid; place-items: center; background: var(--accent-soft); color: var(--accent);
+}
+.calllog-icon .icon { width: 15px; height: 15px; }
+.calllog-main { min-width: 0; flex: 1; display: flex; flex-direction: column; gap: 2px; }
+.calllog-main b { color: var(--ink); font-size: 10px; font-weight: 700; }
+.calllog-main span { color: var(--ink-dim); font-size: 7.5px; letter-spacing: .02em; }
+.calllog-chev { flex: 0 0 auto; color: var(--ink-dim); font-size: 14px; transition: transform .2s; }
+.calllog.open .calllog-chev { transform: rotate(90deg); }
+.calllog-body { padding: 2px 11px 9px 48px; border-top: 1px dashed var(--line); }
+.calllog-body[hidden] { display: none; }
+.calllog-line { display: flex; align-items: flex-start; gap: 7px; padding: 7px 0; border-bottom: 1px solid var(--line); }
+.calllog-line:last-of-type { border-bottom: 0; }
+.cll-name { flex: 0 0 auto; max-width: 52px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--accent); font-size: 8px; font-weight: 700; }
+.calllog-line.dream .cll-name { color: var(--ink); }
+.calllog-line p { flex: 1; min-width: 0; margin: 0; color: var(--ink-soft); font-size: 8.5px; line-height: 1.7; overflow-wrap: anywhere; }
+.cll-tag { flex: 0 0 auto; padding: 1px 4px; border-radius: 4px; background: var(--accent-soft); color: var(--accent); font-size: 6px; }
+.calllog-empty { margin: 9px 0; color: var(--ink-dim); font-size: 8px; }
+.calllog-foot { margin-top: 7px; color: var(--ink-dim); font-size: 6.5px; text-align: right; }
 .typing-row { display: flex; align-items: flex-end; gap: 7px; margin: 10px 0; animation: fadeUp .25s ease both; }
 .typing-row .avatar { --avatar-size: calc(var(--avatar-size, 44px) * .62); }
 .typing-bubble { display: flex; gap: 3px; padding: 11px 13px; border-radius: 5px 16px 16px 16px; background: var(--dream-bubble); border: 1px solid var(--line); }
@@ -1042,6 +1071,7 @@ a { color: var(--accent); }
   color: rgba(255,255,255,.78); background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12);
 }
 .call-head-btn:hover { background: rgba(255,255,255,.14); }
+.call-head-btn[hidden] { display: none; }
 .call-head-btn .icon { width: 14px; height: 14px; }
 .call-overlay.is-incoming #callMinimize { visibility: hidden; }
 .call-body { position: relative; z-index: 1; flex: 1; min-height: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 7px; padding: 10px 0 4px; }
@@ -1092,6 +1122,13 @@ a { color: var(--accent); }
   animation: callCardIn .28s ease both;
 }
 .call-speech[hidden] { display: none; }
+.call-type-link {
+  position: relative; z-index: 1; margin: 0 0 8px; padding: 4px 10px; border-radius: 999px;
+  border: 1px dashed color-mix(in srgb, var(--accent) 40%, rgba(255,255,255,.15));
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  color: color-mix(in srgb, var(--accent) 80%, #fff); font-size: 8px;
+}
+.call-type-link[hidden] { display: none; }
 .call-speech-name { flex: 0 0 auto; color: color-mix(in srgb, var(--accent) 74%, #fff); font-weight: 700; }
 .call-speech-text { min-width: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
 .call-speech.live .call-speech-text::after {
@@ -1103,6 +1140,7 @@ a { color: var(--accent); }
 .call-wave { display: flex; align-items: center; justify-content: center; gap: 3px; height: 18px; margin-top: 4px; opacity: .65; }
 .call-wave i { width: 3px; height: 5px; border-radius: 3px; background: color-mix(in srgb, var(--accent) 76%, #fff); animation: callWave 1.1s ease-in-out infinite; }
 .call-wave i:nth-child(2){ animation-delay:.1s } .call-wave i:nth-child(3){ animation-delay:.2s } .call-wave i:nth-child(4){ animation-delay:.3s } .call-wave i:nth-child(5){ animation-delay:.4s } .call-wave i:nth-child(6){ animation-delay:.5s } .call-wave i:nth-child(7){ animation-delay:.6s } .call-wave i:nth-child(8){ animation-delay:.7s } .call-wave i:nth-child(9){ animation-delay:.8s }
+.call-overlay.mic-live .call-wave i { background: var(--ok); opacity: 1; animation-duration: .62s; }
 @keyframes callWave { 0%,100% { height: 5px; opacity: .45; } 50% { height: 15px; opacity: 1; } }
 .call-actions, .call-incoming { position: relative; z-index: 1; display: flex; justify-content: center; gap: 48px; padding-top: 8px; }
 .call-actions[hidden], .call-incoming[hidden] { display: none; }
@@ -1670,6 +1708,7 @@ input[type="range"] { width: 100%; height: 4px; accent-color: var(--accent); }
 
 /* ---------- overlays, sheet, form ---------- */
 .overlay-root { position: absolute; inset: 0; z-index: 100; pointer-events: none; }
+.overlay-root.over-call { z-index: 260; }
 .overlay-root.active { pointer-events: auto; }
 .overlay-backdrop {
   position: absolute; inset: 0; background: rgba(3,3,9,.58);
@@ -4187,6 +4226,23 @@ body.cropper-open { overflow: hidden; }
                     <input type="range" id="callReplyDelayRange" min="0" max="1000" step="1" value="252" aria-label="打电话时字卡回复的时间">
                     <p class="field-tip" style="margin:6px 0 0">打电话开启「聆听」后，听到你说话，就会在这个时间后回复字卡；可在 1 秒到 10 分钟之间选择。</p>
                   </div>
+                  <div class="settings-field">
+                    <label for="callSpeechLangSelect">语音识别语言</label>
+                    <select class="settings-select" id="callSpeechLangSelect">
+                      <option value="auto">跟随网站语言</option>
+                      <option value="zh">中文 · ZH</option>
+                      <option value="en">English · EN</option>
+                      <option value="ja">日本語 · JA</option>
+                      <option value="ko">한국어 · KO</option>
+                      <option value="fr">Français · FR</option>
+                      <option value="de">Deutsch · DE</option>
+                      <option value="es">Español · ES</option>
+                      <option value="ru">Русский · RU</option>
+                      <option value="it">Italiano · IT</option>
+                      <option value="pt">Português · PT</option>
+                    </select>
+                    <p class="field-tip">选择你说话时使用的语言；如果识别不到，先确认这里和你的口语一致。</p>
+                  </div>
                   <p class="field-tip">通话中的字卡会用「朗读语言」朗读；选择固定语言时，就算字卡是中文，也会先翻译再朗读。</p>
                 </div>
 
@@ -4293,7 +4349,7 @@ body.cropper-open { overflow: hidden; }
         <div class="call-head">
           <button class="call-head-btn" id="callMinimize" aria-label="最小化"><svg class="icon"><use href="#i-minus"/></svg></button>
           <span class="call-brand">DREAMCARD · CALL</span>
-          <span style="width:32px" aria-hidden="true"></span>
+          <button class="call-head-btn" id="callMicHelp" aria-label="麦克风帮助"><svg class="icon"><use href="#i-guide"/></svg></button>
         </div>
         <div class="call-body">
           <div class="call-avatar-wrap">
@@ -4308,6 +4364,7 @@ body.cropper-open { overflow: hidden; }
           <span class="call-speech-name" id="callSpeechName" data-no-i18n></span>
           <span class="call-speech-text" id="callSpeechText" data-no-i18n aria-live="polite" aria-atomic="true"></span>
         </div>
+        <button class="call-type-link" id="callTypeLink" type="button" hidden>麦克风不可用？改用文字说</button>
         <div class="call-card" id="callCard">
           <div class="call-card-head">
             <span class="call-card-kicker" id="callCardKicker" data-no-i18n>来自字卡</span>
@@ -6096,7 +6153,8 @@ body.cropper-open { overflow: hidden; }
         companionFrequency: 'normal',
         dreamCallAuto: true,
         replyDelayMax: 5,
-        callReplyDelay: 5
+        callReplyDelay: 5,
+        callSpeechLang: 'auto'
       },
       cards: [],
       messages: [],
@@ -6212,6 +6270,27 @@ body.cropper-open { overflow: hidden; }
       url: typeof raw.url === 'string' ? raw.url : ''
     };
   }
+  function normalizeCallLogData(raw) {
+    if (!raw || typeof raw !== 'object') return null;
+    const startedAt = Number(raw.startedAt) || Date.now();
+    const endedAt = Number(raw.endedAt) || Date.now();
+    const transcript = (Array.isArray(raw.transcript) ? raw.transcript : [])
+      .filter(line => line && typeof line.text === 'string' && line.text.trim())
+      .map(line => ({
+        role: line.role === 'dream' ? 'dream' : 'user',
+        text: line.text.slice(0, 1200),
+        cardId: typeof line.cardId === 'string' ? line.cardId : '',
+        ts: Number(line.ts) || 0
+      })).slice(-200);
+    return {
+      id: typeof raw.id === 'string' && raw.id ? raw.id : uid('calllog'),
+      startedAt,
+      endedAt,
+      duration: Math.max(0, Math.min(86400, Math.round(Number(raw.duration) || 0))),
+      direction: raw.direction === 'incoming' ? 'incoming' : 'outgoing',
+      transcript
+    };
+  }
 
   function normalizeState(raw) {
     const base = defaultState();
@@ -6260,6 +6339,7 @@ body.cropper-open { overflow: hidden; }
     if (typeof state.settings.dreamCallAuto !== 'boolean') state.settings.dreamCallAuto = true;
     state.settings.replyDelayMax = clamp(Number(state.settings.replyDelayMax) || 5, 1, 3600);
     state.settings.callReplyDelay = clamp(Number(state.settings.callReplyDelay) || 5, 1, CALL_DELAY_MAX);
+    if (!['auto'].concat(LANGS.map(l => l.id)).includes(state.settings.callSpeechLang)) state.settings.callSpeechLang = 'auto';
     state.meta.languageChosen = Boolean(state.meta.languageChosen);
     state.meta.tutorialDone = Boolean(state.meta.tutorialDone);
     if (!Array.isArray(state.settings.savedCities) || !state.settings.savedCities.length) {
@@ -6287,9 +6367,11 @@ body.cropper-open { overflow: hidden; }
       const ask = m.type === 'ask' ? normalizeAskData(m.ask) : null;
       const transfer = m.type === 'transfer' ? normalizeTransferData(m.transfer) : null;
       const music = m.type === 'music' ? normalizeMusicData(m.music) : null;
+      const callLog = m.type === 'calllog' ? normalizeCallLogData(m.callLog) : null;
       const type = ask ? 'ask'
         : transfer ? 'transfer'
         : music ? 'music'
+        : callLog ? 'calllog'
         : m.type === 'photo' ? 'photo'
         : m.type === 'image' ? 'image' : 'text';
       return {
@@ -6303,6 +6385,7 @@ body.cropper-open { overflow: hidden; }
         ask,
         transfer,
         music,
+        callLog,
         ts: Number(m.ts) || Date.now()
       };
     }).slice(-1200);
@@ -6549,8 +6632,17 @@ body.cropper-open { overflow: hidden; }
         aiListen: Boolean(callRaw.aiListen),
         replyDueAt: Number(callRaw.replyDueAt) || 0,
         speaking: Boolean(callRaw.speaking),
+        hearing: false,
+        micReady: false,
+        micError: String(callRaw.micError || '').slice(0, 40),
         heardText: String(callRaw.heardText || '').slice(0, 600),
         heardLive: false,
+        transcript: (Array.isArray(callRaw.transcript) ? callRaw.transcript : []).filter(line => line && typeof line.text === 'string' && line.text.trim()).map(line => ({
+          role: line.role === 'dream' ? 'dream' : 'user',
+          text: line.text.slice(0, 1200),
+          cardId: typeof line.cardId === 'string' ? line.cardId : '',
+          ts: Number(line.ts) || 0
+        })).slice(-200),
         cardText: String(callRaw.cardText || '').slice(0, 1200),
         cardId: typeof callRaw.cardId === 'string' ? callRaw.cardId : '',
         lastSpeech: String(callRaw.lastSpeech || '').slice(0, 300)
@@ -7310,10 +7402,11 @@ body.cropper-open { overflow: hidden; }
       }
     }, 320);
   }
-  function openSheet({ title = '', subtitle = '', body = '', footer = '', onMount = null, wide = false }) {
+  function openSheet({ title = '', subtitle = '', body = '', footer = '', onMount = null, wide = false, overCall = false }) {
     const root = $('#overlayRoot');
     if (!root) return null;
     clearTimeout(overlayCloseTimer);
+    root.classList.toggle('over-call', Boolean(overCall));
     root.innerHTML = `
       <div class="overlay-backdrop" data-close-overlay></div>
       <section class="sheet${wide ? ' sheet-wide' : ''}" role="dialog" aria-modal="true" aria-label="${esc(title)}">
@@ -7872,6 +7965,7 @@ body.cropper-open { overflow: hidden; }
   let chatReplyTimer = null;
   let chatMusicAudio = null;
   let chatMusicPlayingId = '';
+  const openCallLogs = new Set();
   function updateRecallBanner() {
     const banner = $('#recallBanner');
     if (!banner) return;
@@ -7992,7 +8086,40 @@ body.cropper-open { overflow: hidden; }
     }
     return `<div class="bubble">${esc(m.text)}</div>`;
   }
+  function callLogNode(m) {
+    const log = m.callLog;
+    const open = openCallLogs.has(m.id);
+    const lines = (log.transcript || []).map(line => {
+      const peer = line.role === 'dream';
+      const name = peer ? state.profile.dreamName : state.profile.userName;
+      return `<div class="calllog-line ${peer ? 'dream' : 'user'}">
+        <span class="cll-name" data-no-i18n>${esc(name)}</span>
+        <p data-no-i18n>${esc(line.text)}</p>
+        ${line.cardId ? '<span class="cll-tag">字卡</span>' : ''}
+      </div>`;
+    }).join('');
+    const start = new Date(log.startedAt);
+    const startTime = `${dayLabel(log.startedAt)} ${pad2(start.getHours())}:${pad2(start.getMinutes())}`;
+    const lineCount = (log.transcript || []).length;
+    return `<div class="calllog ${open ? 'open' : ''}" data-calllog-id="${esc(m.id)}">
+      <button class="calllog-head" type="button" data-calllog-toggle="${esc(m.id)}" aria-expanded="${open ? 'true' : 'false'}">
+        <span class="calllog-icon"><svg class="icon"><use href="#i-phone"/></svg></span>
+        <span class="calllog-main">
+          <b>通话 ${esc(formatCallDuration(log.duration))}</b>
+          <span>${esc(startTime)} · ${log.direction === 'incoming' ? '来电' : '去电'} · ${lineCount} 句对话</span>
+        </span>
+        <span class="calllog-chev">›</span>
+      </button>
+      <div class="calllog-body" ${open ? '' : 'hidden'}>
+        ${lines || '<p class="calllog-empty">这一通没有留下对话。</p>'}
+        <div class="calllog-foot">结束于 ${esc(formatDateTimeCN(log.endedAt))}</div>
+      </div>
+    </div>`;
+  }
   function messageNode(m, prev) {
+    if (m.type === 'calllog' && m.callLog) {
+      return callLogNode(m);
+    }
     if (m.role === 'system') {
       return `<div class="sys-message">${esc(m.text)}</div>`;
     }
@@ -8551,6 +8678,10 @@ body.cropper-open { overflow: hidden; }
   let callListenRestartTimer = null;
   let callReplyTimer = null;
   let callSpeechToken = 0;
+  let callMicGranted = false;
+  let callMicPermissionPending = false;
+  let callRecognitionFailures = 0;
+  let callRecognitionToken = 0;
   let lastDreamCallCheck = 0;
 
   function activeCall() {
@@ -8568,7 +8699,10 @@ body.cropper-open { overflow: hidden; }
     return h ? `${h}:${pad2(m)}:${pad2(s)}` : `${pad2(m)}:${pad2(s)}`;
   }
   function callSpeechLang() {
-    const lang = LANG_MAP[state.settings.language] || LANGS[0];
+    const fixed = state.settings.callSpeechLang;
+    const lang = fixed && fixed !== 'auto' && LANG_MAP[fixed]
+      ? LANG_MAP[fixed]
+      : (LANG_MAP[state.settings.language] || LANGS[0]);
     return lang.speech || 'zh-CN';
   }
   function recognitionSupported() {
@@ -8615,7 +8749,9 @@ body.cropper-open { overflow: hidden; }
       if (ringing) subText = incoming ? t('来电') : t('正在呼叫…');
       else if (call.speaking) subText = t('正在朗读字卡…');
       else if (pending) subText = `${t('聆听中')} · ${formatCallDuration(remain)}`;
-      else if (call.aiListen) subText = t('聆听中 · 说点什么吧');
+      else if (call.aiListen && call.hearing) subText = t('听见了，正在识别…');
+      else if (call.aiListen) subText = call.micReady ? t('聆听中 · 说点什么吧') : t('正在打开麦克风…');
+      else if (call.micError) subText = t('通话中 · 麦克风未开启');
       else subText = t('通话中');
       if (sub.textContent !== subText) sub.textContent = subText;
     }
@@ -8631,6 +8767,7 @@ body.cropper-open { overflow: hidden; }
     overlay?.classList.toggle('is-incoming', incoming);
     overlay?.classList.toggle('is-ringing', ringing);
     overlay?.classList.toggle('ai-listen', Boolean(call.aiListen && active && !call.speaking));
+    overlay?.classList.toggle('mic-live', Boolean(call.aiListen && call.hearing && active && !call.speaking));
     const aiBtn = $('#callAiToggle');
     if (aiBtn) {
       aiBtn.classList.toggle('on', Boolean(call.aiListen));
@@ -8677,7 +8814,9 @@ body.cropper-open { overflow: hidden; }
             metaText = `${t('听到后')} ${formatCallDelay(callReplyDelay())} ${t('回复')}`;
           } else {
             kickerText = t('通话');
-            bodyText = t('打开聆听，梦角就能听见你');
+            bodyText = call.micError
+              ? t('麦克风不可用，点右上角帮助，或改用文字说')
+              : t('打开聆听，梦角就能听见你');
           }
         }
         if (kicker && kicker.textContent !== kickerText) kicker.textContent = kickerText;
@@ -8688,6 +8827,8 @@ body.cropper-open { overflow: hidden; }
         }
       }
     }
+    const typeLink = $('#callTypeLink');
+    if (typeLink) typeLink.hidden = !(active && Boolean(call.micError));
     mini?.classList.toggle('show', callMinimized);
   }
   function showCallOverlay() {
@@ -8732,8 +8873,12 @@ body.cropper-open { overflow: hidden; }
     call.autoHangupAt = now + (90 + Math.random() * 330) * 1000;
     call.replyDueAt = 0;
     call.speaking = false;
+    call.hearing = false;
+    call.micReady = false;
+    call.micError = '';
     call.heardText = '';
     call.heardLive = false;
+    if (!Array.isArray(call.transcript)) call.transcript = [];
     clearTimeout(callReplyTimer);
     callReplyTimer = null;
     saveState();
@@ -8754,7 +8899,8 @@ body.cropper-open { overflow: hidden; }
       id: uid('call'), direction: 'outgoing', status: 'ringing',
       startedAt: now, connectedAt: 0, autoHangupAt: 0,
       aiListen: false, replyDueAt: 0, speaking: false,
-      heardText: '', heardLive: false,
+      hearing: false, micReady: false, micError: '',
+      heardText: '', heardLive: false, transcript: [],
       cardText: '', cardId: '', lastSpeech: ''
     };
     saveState();
@@ -8775,7 +8921,8 @@ body.cropper-open { overflow: hidden; }
       id: uid('call'), direction: 'incoming', status: 'ringing',
       startedAt: now, connectedAt: 0, autoHangupAt: 0,
       aiListen: false, replyDueAt: 0, speaking: false,
-      heardText: '', heardLive: false,
+      hearing: false, micReady: false, micError: '',
+      heardText: '', heardLive: false, transcript: [],
       cardText: '', cardId: '', lastSpeech: ''
     };
     saveState();
@@ -8786,6 +8933,39 @@ body.cropper-open { overflow: hidden; }
     const call = activeCall();
     if (!call || call.status !== 'ringing') return;
     connectCall(call);
+  }
+  function finalizeCallLog(call) {
+    if (!call) return;
+    const endedAt = Date.now();
+    const startedAt = call.connectedAt || call.startedAt || endedAt;
+    const duration = Math.max(0, Math.round((endedAt - startedAt) / 1000));
+    const transcript = (Array.isArray(call.transcript) ? call.transcript : [])
+      .filter(line => line && typeof line.text === 'string' && line.text.trim())
+      .map(line => ({
+        role: line.role === 'dream' ? 'dream' : 'user',
+        text: line.text.slice(0, 1200),
+        cardId: typeof line.cardId === 'string' ? line.cardId : '',
+        ts: Number(line.ts) || 0
+      })).slice(-200);
+    addMessage({
+      role: 'system',
+      type: 'calllog',
+      text: `通话记录 · ${formatCallDuration(duration)}`,
+      ts: endedAt,
+      callLog: {
+        id: uid('calllog'),
+        startedAt,
+        endedAt,
+        duration,
+        direction: call.direction === 'incoming' ? 'incoming' : 'outgoing',
+        transcript
+      }
+    });
+    saveState();
+    if (currentApp === 'chat') {
+      renderChat();
+      scrollChatToBottom(true);
+    }
   }
   function endCall(reason = 'user', opts = {}) {
     const call = activeCall();
@@ -8798,6 +8978,7 @@ body.cropper-open { overflow: hidden; }
     call.speaking = false;
     stopCallRecognition();
     stopCallSpeech();
+    if (wasActive) finalizeCallLog(call);
     state.chat.call = null;
     state.chat.lastCallAt = Date.now();
     callMinimized = false;
@@ -8821,78 +9002,220 @@ body.cropper-open { overflow: hidden; }
       if (call && call.status === 'active' && call.aiListen && !call.speaking) startCallRecognition();
     }, 600);
   }
-  function startCallRecognition() {
+  async function ensureCallMicPermission() {
+    if (!navigator.mediaDevices || typeof navigator.mediaDevices.getUserMedia !== 'function') return true;
+    if (callMicGranted) return true;
+    try {
+      let stream;
+      try {
+        stream = await navigator.mediaDevices.getUserMedia({
+          audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true }
+        });
+      } catch (e) {
+        stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      }
+      stream.getTracks().forEach(track => { try { track.stop(); } catch (e) {} });
+      callMicGranted = true;
+      await new Promise(resolve => setTimeout(resolve, 120));
+      return true;
+    } catch (e) {
+      callMicGranted = false;
+      return false;
+    }
+  }
+  async function startCallRecognition() {
     const call = activeCall();
     if (!call || call.status !== 'active' || !call.aiListen || call.speaking) return;
     if (!recognitionSupported()) {
       call.aiListen = false;
       call.replyDueAt = 0;
+      call.hearing = false;
+      call.micError = 'unsupported';
       saveState();
       updateCallUi();
       toast(t('当前浏览器不支持语音识别，请使用 Chrome 或 Edge'), 'error');
       return;
     }
     if (callRecognitionActive) return;
+    if (!callMicGranted) {
+      if (callMicPermissionPending) return;
+      callMicPermissionPending = true;
+      const granted = await ensureCallMicPermission();
+      callMicPermissionPending = false;
+      const current = activeCall();
+      if (!current || !current.aiListen || current.speaking) return;
+      if (!granted) {
+        current.aiListen = false;
+        current.replyDueAt = 0;
+        current.hearing = false;
+        current.micError = 'permission';
+        saveState();
+        updateCallUi();
+        toast('无法使用麦克风：请在浏览器地址栏允许麦克风权限后再打开「聆听」', 'error');
+        return;
+      }
+    }
     const Ctor = window.SpeechRecognition || window.webkitSpeechRecognition;
+    let token = 0;
     try {
-      if (!callRecognition) {
-        callRecognition = new Ctor();
-        callRecognition.continuous = true;
-        callRecognition.interimResults = true;
-        callRecognition.maxAlternatives = 1;
-        callRecognition.onresult = event => {
-          const current = activeCall();
-          if (!current || !current.aiListen || current.speaking) return;
-          let finalTranscript = '';
-          let preview = '';
-          for (let i = event.resultIndex; i < event.results.length; i++) {
-            const result = event.results[i];
-            const text = result[0]?.transcript || '';
-            preview += text;
-            if (result.isFinal) finalTranscript += text;
-          }
-          if (preview.trim()) {
-            current.heardText = preview.trim().slice(0, 600);
-            current.heardLive = !finalTranscript.trim();
-            updateCallUi();
-          }
-          if (finalTranscript.trim()) handleCallSpeech(finalTranscript.trim());
-        };
-        callRecognition.onerror = event => {
-          const current = activeCall();
-          if (!current || !current.aiListen) return;
-          if (event.error === 'not-allowed' || event.error === 'service-not-allowed') {
+      callRecognitionStopping = false;
+      token = ++callRecognitionToken;
+      if (callRecognition) { try { callRecognition.abort(); } catch (e) {} }
+      callRecognition = new Ctor();
+      callRecognition.continuous = true;
+      callRecognition.interimResults = true;
+      callRecognition.maxAlternatives = 1;
+      callRecognition.lang = callSpeechLang();
+      callRecognition.onstart = () => {
+        if (token !== callRecognitionToken) return;
+        callRecognitionActive = true;
+        const current = activeCall();
+        if (current) {
+          current.micReady = true;
+          current.micError = '';
+          current.hearing = false;
+          updateCallUi();
+        }
+      };
+      callRecognition.onaudiostart = () => {
+        if (token !== callRecognitionToken) return;
+        const current = activeCall();
+        if (current) { current.micReady = true; updateCallUi(); }
+      };
+      callRecognition.onsoundstart = () => {
+        if (token !== callRecognitionToken) return;
+        const current = activeCall();
+        if (current && current.aiListen && !current.speaking) { current.hearing = true; updateCallUi(); }
+      };
+      callRecognition.onspeechstart = () => {
+        if (token !== callRecognitionToken) return;
+        const current = activeCall();
+        if (current && current.aiListen && !current.speaking) { current.hearing = true; updateCallUi(); }
+      };
+      callRecognition.onspeechend = () => {
+        if (token !== callRecognitionToken) return;
+        const current = activeCall();
+        if (current) { current.hearing = false; updateCallUi(); }
+      };
+      callRecognition.onsoundend = () => {
+        if (token !== callRecognitionToken) return;
+        const current = activeCall();
+        if (current) { current.hearing = false; updateCallUi(); }
+      };
+      callRecognition.onaudioend = () => {
+        if (token !== callRecognitionToken) return;
+        const current = activeCall();
+        if (current) { current.hearing = false; updateCallUi(); }
+      };
+      callRecognition.onresult = event => {
+        if (token !== callRecognitionToken) return;
+        const current = activeCall();
+        if (!current || !current.aiListen || current.speaking) return;
+        let finalTranscript = '';
+        let preview = '';
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          const result = event.results[i];
+          const text = result[0]?.transcript || '';
+          preview += text;
+          if (result.isFinal) finalTranscript += text;
+        }
+        if (preview.trim()) {
+          callRecognitionFailures = 0;
+          current.micError = '';
+          current.heardText = preview.trim().slice(0, 600);
+          current.heardLive = !finalTranscript.trim();
+          current.hearing = true;
+          updateCallUi();
+        }
+        if (finalTranscript.trim()) handleCallSpeech(finalTranscript.trim());
+      };
+      callRecognition.onerror = event => {
+        if (token !== callRecognitionToken) return;
+        const current = activeCall();
+        if (!current) return;
+        current.hearing = false;
+        updateCallUi();
+        if (!current.aiListen) return;
+        if (event.error === 'not-allowed' || event.error === 'service-not-allowed') {
+          callMicGranted = false;
+          current.aiListen = false;
+          current.replyDueAt = 0;
+          current.hearing = false;
+          current.micError = 'permission';
+          saveState();
+          updateCallUi();
+          toast(t('麦克风权限被拒绝，聆听已关闭'), 'error');
+          return;
+        }
+        if (event.error === 'audio-capture') {
+          current.aiListen = false;
+          current.replyDueAt = 0;
+          current.micError = 'capture';
+          saveState();
+          updateCallUi();
+          toast('没有找到可用的麦克风，或麦克风正被其他应用占用', 'error');
+          return;
+        }
+        if (event.error === 'language-not-supported') {
+          callRecognition.lang = 'zh-CN';
+          scheduleCallListenRestart();
+          return;
+        }
+        if (event.error === 'network') {
+          callRecognitionFailures++;
+          current.micError = 'network';
+          updateCallUi();
+          if (callRecognitionFailures === 1) toast('语音识别服务连接失败，正在重试…', 'error');
+          if (callRecognitionFailures > 4) {
             current.aiListen = false;
             current.replyDueAt = 0;
+            current.micError = 'network';
             saveState();
             updateCallUi();
-            toast(t('麦克风权限被拒绝，聆听已关闭'), 'error');
+            toast('语音识别服务暂时不可用；国内网络可试试 Edge，或点「改用文字说」', 'error');
             return;
           }
-          if (event.error === 'no-speech' || event.error === 'aborted' || event.error === 'network') {
-            scheduleCallListenRestart();
-          }
-        };
-        callRecognition.onend = () => {
-          callRecognitionActive = false;
-          const current = activeCall();
-          if (current && current.heardLive) {
-            current.heardLive = false;
-            updateCallUi();
-          }
-          if (callRecognitionStopping) return;
-          if (current && current.status === 'active' && current.aiListen) scheduleCallListenRestart();
-        };
-      }
-      callRecognition.lang = callSpeechLang();
+        }
+        if (event.error === 'no-speech' || event.error === 'aborted' || event.error === 'network') {
+          scheduleCallListenRestart();
+        }
+      };
+      callRecognition.onend = () => {
+        if (token !== callRecognitionToken) return;
+        callRecognitionActive = false;
+        const current = activeCall();
+        if (current) {
+          current.hearing = false;
+          if (current.heardLive) current.heardLive = false;
+          updateCallUi();
+        }
+        if (callRecognitionStopping) return;
+        if (current && current.status === 'active' && current.aiListen) scheduleCallListenRestart();
+      };
       callRecognition.start();
       callRecognitionActive = true;
+      const current = activeCall();
+      if (current) { current.micReady = true; current.hearing = false; updateCallUi(); }
     } catch (e) {
+      if (!token || token !== callRecognitionToken) return;
       callRecognitionActive = false;
-      scheduleCallListenRestart();
+      const current = activeCall();
+      if (current) { current.hearing = false; updateCallUi(); }
+      callRecognitionFailures++;
+      if (callRecognitionFailures <= 2) {
+        scheduleCallListenRestart();
+      } else if (current && current.aiListen) {
+        current.aiListen = false;
+        current.replyDueAt = 0;
+        current.micError = 'start';
+        saveState();
+        updateCallUi();
+        toast('麦克风启动失败，请检查权限或换一个浏览器', 'error');
+      }
     }
   }
   function stopCallRecognition() {
+    callRecognitionToken++;
     callRecognitionStopping = true;
     clearTimeout(callListenRestartTimer);
     callListenRestartTimer = null;
@@ -8900,6 +9223,12 @@ body.cropper-open { overflow: hidden; }
       try { callRecognition.stop(); } catch (e) {}
     }
     callRecognitionActive = false;
+    const current = activeCall();
+    if (current) {
+      current.hearing = false;
+      current.micReady = false;
+      current.heardLive = false;
+    }
     setTimeout(() => { callRecognitionStopping = false; }, 320);
   }
   function stopCallSpeech() {
@@ -8995,21 +9324,31 @@ body.cropper-open { overflow: hidden; }
     const spoken = fillTemplate(card.text);
     call.cardId = card.id;
     call.cardText = spoken.slice(0, 1200);
+    if (!Array.isArray(call.transcript)) call.transcript = [];
+    call.transcript.push({ role: 'dream', text: spoken.slice(0, 1200), cardId: card.id, ts: Date.now() });
+    if (call.transcript.length > 200) call.transcript = call.transcript.slice(-200);
     call.autoHangupAt = Math.max(Number(call.autoHangupAt) || 0, Date.now() + (60 + Math.random() * 180) * 1000);
     saveState();
     updateCallUi();
     speakCallCard(spoken).catch(() => {});
     return true;
   }
-  function handleCallSpeech(text) {
+  function handleCallSpeech(text, opts = {}) {
     const call = activeCall();
-    if (!call || call.status !== 'active' || !call.aiListen) return;
+    if (!call || call.status !== 'active') return;
+    if (!call.aiListen && !opts.force) return;
     if (call.speaking) return;
     const value = String(text || '').trim();
     if (!value) return;
     call.lastSpeech = value.slice(0, 300);
     call.heardText = value.slice(0, 600);
     call.heardLive = false;
+    if (!Array.isArray(call.transcript)) call.transcript = [];
+    const lastLine = call.transcript[call.transcript.length - 1];
+    if (!lastLine || lastLine.role !== 'user' || lastLine.text !== value.slice(0, 1200)) {
+      call.transcript.push({ role: 'user', text: value.slice(0, 1200), ts: Date.now() });
+      if (call.transcript.length > 200) call.transcript = call.transcript.slice(-200);
+    }
     if (call.replyDueAt) { saveState(); updateCallUi(); return; }
     if (!enabledCards().length) {
       toast(t('没有可用的字卡了'), 'error');
@@ -9035,6 +9374,8 @@ body.cropper-open { overflow: hidden; }
     if (!call || call.status !== 'active') return;
     if (call.aiListen) {
       call.aiListen = false;
+      call.hearing = false;
+      call.micReady = false;
       call.heardLive = false;
       clearTimeout(callReplyTimer);
       callReplyTimer = null;
@@ -9046,14 +9387,131 @@ body.cropper-open { overflow: hidden; }
       return;
     }
     if (!recognitionSupported()) {
+      call.micError = 'unsupported';
+      updateCallUi();
       toast(t('当前浏览器不支持语音识别，请使用 Chrome 或 Edge'), 'error');
       return;
     }
     call.aiListen = true;
+    callRecognitionFailures = 0;
     saveState();
     if (!call.speaking) startCallRecognition();
     updateCallUi();
     toast(t('聆听已开启'));
+  }
+  async function callMicPermissionState() {
+    try {
+      if (!navigator.permissions || typeof navigator.permissions.query !== 'function') return 'unknown';
+      const status = await navigator.permissions.query({ name: 'microphone' });
+      return status.state || 'unknown';
+    } catch (e) { return 'unknown'; }
+  }
+  function openCallMicHelp() {
+    const call = activeCall();
+    const supported = recognitionSupported();
+    const secure = Boolean(window.isSecureContext);
+    const inFrame = window.self !== window.top;
+    const micApi = Boolean(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
+    const errorText = {
+      unsupported: '不支持语音识别，请使用 Chrome / Edge',
+      permission: '麦克风权限被拒绝',
+      capture: '没有找到可用的麦克风，或被其他应用占用',
+      network: '语音识别服务暂时不可用',
+      start: '麦克风启动失败'
+    }[call?.micError] || '没有检测到麦克风错误';
+    openSheet({
+      title: '通话麦克风',
+      subtitle: '梦角听不见你时，可以在这里检查。',
+      overCall: true,
+      body: `<div class="settings-group" style="margin-bottom:10px">
+        <div class="settings-row"><div class="sr-main"><div class="sr-label">语音识别</div><div class="sr-sub">${supported ? '当前浏览器支持' : '当前浏览器不支持'}</div></div></div>
+        <div class="settings-row"><div class="sr-main"><div class="sr-label">麦克风接口</div><div class="sr-sub">${micApi ? '可用' : '不可用（可能需要 https 或 localhost）'}</div></div></div>
+        <div class="settings-row"><div class="sr-main"><div class="sr-label">页面环境</div><div class="sr-sub">${secure ? '安全上下文' : '非安全上下文'}${inFrame ? ' · 正在预览框内' : ''}</div></div></div>
+        <div class="settings-row"><div class="sr-main"><div class="sr-label">权限状态</div><div class="sr-sub" id="callMicPermissionState">检查中…</div></div></div>
+        <div class="settings-row"><div class="sr-main"><div class="sr-label">当前状态</div><div class="sr-sub">${esc(errorText)}</div></div></div>
+      </div>
+      <p class="field-tip">请在浏览器地址栏允许麦克风；如果页面在预览框里，麦克风可能被拦截，请用「在新窗口打开」。仍然不行时，可以先用「改用文字说」，梦角同样会从字卡回复。</p>
+      <div class="video-actions" style="margin-top:10px">
+        <button class="pill-btn" type="button" id="callMicRetry">重新请求麦克风</button>
+        <button class="pill-btn" type="button" id="callOpenWindow">在新窗口打开</button>
+        <button class="pill-btn" type="button" id="callTypeBtn">改用文字说</button>
+      </div>`,
+      footer: '<button class="primary-btn" data-close-overlay>知道了</button>',
+      onMount(root) {
+        callMicPermissionState().then(permission => {
+          const el = $('#callMicPermissionState', root);
+          if (!el) return;
+          el.textContent = permission === 'granted' ? '已允许' : permission === 'denied' ? '已拒绝' : permission === 'prompt' ? '等待允许' : '无法查询';
+        });
+        $('#callMicRetry', root)?.addEventListener('click', async () => {
+          callMicGranted = false;
+          const before = activeCall();
+          if (before && before.aiListen) stopCallRecognition();
+          const ok = await ensureCallMicPermission();
+          if (!ok) {
+            if (before) {
+              before.aiListen = false;
+              before.micError = 'permission';
+              before.hearing = false;
+              saveState();
+              updateCallUi();
+            }
+            toast('仍然无法使用麦克风，请检查浏览器权限', 'error');
+            return;
+          }
+          const current = activeCall();
+          if (current) {
+            current.micError = '';
+            current.aiListen = true;
+            callRecognitionFailures = 0;
+            saveState();
+            stopCallRecognition();
+            scheduleCallListenRestart();
+            updateCallUi();
+            toast('麦克风已就绪');
+          } else {
+            toast('麦克风已就绪');
+          }
+        });
+        $('#callOpenWindow', root)?.addEventListener('click', () => {
+          try { window.open(location.href, '_blank', 'noopener'); }
+          catch (e) { toast('浏览器阻止了新窗口，请手动复制地址打开', 'error'); }
+        });
+        $('#callTypeBtn', root)?.addEventListener('click', () => {
+          closeOverlay();
+          openCallTypeSheet();
+        });
+      }
+    });
+  }
+  function openCallTypeSheet() {
+    const current = activeCall();
+    if (!current) { toast('通话已经结束了', 'error'); return; }
+    if (current.status !== 'active') { toast('接通后再输入吧', 'error'); return; }
+    openSheet({
+      title: '用文字说',
+      subtitle: '语音不可用时，可以在这里输入；梦角仍会从字卡回复。',
+      overCall: true,
+      body: '<div class="field"><label for="callTypeInput">想说的话</label><textarea class="settings-input" id="callTypeInput" rows="3" maxlength="600" placeholder="例如：我刚刚在忙，现在可以说话了"></textarea></div>',
+      footer: '<button class="ghost-btn" data-close-overlay>取消</button><button class="primary-btn" id="callTypeSend">发送</button>',
+      onMount(root) {
+        const input = $('#callTypeInput', root);
+        const send = () => {
+          const text = (input?.value || '').trim();
+          if (!text) { toast('先写点什么', 'error'); return; }
+          const current = activeCall();
+          if (!current || current.status !== 'active') { toast('通话已经结束了', 'error'); return; }
+          if (current.speaking) { toast('等梦角读完这张字卡再发送', 'error'); return; }
+          closeOverlay();
+          handleCallSpeech(text, { force: true });
+        };
+        $('#callTypeSend', root)?.addEventListener('click', send);
+        input?.addEventListener('keydown', e => {
+          if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); }
+        });
+        setTimeout(() => input?.focus(), 120);
+      }
+    });
   }
   function updateCallTick() {
     const call = activeCall();
@@ -9116,6 +9574,8 @@ body.cropper-open { overflow: hidden; }
           callReplyTimer = null;
           call.replyDueAt = 0;
           call.speaking = false;
+          call.hearing = false;
+          call.micReady = false;
           call.heardText = '';
           call.heardLive = false;
           saveState();
@@ -14776,6 +15236,8 @@ body.cropper-open { overflow: hidden; }
     if (callDelayRange) callDelayRange.value = String(callDelaySecondsToSlider(callReplyDelay()));
     const callDelayValue = $('#callReplyDelayValue');
     if (callDelayValue) callDelayValue.textContent = formatCallDelay(callReplyDelay());
+    const callSpeechSelect = $('#callSpeechLangSelect');
+    if (callSpeechSelect) callSpeechSelect.value = s.callSpeechLang || 'auto';
     renderLanguageGrid();
     const trans = $('#ttsTranslateSwitch');
     if (trans) {
@@ -14938,6 +15400,19 @@ body.cropper-open { overflow: hidden; }
       if (label) label.textContent = formatCallDelay(state.settings.callReplyDelay);
       saveState();
       updateCallUi();
+    });
+    $('#callSpeechLangSelect')?.addEventListener('change', e => {
+      const value = e.target.value;
+      state.settings.callSpeechLang = ['auto'].concat(LANGS.map(l => l.id)).includes(value) ? value : 'auto';
+      saveState(true);
+      const call = activeCall();
+      if (call && call.status === 'active' && call.aiListen) {
+        stopCallRecognition();
+        call.aiListen = true;
+        scheduleCallListenRestart();
+      }
+      const picked = LANG_MAP[state.settings.callSpeechLang];
+      toast(picked ? `语音识别已设为 ${picked.label}` : '语音识别会跟随网站语言');
     });
     $('#langGrid')?.addEventListener('click', e => {
       const btn = e.target.closest('[data-lang]');
@@ -15116,6 +15591,8 @@ body.cropper-open { overflow: hidden; }
     $('#callAccept')?.addEventListener('click', answerCall);
     $('#callDecline')?.addEventListener('click', () => endCall('declined'));
     $('#callAiToggle')?.addEventListener('click', toggleCallAiListen);
+    $('#callMicHelp')?.addEventListener('click', openCallMicHelp);
+    $('#callTypeLink')?.addEventListener('click', openCallTypeSheet);
     $('#callMini')?.addEventListener('click', restoreCallOverlay);
     $('#openMoments')?.addEventListener('click', () => openApp('moments'));
     $('#chatPeerProfile')?.addEventListener('click', () => openApp('settings'));
@@ -15155,6 +15632,20 @@ body.cropper-open { overflow: hidden; }
       sendSticker(item.dataset.stickerId);
     });
     $('#messageList')?.addEventListener('click', e => {
+      const callToggle = e.target.closest('[data-calllog-toggle]');
+      if (callToggle) {
+        const id = callToggle.dataset.calllogToggle;
+        const folder = callToggle.closest('.calllog');
+        const body = folder?.querySelector('.calllog-body');
+        if (!folder || !body) return;
+        const opening = body.hidden;
+        body.hidden = !opening;
+        folder.classList.toggle('open', opening);
+        callToggle.setAttribute('aria-expanded', String(opening));
+        if (opening) openCallLogs.add(id);
+        else openCallLogs.delete(id);
+        return;
+      }
       const music = e.target.closest('[data-chat-music]');
       if (music) {
         toggleChatMusic(music.dataset.chatMusic);
